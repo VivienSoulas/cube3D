@@ -6,8 +6,16 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 14:17:15 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/07/24 14:17:29 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/07/24 14:54:59 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
+
+int	main(int ac, char **av)
+{
+	(void)ac;
+	(void)av;
+	printf("My cubde3D\n");
+	return (0);
+}

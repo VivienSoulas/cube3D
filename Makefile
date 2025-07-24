@@ -22,7 +22,7 @@ LIME	=	\033[38;2;0;255;0m
 RESET	=	\033[0m # No Color
 
 # compile source files into object files in a directory
-$(OBJ_DIR)/%.o:$(SRC_DIR)%.c
+$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -32,7 +32,7 @@ LIBFT_LIB	=	$(LIBFT)/libft.a
 
 # instructions to make NAME
 $(NAME): $(OBJ) $(LIBFT_LIB)
-	@$(CC) $(OBJ) $(LIBFT_LIB) -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT_LIB) -lm -o $(NAME)
 	@echo "$(LIME)==========================\nSUCCESS : Program compiled\n==========================\n$(RESET)"
 
 # instructions to compile libft
