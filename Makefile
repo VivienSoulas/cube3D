@@ -10,7 +10,7 @@ SRC		=	$(addprefix $(SRC_DIR)/, $(SOURCES))
 OBJ		=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC		=	cc
-CFLAGS	=	-Werror -Wall -Wextra -I$(HEADERS)
+CFLAGS	=	-Werror -Wall -Wextra -I$(HEADERS) -I$(LIBFT)
 
 # ANSI color codes
 BLACK	=	\033[38;2;0;0;0m
