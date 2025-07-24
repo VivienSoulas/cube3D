@@ -7,5 +7,6 @@
 # include <unistd.h>
 # include <errno.h>
 # include <math.h>
+# include <sys/time.h>
 
 #endif
