@@ -1,6 +1,6 @@
 NAME	=	cube3D
 
-SOURCES	=	main.c
+SOURCES	=	main.c error.c map_parsing.c
 
 SRC_DIR	=	sources
 OBJ_DIR	=	objects
@@ -9,6 +9,7 @@ HEADERS	=	includes
 SRC		=	$(addprefix $(SRC_DIR)/, $(SOURCES))
 OBJ		=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
+ARGS	?=
 CC		=	cc
 CFLAGS	=	-Werror -Wall -Wextra -I$(HEADERS) -I$(LIBFT)
 
@@ -57,4 +58,4 @@ fclean: clean
 re: fclean all
 
 val:
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./miniRT
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) $(ARGS)

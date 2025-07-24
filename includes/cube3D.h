@@ -9,4 +9,7 @@
 # include <math.h>
 # include <sys/time.h>
 
+void	ft_error(int id);
+int		ft_map_parsing(int fd);
+
 #endif
