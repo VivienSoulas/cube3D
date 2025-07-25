@@ -1,17 +1,20 @@
 NAME	=	cube3D
 
-SOURCES	=	main.c error.c map_parsing.c
+SOURCES		=	main.c error.c map_parsing.c
+GNL_SOURCES	=	get_next_line.c get_next_line_utils.c
 
 SRC_DIR	=	sources
 OBJ_DIR	=	objects
+GNL_DIR	=	get_next_line
 HEADERS	=	includes
 
 SRC		=	$(addprefix $(SRC_DIR)/, $(SOURCES))
-OBJ		=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+GNL_SRC	=	$(addprefix $(GNL_DIR)/, $(GNL_SOURCES))
+OBJ		=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o) $(GNL_SRC:$(GNL_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 ARGS	?=
 CC		=	cc
-CFLAGS	=	-Werror -Wall -Wextra -I$(HEADERS) -I$(LIBFT)
+CFLAGS	=	-Werror -Wall -Wextra -I$(HEADERS) -I$(LIBFT) -I$(GNL_DIR)
 
 # ANSI color codes
 BLACK	=	\033[38;2;0;0;0m
@@ -24,7 +27,12 @@ RESET	=	\033[0m # No Color
 
 # compile source files into object files in a directory
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+# compile get_next_line files into object files
+$(OBJ_DIR)/%.o:$(GNL_DIR)/%.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # LIBft library

@@ -6,13 +6,12 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 14:17:15 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/07/24 16:02:05 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/07/25 16:34:21 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3D.h"
 
-// ./cube3D map "Floor colour" "Ceiliing colour"
 int	main(int ac, char **av)
 {
 	int	fd;
