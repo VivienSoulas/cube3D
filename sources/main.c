@@ -31,7 +31,6 @@ int	main(int ac, char **av)
 	if (ft_initialise_mlx(cube) == 1)
 		return (1);
 
-
 	printf("My cube3D starts\n");
 	return (ft_exit(cube), 0);
 }
