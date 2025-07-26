@@ -1,0 +1,30 @@
+alias ccw="cc -Wall -Wextra -Werror"
+
+alias norm="norminette"
+
+alias ga="git add ."
+alias gc="git commit -m "
+alias gp="git push"
+alias gs="git status"
+
+#export PS1='%F{blue}%~ %f %F{cyan}[vsoulas] %f%F{red}→ %f'
+
+autoload -U colors && colors
+
+parse_git_branch() {
+    local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+    if [ -n "$branch" ]; then
+        # Check if there are uncommitted changes
+        if [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+            echo " %F{red}($branch*)%f"  # Using %F{} syntax like your main prompt
+        # Check if local is ahead of remote
+        elif [ -n "$(git log @{u}.. 2>/dev/null)" ]; then
+            echo " %F{yellow}($branch↑)%f"
+        else
+            echo " %F{green}($branch)%f"
+        fi
+    fi
+}
+
+setopt PROMPT_SUBST
+export PS1='%F{blue}%~%f %F{cyan}[%n]%f$(parse_git_branch) %F{red}→ %f'
