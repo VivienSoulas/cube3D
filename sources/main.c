@@ -14,16 +14,24 @@
 
 int	main(int ac, char **av)
 {
-	int	fd;
+	t_cube3D	*cube;
 
 	if (ac != 2)
 		return (ft_error(1), 1);
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		return (ft_error(2), 1);
-	if (ft_map_parsing(fd) == 1)
-		return (ft_error(3), 1);
+	cube = malloc(sizeof(t_cube3D));
+	if (cube == NULL)
+		return (ft_error(4), 1);
+
+	cube->fd = open(av[1], O_RDONLY);
+	if (cube->fd == -1)
+		return (ft_free_cube(cube), ft_error(2), 1);
+	// if (ft_map_parsing(fd) == 1)
+	// 	return (ft_free_cube(cube), ft_error(3), 1);
+
+	if (ft_initialise_mlx(cube) == 1)
+		return (1);
+
 
 	printf("My cube3D starts\n");
-	return (close(fd), 0);
+	return (ft_exit(cube), 0);
 }

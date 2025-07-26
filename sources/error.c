@@ -21,4 +21,6 @@ void	ft_error(int id)
 		write(2, "Couldnt open map\n", 18);
 	if (id == 3)
 		write(2, "Invalid map\n", 13);
+	if (id == 4)
+		write(2, "malloc fail\n", 13);
 }

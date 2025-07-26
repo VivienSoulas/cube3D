@@ -1,0 +1,15 @@
+{
+   X11_writev_uninit
+   Memcheck:Param
+   writev(vector[0])
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libxcb.so.*
+}
+
+{
+   X11_general_uninit
+   Memcheck:Param
+   writev(vector[...])
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.*
+}

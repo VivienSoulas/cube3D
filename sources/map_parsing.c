@@ -14,14 +14,15 @@
 
 int	ft_map_parsing(int fd)
 {
-	char	*line;
+	(void)fd;
+	// char	*line;
 
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd);
-	}
+	// line = get_next_line(fd);
+	// while (line != NULL)
+	// {
+	// 	printf("%s", line);
+	// 	free(line);
+	// 	line = get_next_line(fd);
+	// }
 	return (0);
 }
