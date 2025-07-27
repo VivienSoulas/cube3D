@@ -72,7 +72,7 @@ int		ft_initialise_cub(t_cub3D *cub, char **av);
 int		ft_initialise_mlx(t_cub3D *cub);
 
 // map parsing
-int		ft_map_parsing(int fd, t_cub3D *cub);
+void	ft_map_parsing(int fd, t_cub3D *cub);
 
 // mini map
 void	ft_mini_map_management(t_cub3D *cub, int colour);

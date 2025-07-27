@@ -15,6 +15,7 @@
 void	ft_map_parsing(int fd, t_cub3D *cub)
 {
 	(void)fd;
+	(void)cub;
 	// char	*line;
 
 	// line = get_next_line(fd);
@@ -24,5 +25,4 @@ void	ft_map_parsing(int fd, t_cub3D *cub)
 	// 	free(line);
 	// 	line = get_next_line(fd);
 	// }
-	return (0);
 }
