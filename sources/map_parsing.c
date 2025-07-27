@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-int	ft_map_parsing(int fd)
+void	ft_map_parsing(int fd, t_cub3D *cub)
 {
 	(void)fd;
 	// char	*line;
