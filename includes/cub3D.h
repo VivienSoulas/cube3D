@@ -3,8 +3,6 @@
 
 # define DEFAULT_WIDTH 1000
 # define DEFAULT_HEIGHT 750
-# define DEFAULT_MINI_WIDTH 200
-# define DEFAULT_MINI_HEIGHT 200
 
 # include "libft.h"
 # include "mlx.h"
@@ -16,6 +14,18 @@
 # include <math.h>
 # include <sys/time.h>
 # include <fcntl.h>
+# include <X11/Xlib.h>
+
+typedef struct s_player
+{
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	char	start_dir;
+}	t_player;
 
 typedef struct s_map
 {
@@ -24,15 +34,23 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
+typedef struct weapon
+{
+	void	*weapon;
+	int		weapon_width;
+	int		weapon_height;
+	int		weapon_x;
+	int		weapon_y;
+}	t_weapon;
+
 typedef struct s_textures
 {
 	void	*north;
 	void	*south;
 	void	*east;
 	void	*west;
-	void	*weapon;
-	int		width;
-	int		height;
+	int		wall_width;
+	int		wall_height;
 }	t_textures;
 
 typedef struct s_mini_map
@@ -42,16 +60,36 @@ typedef struct s_mini_map
 	int		bits_per_pixel;
 	int		endian;
 	int		line_len;
+	int		width;
+	int		height;
 }	t_mini_map;
+
+typedef struct s_image
+{
+	void	*img_ptr;
+	char	*img_pixels_ptr;
+	int		bits_per_pixel;
+	int		endian;
+	int		line_len;
+	int		width;
+	int		height;
+}	t_image;
 
 typedef struct s_cub3D
 {
-	int			fd;
-	void		*mlx_ptr;
-	void		*window;
-	t_mini_map	*mini_map;
-	t_textures	*textures;
-	t_map		*map;
+	int				fd;
+	void			*mlx_ptr;
+	void			*window;
+	int				window_width;
+	int				window_height;
+	int				floor_color;
+	int				ceiling_color;
+	t_image			*img;
+	t_mini_map		*mini_map;
+	t_weapon		*weapon;
+	t_textures		*textures;
+	t_map			*map;
+	t_player		*player;
 }	t_cub3D;
 
 // error
@@ -60,13 +98,17 @@ void	ft_error(int id);
 // exit
 void	ft_exit(t_cub3D *cub);
 void	ft_free_cub(t_cub3D **cub);
+void	ft_destroy_texture(t_cub3D *cub);
 
 // free
 void	ft_free_set_NULL(void **data);
 void	ft_free_array(char **array);
 
 // hooks
-int		ft_events(int key, t_cub3D *cub);
+int		ft_key_events(int key, t_cub3D *cub);
+int		ft_mouse_move_event(int x, int y, void *cub);
+int		ft_resize(void *cub);
+int		ft_red_cross(void *cub);
 
 // initialisation
 int		ft_initialise_cub(t_cub3D *cub, char **av);
@@ -76,10 +118,20 @@ int		ft_initialise_mlx(t_cub3D *cub);
 void	ft_map_parsing(int fd, t_cub3D *cub);
 
 // mini map
-void	ft_mini_map_management(t_cub3D *cub, int colour);
-void	ft_my_pixel_put(t_mini_map *mini_map, int x, int y, int colour);
+void	ft_mini_map_render(t_cub3D *cub, int colour);
+void	ft_pixel_to_mini_map(t_mini_map *mini_map, int x, int y, int colour);
+
+// render
+void	ft_pixel_to_window(t_image *image, int x, int y, int colour);
+void	ft_image_render(t_cub3D *cub, int colour);
 
 // utils
 int		ft_create_map(t_cub3D *cub);
+
+// window
+int		ft_create_window(t_cub3D *cub);
+void	ft_render_image(t_cub3D *cub);
+void	ft_render_mini_map(t_cub3D *cub);
+int		ft_render_weapon(t_cub3D *cub);
 
 #endif

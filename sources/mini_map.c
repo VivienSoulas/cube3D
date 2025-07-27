@@ -1,6 +1,6 @@
 #include "cub3D.h"
 
-void	ft_my_pixel_put(t_mini_map *mini_map, int x, int y, int colour)
+void	ft_pixel_to_mini_map(t_mini_map *mini_map, int x, int y, int colour)
 {
 	int	offset;
 
@@ -28,18 +28,18 @@ void	ft_my_pixel_put(t_mini_map *mini_map, int x, int y, int colour)
 	// }
 }
 
-void	ft_mini_map_management(t_cub3D *cub, int colour)
+void	ft_mini_map_render(t_cub3D *cub, int colour)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < DEFAULT_MINI_HEIGHT)
+	while (y < cub->mini_map->height)
 	{
 		x = 0;
-		while (x < DEFAULT_MINI_WIDTH)
+		while (x < cub->mini_map->width)
 		{
-			ft_my_pixel_put(cub->mini_map, x, y, colour);
+			ft_pixel_to_mini_map(cub->mini_map, x, y, colour);
 			x++;
 		}
 		y++;
