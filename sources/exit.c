@@ -1,15 +1,35 @@
-#include "cube3D.h"
+#include "cub3D.h"
 
-void	ft_exit(t_cube3D *cube)
+void	ft_exit(t_cub3D *cub)
 {
-	if (cube->window)
-		mlx_destroy_window(cube->mlx_ptr, cube->window);
-	if (cube->mlx_ptr)
-		mlx_destroy_display(cube->mlx_ptr);
-	if (cube->mlx_ptr)
+	if (cub->mini_map)
 	{
-		free(cube->mlx_ptr);
-		cube->mlx_ptr = NULL;
+		if (cub->mini_map->img_ptr)
+			mlx_destroy_image(cub->mlx_ptr, cub->mini_map->img_ptr);
+		ft_free_set_NULL((void**)&cub->mini_map);
 	}
-	ft_free_cube(cube);
+	if (cub->window)
+		mlx_destroy_window(cub->mlx_ptr, cub->window);
+	if (cub->mlx_ptr)
+	{
+		mlx_destroy_display(cub->mlx_ptr);
+		ft_free_set_NULL((void**)&cub->mlx_ptr);
+	}	
+	ft_free_cub(&cub);
+}
+
+void	ft_free_cub(t_cub3D **cub)
+{
+	if (!cub || !*cub)
+		return ;
+	if ((*cub)->fd > 0)
+		close((*cub)->fd);
+	if ((*cub)->map)
+	{
+		ft_free_array((*cub)->map->grid);
+		ft_free_set_NULL((void**)&(*cub)->map);
+	}
+	if ((*cub)->textures)
+		ft_free_set_NULL((void**)&(*cub)->textures);
+	ft_free_set_NULL((void**)&(*cub));
 }

@@ -1,17 +1,20 @@
-#include "cube3D.h"
+#include "cub3D.h"
 
-int	ft_initialise_mlx(t_cube3D *cube)
+int	ft_create_map(t_cub3D *cub)
 {
-	cube->mlx_ptr = NULL;
-	cube->window = NULL;
-	cube->mlx_ptr = mlx_init();
-	if (cube->mlx_ptr == NULL)
-		return (ft_exit(cube), ft_error(4), 1);
-	cube->window = mlx_new_window(cube->mlx_ptr,
-			DEFAULT_WIDTH, DEFAULT_HEIGHT, "cube3D");
-	if (cube->window == NULL)
-		return (ft_exit(cube), ft_error(4), 1);
-	mlx_key_hook(cube->window, ft_events, cube);
-	mlx_loop(cube->mlx_ptr);
+	cub->map = malloc(sizeof(t_map));
+	if (!cub->map)
+		return (1);
+	cub->map->grid = malloc(sizeof(char*) * 6);
+	if (!cub->map->grid)
+		return (1);
+	cub->map->grid[0] = ft_strdup("1111111");
+	cub->map->grid[1] = ft_strdup("1000001");
+	cub->map->grid[2] = ft_strdup("1000001");
+	cub->map->grid[3] = ft_strdup("1000N01");
+	cub->map->grid[4] = ft_strdup("1111111");
+	cub->map->grid[5] = NULL;
+	cub->map->width = 7;
+	cub->map->height = 5;
 	return (0);
 }

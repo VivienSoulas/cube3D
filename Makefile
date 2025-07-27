@@ -1,6 +1,6 @@
-NAME		=	cube3D
+NAME		=	cub3D
 
-SOURCES		=	main.c error.c map_parsing.c free.c exit.c utils.c hooks.c
+SOURCES		=	main.c error.c map_parsing.c free.c exit.c utils.c hooks.c initialisation.c mini_map.c
 # GNL_SOURCES		=	get_next_line.c get_next_line_utils.c
 
 SRC_DIR		=	sources
@@ -78,4 +78,8 @@ fclean: clean
 re: fclean all
 
 val: $(NAME)
-	valgrind --suppressions=x11.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) $(ARGS)
+	@if [ -z "$(ARGS)" ]; then \
+		valgrind --suppressions=x11.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) maps/map1.cub; \
+	else \
+		valgrind --suppressions=x11.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) $(ARGS); \
+	fi

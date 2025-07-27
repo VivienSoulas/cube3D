@@ -10,27 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3D.h"
+#include "cub3D.h"
 
 int	main(int ac, char **av)
 {
-	t_cube3D	*cube;
+	t_cub3D	*cub;
 
 	if (ac != 2)
 		return (ft_error(1), 1);
-	cube = malloc(sizeof(t_cube3D));
-	if (cube == NULL)
+	cub = ft_calloc(1, sizeof(t_cub3D));
+	if (cub == NULL)
 		return (ft_error(4), 1);
-
-	cube->fd = open(av[1], O_RDONLY);
-	if (cube->fd == -1)
-		return (ft_free_cube(cube), ft_error(2), 1);
-	// if (ft_map_parsing(fd) == 1)
-	// 	return (ft_free_cube(cube), ft_error(3), 1);
-
-	if (ft_initialise_mlx(cube) == 1)
+	if (ft_initialise_cub(cub, av) == 1)
 		return (1);
-
-	printf("My cube3D starts\n");
-	return (ft_exit(cube), 0);
+	if (ft_initialise_mlx(cub) == 1)
+		return (1);
+	return (ft_exit(cub), 0);
 }
