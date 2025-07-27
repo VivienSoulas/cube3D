@@ -18,7 +18,7 @@ void	ft_exit(t_cub3D *cub)
 	if (cub->mlx_ptr)
 	{
 		mlx_destroy_display(cub->mlx_ptr);
-		ft_free_set_NULL((void**)&cub->mlx_ptr);
+		ft_free_set_null((void **)&cub->mlx_ptr);
 	}
 	ft_free_cub(&cub);
 }
@@ -50,20 +50,20 @@ void	ft_free_cub(t_cub3D **cub)
 	if ((*cub)->fd > 0)
 		close((*cub)->fd);
 	if ((*cub)->img)
-		ft_free_set_NULL((void**)&(*cub)->img);
+		ft_free_set_null((void **)&(*cub)->img);
 	if ((*cub)->mini_map)
-		ft_free_set_NULL((void**)&(*cub)->mini_map);
+		ft_free_set_null((void **)&(*cub)->mini_map);
 	if ((*cub)->weapon)
-		ft_free_set_NULL((void**)&(*cub)->weapon);
+		ft_free_set_null((void **)&(*cub)->weapon);
 	if ((*cub)->textures)
-		ft_free_set_NULL((void**)&(*cub)->textures);
+		ft_free_set_null((void **)&(*cub)->textures);
 	if ((*cub)->map)
 	{
 		if ((*cub)->map->grid)
 			ft_free_array((*cub)->map->grid);
-		ft_free_set_NULL((void**)&(*cub)->map);
+		ft_free_set_null((void **)&(*cub)->map);
 	}
 	if ((*cub)->player)
-		ft_free_set_NULL((void**)&(*cub)->player);
-	ft_free_set_NULL((void**)&(*cub));
+		ft_free_set_null((void **)&(*cub)->player);
+	ft_free_set_null((void **)&(*cub));
 }
