@@ -12,7 +12,7 @@ if (ft_create_map(cub) == 1)
 return (ft_exit(cub), ft_error(4), 1);
 	cub->textures = ft_calloc(1, sizeof(t_textures));
 	if (!cub->textures)
-		return (ft_exit(cub), ft_error(4), 1);
+		return (ft_exit(cub), ft_error(4), 1);	
 	cub->mini_map = ft_calloc(1, sizeof(t_mini_map));
 	if (!cub->mini_map)
 		return (ft_exit(cub), ft_error(4), 1);
@@ -24,6 +24,13 @@ int	ft_initialise_mlx(t_cub3D *cub)
 	cub->mlx_ptr = mlx_init();
 	if (cub->mlx_ptr == NULL)
 		return (ft_exit(cub), ft_error(4), 1);
+
+int	width = 200;
+int	height = 200;
+	cub->textures->weapon = mlx_xpm_file_to_image(cub->mlx_ptr, "textures/weapon.xpm", &width, &height);
+	if (!cub->textures->weapon)
+		return (ft_exit(cub), ft_error(5), 1);
+	
 	cub->window = mlx_new_window(cub->mlx_ptr,
 			DEFAULT_WIDTH, DEFAULT_HEIGHT, "cub3D");
 	if (cub->window == NULL)
@@ -32,6 +39,10 @@ int	ft_initialise_mlx(t_cub3D *cub)
 	cub->mini_map->img_pixels_ptr = mlx_get_data_addr(cub->mini_map->img_ptr, &cub->mini_map->bits_per_pixel, &cub->mini_map->line_len, &cub->mini_map->endian);
 ft_mini_map_management(cub, 0xffffff);
 mlx_put_image_to_window(cub->mlx_ptr, cub->window, cub->mini_map->img_ptr, 0, 0); 
+
+// // Display the loaded texture
+mlx_put_image_to_window(cub->mlx_ptr, cub->window, cub->textures->weapon, 500, 500);
+
 	mlx_key_hook(cub->window, ft_events, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (0);

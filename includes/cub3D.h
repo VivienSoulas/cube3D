@@ -30,6 +30,7 @@ typedef struct s_textures
 	void	*south;
 	void	*east;
 	void	*west;
+	void	*weapon;
 	int		width;
 	int		height;
 }	t_textures;

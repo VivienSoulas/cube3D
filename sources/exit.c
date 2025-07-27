@@ -2,6 +2,11 @@
 
 void	ft_exit(t_cub3D *cub)
 {
+	if (cub->textures)
+	{
+		if (cub->textures->weapon)
+			mlx_destroy_image(cub->mlx_ptr, cub->textures->weapon);
+	}
 	if (cub->mini_map)
 	{
 		if (cub->mini_map->img_ptr)
@@ -14,7 +19,7 @@ void	ft_exit(t_cub3D *cub)
 	{
 		mlx_destroy_display(cub->mlx_ptr);
 		ft_free_set_NULL((void**)&cub->mlx_ptr);
-	}	
+	}
 	ft_free_cub(&cub);
 }
 
