@@ -20,3 +20,5 @@ ft_resize:
 //		weapon size
 //		wall texture size
 //		destroy wall textures and redisplay with new scales/calculations
+
+weapon to scale (generally how to resize images)

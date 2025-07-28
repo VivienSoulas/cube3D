@@ -8,6 +8,7 @@ void	ft_pixel_to_window(t_image *image, int x, int y, int colour)
 	*((unsigned int *)(image->img_pixels_ptr + offset)) = colour;
 }
 
+// this is where raycasting will take place
 void	ft_image_render(t_cub3D *cub, int colour)
 {
 	int	x;

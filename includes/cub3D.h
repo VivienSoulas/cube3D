@@ -4,6 +4,11 @@
 # define DEFAULT_WIDTH 1000
 # define DEFAULT_HEIGHT 750
 
+# define UP 1
+# define DOWN 2
+# define RIGHT 3
+# define LEFT 4
+
 # include "libft.h"
 # include "mlx.h"
 // # include "get_next_line.h"
@@ -14,7 +19,8 @@
 # include <math.h>
 # include <sys/time.h>
 # include <fcntl.h>
-# include <X11/Xlib.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
 
 typedef struct s_player
 {
@@ -39,15 +45,19 @@ typedef struct weapon
 	void	*weapon;
 	int		weapon_width;
 	int		weapon_height;
-	int		weapon_x;
-	int		weapon_y;
+	double	weapon_x;
+	double	weapon_y;
 }	t_weapon;
 
 typedef struct s_textures
 {
+	char	*north_path;
 	void	*north;
+	char	*south_path;
 	void	*south;
+	char	*east_path;
 	void	*east;
+	char	*west_path;
 	void	*west;
 	int		wall_width;
 	int		wall_height;
@@ -62,8 +72,15 @@ typedef struct s_mini_map
 	int		line_len;
 	int		width;
 	int		height;
+	int		cell_width;
+	int		cell_heigth;
+	int		wall_colour;
+	int		player_colour;
+	double	player_mini_x;
+	double	player_mini_y;
 }	t_mini_map;
 
+// image to render for window
 typedef struct s_image
 {
 	void	*img_ptr;
@@ -101,7 +118,7 @@ void	ft_free_cub(t_cub3D **cub);
 void	ft_destroy_texture(t_cub3D *cub);
 
 // free
-void	ft_free_set_NULL(void **data);
+void	ft_free_set_null(void **data);
 void	ft_free_array(char **array);
 
 // hooks
@@ -112,26 +129,28 @@ int		ft_red_cross(void *cub);
 
 // initialisation
 int		ft_initialise_cub(t_cub3D *cub, char **av);
+void	ft_initialise_mini_map(t_cub3D *cub);
 int		ft_initialise_mlx(t_cub3D *cub);
 
 // map parsing
 void	ft_map_parsing(int fd, t_cub3D *cub);
 
 // mini map
-void	ft_mini_map_render(t_cub3D *cub, int colour);
+void	ft_mini_map_render(t_cub3D *cub);
 void	ft_pixel_to_mini_map(t_mini_map *mini_map, int x, int y, int colour);
 
 // render
 void	ft_pixel_to_window(t_image *image, int x, int y, int colour);
 void	ft_image_render(t_cub3D *cub, int colour);
 
-// utils
-int		ft_create_map(t_cub3D *cub);
+// temp
+int		ft_read_map(t_cub3D *cub);
 
 // window
 int		ft_create_window(t_cub3D *cub);
 void	ft_render_image(t_cub3D *cub);
 void	ft_render_mini_map(t_cub3D *cub);
 int		ft_render_weapon(t_cub3D *cub);
+int		ft_open_texture(t_cub3D *cub);
 
 #endif

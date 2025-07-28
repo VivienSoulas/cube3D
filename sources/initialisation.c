@@ -10,16 +10,22 @@ int	ft_initialise_cub(t_cub3D *cub, char **av)
 	cub->player = ft_calloc(1, sizeof(t_player));
 	if (cub->fd == -1 || !cub->img || !cub->mini_map || !cub->weapon || !cub->textures || !cub->player)
 		return (ft_exit(cub), ft_error(4), 1);
-	cub->mini_map->width = 200;
-	cub->mini_map->height = 200;
 	cub->window_width = DEFAULT_WIDTH;
 	cub->window_height = DEFAULT_HEIGHT;
 	// ft_map_parsing(fd, cub);
 	// if (!cub->map)
 	// 	return (ft_exit(cub), ft_error(4), 1);
-if (ft_create_map(cub) == 1)
+if (ft_read_map(cub) == 1)
 return (ft_exit(cub), ft_error(4), 1);
 	return (0);
+}
+
+void	ft_initialise_mini_map(t_cub3D *cub)
+{
+	cub->mini_map->width = 200;
+	cub->mini_map->height = 200;
+	cub->mini_map->wall_colour = 0xFF00FF;
+	cub->mini_map->player_colour = 0xFF0000;
 }
 
 int	ft_initialise_mlx(t_cub3D *cub)
@@ -29,9 +35,11 @@ int	ft_initialise_mlx(t_cub3D *cub)
 		return (ft_exit(cub), ft_error(4), 1);
 	if (ft_create_window(cub) == 1)
 		return (1);
-	ft_render_image(cub);
-	ft_render_mini_map(cub);
-	if (ft_render_weapon(cub) == 1)
+	if (ft_open_texture(cub) == 1)
 		return (1);
+	ft_render_image(cub);
+	if (ft_render_weapon(cub) == 1)
+			return (1);
+	ft_render_mini_map(cub);
 	return (0);
 }

@@ -23,12 +23,13 @@ int	main(int ac, char **av)
 		return (ft_error(4), 1);
 	if (ft_initialise_cub(cub, av) == 1)
 		return (1);
+	ft_initialise_mini_map(cub);
 	if (ft_initialise_mlx(cub) == 1)
 		return (1);
 	mlx_key_hook(cub->window, ft_key_events, cub);
-	mlx_hook(cub->window, 6, 1L<<6, ft_mouse_move_event, cub);
+	mlx_hook(cub->window, 6, 1L << 6, ft_mouse_move_event, cub);
 	mlx_hook(cub->window, 17, 0, ft_red_cross, cub);
-	mlx_hook(cub->window, 25, 1L<<18, ft_resize, cub);
+	// mlx_hook(cub->window, 25, 1L << 18, ft_resize, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (ft_exit(cub), 0);
 }
