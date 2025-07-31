@@ -24,12 +24,12 @@ int	ft_mouse_move_event(int x, int y, void *cub)
 	init_x = x;
 	mlx_mouse_get_pos(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, &x, &y);
 	printf("Mouse in position x=%d\n", x);
-	if (init_x > x) // left movement
+	if (init_x < x) // left movement
 	{
 		printf("leffft\n");
 		ft_orientation_change(65361, cub);
 	}
-	else if (init_x < x)
+	else if (init_x > x)
 	{
 		printf("righttt\n");
 		ft_orientation_change(65363, cub); // right movement
