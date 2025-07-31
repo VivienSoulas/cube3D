@@ -3,20 +3,29 @@
 int	ft_initialise_cub(t_cub3D *cub, char **av)
 {
 	cub->fd = open(av[1], O_RDONLY);
-	if (cub->fd == -1)
-		return (ft_exit(cub), ft_error(2), 1);
+	cub->img = ft_calloc(1, sizeof(t_image));
+	cub->mini_map = ft_calloc(1, sizeof(t_mini_map));
+	cub->weapon = ft_calloc(1, sizeof(t_weapon));
+	cub->textures = ft_calloc(1, sizeof(t_textures));
+	cub->player = ft_calloc(1, sizeof(t_player));
+	if (cub->fd == -1 || !cub->img || !cub->mini_map || !cub->weapon || !cub->textures || !cub->player)
+		return (ft_exit(cub), ft_error(4), 1);
+	cub->window_width = DEFAULT_WIDTH;
+	cub->window_height = DEFAULT_HEIGHT;
 	// ft_map_parsing(fd, cub);
 	// if (!cub->map)
 	// 	return (ft_exit(cub), ft_error(4), 1);
-if (ft_create_map(cub) == 1)
+if (ft_read_map(cub) == 1)
 return (ft_exit(cub), ft_error(4), 1);
-	cub->textures = ft_calloc(1, sizeof(t_textures));
-	if (!cub->textures)
-		return (ft_exit(cub), ft_error(4), 1);
-	cub->mini_map = ft_calloc(1, sizeof(t_mini_map));
-	if (!cub->mini_map)
-		return (ft_exit(cub), ft_error(4), 1);
 	return (0);
+}
+
+void	ft_initialise_mini_map(t_cub3D *cub)
+{
+	cub->mini_map->width = 200;
+	cub->mini_map->height = 200;
+	cub->mini_map->wall_colour = 0xFF00FF;
+	cub->mini_map->player_colour = 0xFF0000;
 }
 
 int	ft_initialise_mlx(t_cub3D *cub)
@@ -24,15 +33,13 @@ int	ft_initialise_mlx(t_cub3D *cub)
 	cub->mlx_ptr = mlx_init();
 	if (cub->mlx_ptr == NULL)
 		return (ft_exit(cub), ft_error(4), 1);
-	cub->window = mlx_new_window(cub->mlx_ptr,
-			DEFAULT_WIDTH, DEFAULT_HEIGHT, "cub3D");
-	if (cub->window == NULL)
-		return (ft_exit(cub), ft_error(4), 1);
-	cub->mini_map->img_ptr = mlx_new_image(cub->mlx_ptr, DEFAULT_MINI_WIDTH, DEFAULT_MINI_HEIGHT);
-	cub->mini_map->img_pixels_ptr = mlx_get_data_addr(cub->mini_map->img_ptr, &cub->mini_map->bits_per_pixel, &cub->mini_map->line_len, &cub->mini_map->endian);
-ft_mini_map_management(cub, 0xffffff);
-mlx_put_image_to_window(cub->mlx_ptr, cub->window, cub->mini_map->img_ptr, 0, 0); 
-	mlx_key_hook(cub->window, ft_events, cub);
-	mlx_loop(cub->mlx_ptr);
+	if (ft_create_window(cub) == 1)
+		return (1);
+	if (ft_open_texture(cub) == 1)
+		return (1);
+	ft_render_image(cub);
+	if (ft_render_weapon(cub) == 1)
+			return (1);
+	ft_render_mini_map(cub);
 	return (0);
 }

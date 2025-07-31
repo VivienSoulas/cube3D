@@ -23,4 +23,6 @@ void	ft_error(int id)
 		write(2, "Invalid map\n", 13);
 	if (id == 4)
 		write(2, "malloc fail\n", 13);
+	if (id == 5)
+		write(2, "Could not load texture file\n", 29);
 }
