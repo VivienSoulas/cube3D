@@ -19,22 +19,22 @@ int	ft_key_hooks(int key, t_cub3D *cub)
 // mlx_mouse_get_pos(((t_cub3D *)cub)->window, &x, &y);
 int	ft_mouse_move_event(int x, int y, void *cub)
 {
-	// int	init_x;
+	int	init_x;
 
-	//init_x = x;
+	init_x = x;
 	mlx_mouse_get_pos(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, &x, &y);
 	printf("Mouse in position x=%d\n", x);
-	//if (init_x < x) // left movement
-	//{
-	//	printf("leffft\n");
-	//	ft_orientation_change(65361, cub);
-	//}
-	//else if (init_x > x)
-	//{
-	//	printf("righttt\n");
-	//	ft_orientation_change(65363, cub); // right movement
-	//}
-	// mlx_put_image_to_window(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, ((t_cub3D *)cub)->mini_map->img_ptr, 0, 0);
+	if (init_x > x) // left movement
+	{
+		printf("leffft\n");
+		ft_orientation_change(65361, cub);
+	}
+	else if (init_x < x)
+	{
+		printf("righttt\n");
+		ft_orientation_change(65363, cub); // right movement
+	}
+	mlx_put_image_to_window(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, ((t_cub3D *)cub)->mini_map->img_ptr, 0, 0);
 	return (0);
 }
 
