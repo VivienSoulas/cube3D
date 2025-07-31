@@ -4,6 +4,10 @@
 # define DEFAULT_WIDTH 1000
 # define DEFAULT_HEIGHT 750
 
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
+
 # define UP 1
 # define DOWN 2
 # define RIGHT 3
@@ -11,7 +15,7 @@
 
 # include "libft.h"
 # include "mlx.h"
-// # include "get_next_line.h"
+# include "get_next_line.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -22,14 +26,16 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
+// radians = degrees * pi / 180
 typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
+	double	radians_angle; // must be in radian (from 0 to 2pi)
+	//double	dir_x;
+	//double	dir_y;
+	//double	plane_x;
+	//double	plane_y;
 	char	start_dir;
 }	t_player;
 

@@ -38,8 +38,8 @@ int	ft_initialise_mlx(t_cub3D *cub)
 	if (ft_open_texture(cub) == 1)
 		return (1);
 	ft_render_image(cub);
-	if (ft_render_weapon(cub) == 1)
-			return (1);
+	//if (ft_render_weapon(cub) == 1)
+	//		return (1);
 	ft_render_mini_map(cub);
 	return (0);
 }
