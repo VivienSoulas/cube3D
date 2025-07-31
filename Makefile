@@ -15,7 +15,7 @@ OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o) $(GNL_SRC:$(GNL_DIR)/%.c=$(OBJ_DIR)
 
 ARGS		?=
 CC			=	cc
-CFLAGS		=	-Werror -Wall -Wextra -I$(HEADERS) -I$(LIBFT) -I$(MINILIB) #-I$(GNL_DIR)
+CFLAGS		=	-Werror -Wall -Wextra -I$(HEADERS) -I$(LIBFT) -I$(MINILIB) -I$(GNL_DIR)
 MINI_FLAGS	=	-L$(MINILIB) -lmlx -lXext -lX11 -lbsd
 
 # ANSI color codes

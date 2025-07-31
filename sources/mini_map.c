@@ -12,9 +12,8 @@ void	ft_field_of_view(t_cub3D *cub)
 {
 	if (cub->player->start_dir == 'N')
 	{
-		
+		printf("field of view calculated and printed\n");
 	}
-	printf("field of view calculated and printed\n");
 }
 
 // calculte the player's relative position to the minimap
