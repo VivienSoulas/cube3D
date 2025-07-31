@@ -1,6 +1,6 @@
 #include "cub3D.h"
 
-int	ft_key_events(int key, t_cub3D *cub)
+int	ft_key_hooks(int key, t_cub3D *cub)
 {
 	int	new_x;
 	int	new_y;
@@ -54,6 +54,14 @@ int	ft_key_events(int key, t_cub3D *cub)
 		}
 		else
 			printf("wall colision detected\n");
+	}
+	else if (key == 65363) // left arrow
+	{
+
+	}
+	else if (key == 65361) // right arrow
+	{
+
 	}
 	mlx_put_image_to_window(cub->mlx_ptr, cub->window, cub->mini_map->img_ptr, 0, 0);
 	printf("Key %d pressed\n", key);

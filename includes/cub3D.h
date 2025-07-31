@@ -122,7 +122,7 @@ void	ft_free_set_null(void **data);
 void	ft_free_array(char **array);
 
 // hooks
-int		ft_key_events(int key, t_cub3D *cub);
+int		ft_key_hooks(int key, t_cub3D *cub);
 int		ft_mouse_move_event(int x, int y, void *cub);
 int		ft_resize(void *cub);
 int		ft_red_cross(void *cub);
