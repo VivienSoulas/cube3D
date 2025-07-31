@@ -9,6 +9,9 @@ void	ft_pixel_to_window(t_image *image, int x, int y, int colour)
 }
 
 // this is where raycasting will take place
+// first find the visible part of the map
+// second render the viual for this part
+// third print pixels on the screen
 void	ft_image_render(t_cub3D *cub)
 {
 	int	x;
@@ -25,15 +28,17 @@ void	ft_image_render(t_cub3D *cub)
 		{
 			map_x = x * cub->map->width / cub->window_width;
 			map_y = y * cub->map->height / cub->window_height;
-			if (cub->map->grid[map_y][map_x] == '1')
-				colour = cub->mini_map->wall_colour;
-			else if (cub->map->grid[map_y][map_x] == '0')
-				colour = cub->floor_color;
-			ft_pixel_to_window(cub->img, x, y, colour);
+			if (map_y < cub->player->pos_y)
+			{
+				if (cub->map->grid[map_y][map_x] == '1')
+					colour = cub->mini_map->wall_colour;
+				else if (cub->map->grid[map_y][map_x] == '0')
+					colour = cub->floor_color;
+				ft_pixel_to_window(cub->img, x, y, colour);
+			}
 			x++;
 		}
 		y++;
 	}
-	//ft_player_to_minimap(cub);
 	printf("image render generated\n");
 }

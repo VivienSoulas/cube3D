@@ -24,7 +24,7 @@ int	ft_read_map(t_cub3D *cub)
 
 	cub->player->pos_x = 3;
 	cub->player->pos_y = 5;
-	// cub->player->start_dir = ;
+	cub->player->start_dir = 'N';
 	cub->ceiling_color = 0x0000FF;
 	cub->floor_color = 0x00FF00;
 	// cub->textures->north_path = ;
