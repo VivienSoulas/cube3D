@@ -2,67 +2,15 @@
 
 int	ft_key_hooks(int key, t_cub3D *cub)
 {
-	int	new_x;
-	int	new_y;
-
 	if (key == 65307)
 	{
 		printf("Escape key pressed\n");
 		ft_exit(cub);
 		exit (1);
 	}
-	if (key == 119) // w
-	{
-		new_y = cub->player->pos_y - 0.5;
-		if (cub->map->grid[(int)new_y][(int)cub->player->pos_x] != '1')
-		{
-			cub->player->pos_y -= 0.5;
-			ft_mini_map_render(cub);
-		}
-		else
-			printf("wall colision detected\n");
-	}
-	else if (key == 97) // a
-	{
-		new_x = cub->player->pos_x - 0.5;
-		if (cub->map->grid[(int)cub->player->pos_y][(int)new_x] != '1')
-		{
-			cub->player->pos_x -= 0.5;
-			ft_mini_map_render(cub);
-		}
-		else
-			printf("wall colision detected\n");
-	}
-	else if (key == 100) // d
-	{
-		new_x = cub->player->pos_x + 0.5;
-		if (cub->map->grid[(int)cub->player->pos_y][(int)new_x] != '1')
-		{
-			cub->player->pos_x += 0.5;
-			ft_mini_map_render(cub);
-		}
-		else
-			printf("wall colision detected\n");
-	}
-	else if (key == 115) //s
-	{
-		new_y = cub->player->pos_y + 0.5;
-		if (cub->map->grid[(int)new_y][(int)cub->player->pos_x] != '1')
-		{
-			cub->player->pos_y += 0.5;
-			ft_mini_map_render(cub);
-		}
-		else
-			printf("wall colision detected\n");
-	}
-	else if (key == 65363) // left arrow
-	{
-
-	}
-	else if (key == 65361) // right arrow
-	{
-
-	}
+	ft_movement_hooks(key, cub);
+	ft_side_movement(key, cub);
+	ft_orientation_change(key, cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->window, cub->mini_map->img_ptr, 0, 0);
 	printf("Key %d pressed\n", key);
 	return (0);
@@ -73,13 +21,19 @@ int	ft_mouse_move_event(int x, int y, void *cub)
 {
 	// int	init_x;
 
-	// init_x = x;
+	//init_x = x;
 	mlx_mouse_get_pos(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, &x, &y);
 	printf("Mouse in position x=%d\n", x);
-	// if (init_x < x)
-	// 	ft_mini_map_render(cub, 0x333333); // left
-	// else if (init_x > x)
-	// 	ft_mini_map_render(cub, 0xff4533); // right
+	//if (init_x < x) // left movement
+	//{
+	//	printf("leffft\n");
+	//	ft_orientation_change(65361, cub);
+	//}
+	//else if (init_x > x)
+	//{
+	//	printf("righttt\n");
+	//	ft_orientation_change(65363, cub); // right movement
+	//}
 	// mlx_put_image_to_window(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, ((t_cub3D *)cub)->mini_map->img_ptr, 0, 0);
 	return (0);
 }

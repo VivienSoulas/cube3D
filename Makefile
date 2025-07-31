@@ -1,17 +1,17 @@
 NAME		=	cub3D
 
 SOURCES		=	main.c error.c map_parsing.c free.c exit.c utils.c hooks.c initialisation.c mini_map.c render.c \
-				temp.c window.c
-# GNL_SOURCES		=	get_next_line.c get_next_line_utils.c
+				temp.c window.c movement.c ray_casting.c
+GNL_SOURCES		=	get_next_line.c get_next_line_utils.c
 
 SRC_DIR		=	sources
 OBJ_DIR		=	objects
-# GNL_DIR		=	get_next_line
+GNL_DIR		=	get_next_line
 HEADERS		=	includes
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(SOURCES))
-# GNL_SRC		=	$(addprefix $(GNL_DIR)/, $(GNL_SOURCES))
-OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o) #$(GNL_SRC:$(GNL_DIR)/%.c=$(OBJ_DIR)/%.o)
+GNL_SRC		=	$(addprefix $(GNL_DIR)/, $(GNL_SOURCES))
+OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o) $(GNL_SRC:$(GNL_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 ARGS		?=
 CC			=	cc

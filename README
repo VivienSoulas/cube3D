@@ -1,14 +1,7 @@
-check if each line of map needs to be of same length
-
-weapon cannot change size,
-	create differente sizes and load the sizes according to current window size
-
 key_event_hook:
-// later move player point on minimap
 // think about how to handle big maps that dont fit in the minimap
 
 ft_mouse_move_event:
-// currently only change mini map colour
 // later needs to change minimap view (maybe ?)
 // or at least change the view of the 1st person from roght to left
 // can not look up or down

@@ -29,7 +29,7 @@ int	ft_read_map(t_cub3D *cub)
 	cub->floor_color = 0x00FF00;
 	// cub->textures->north_path = ;
 	// cub->textures->south_path = ;
-	// cub->textures->east_path = ;;
+	// cub->textures->east_path = ;
 	// cub->textures->west_path = ;
 	return (0);
 }

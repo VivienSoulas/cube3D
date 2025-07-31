@@ -139,9 +139,14 @@ void	ft_map_parsing(int fd, t_cub3D *cub);
 void	ft_mini_map_render(t_cub3D *cub);
 void	ft_pixel_to_mini_map(t_mini_map *mini_map, int x, int y, int colour);
 
+// movement
+void	ft_movement_hooks(int key, t_cub3D *cub);
+void	ft_side_movement(int key, t_cub3D *cub);
+void	ft_orientation_change(int key, t_cub3D *cub);
+
 // render
 void	ft_pixel_to_window(t_image *image, int x, int y, int colour);
-void	ft_image_render(t_cub3D *cub, int colour);
+void	ft_image_render(t_cub3D *cub);
 
 // temp
 int		ft_read_map(t_cub3D *cub);
