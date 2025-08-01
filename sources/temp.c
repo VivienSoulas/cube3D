@@ -26,6 +26,12 @@ int	ft_read_map(t_cub3D *cub)
 	cub->player->pos_y = 5;
 	cub->player->start_dir = 'N';
 	cub->player->angle = 270;
+	// cub->player->start_dir = 'S';
+	// cub->player->angle = 90;
+	// cub->player->start_dir = 'E';
+	// cub->player->angle = 0;
+	// cub->player->start_dir = 'W';
+	// cub->player->angle = 180;
 	cub->ceiling_color = 0x0000FF;
 	cub->floor_color = 0x00FF00;
 	cub->textures->north_path = "textures/North.xpm";

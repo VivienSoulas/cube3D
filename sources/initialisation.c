@@ -14,13 +14,13 @@ int	ft_initialise_cub(t_cub3D *cub, char **av)
 		return (ft_exit(cub), ft_error(4), 1);
 	cub->window_width = DEFAULT_WIDTH;
 	cub->window_height = DEFAULT_HEIGHT;
-	cub->player->radians_angle = cub->player->angle * M_PI / 180;
 	cub->player->fov = M_PI / 3;
 	// ft_map_parsing(fd, cub);
 	// if (!cub->map)
 	// 	return (ft_exit(cub), ft_error(4), 1);
 if (ft_read_map(cub) == 1)
 return (ft_exit(cub), ft_error(4), 1);
+	cub->player->radians_angle = cub->player->angle * M_PI / 180;
 	return (0);
 }
 

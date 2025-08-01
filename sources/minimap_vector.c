@@ -2,10 +2,19 @@
 
 static int	ft_in_bonds_minimap(t_cub3D *cub, int x, int y)
 {
+	// int	grid_x;
+	// int	grid_y;
+
 	if (x > cub->mini_map->width || x < 0)
 		return (1);
 	if (y > cub->mini_map->height || y < 0)
 		return (1);
+	// grid_x = x / cub->mini_map->cell_width;
+	// grid_y = y / cub->mini_map->cell_heigth;
+	// if (grid_x >= cub->map->width || grid_y >= cub->map->height)
+	// 	return (1);
+	// if (cub->map->grid[grid_y][grid_x] == '1')
+	// 	return (1);
 	return (0);
 }
 
@@ -26,7 +35,7 @@ void	ft_fill_vector_line(t_cub3D *cub)
 		cub->vector->line_y = cub->vector->prev_py + (cub->vector->py - cub->vector->prev_py) * s / denom;
 		if (ft_in_bonds_minimap(cub, cub->vector->line_x, cub->vector->line_y) == 0)
 			ft_pixel_to_mini_map(cub->mini_map, cub->vector->line_x, cub->vector->line_y, 0x0000ff);
-	s++;
+		s++;
 	}
 }
 
@@ -42,6 +51,8 @@ void	ft_print_vector_line_minimap(t_cub3D *cub, float cos, float sin)
 	{
 		cub->vector->px = cub->vector->start_x + (int)(cos * i * cub->mini_map->cell_width);
 		cub->vector->py = cub->vector->start_y + (int)(sin * i * cub->mini_map->cell_heigth);
+		// if (ft_in_bonds_minimap(cub, cub->vector->px, cub->vector->py) == 1)
+		// 	break ;
 		cub->vector->dx = ft_absolute(cub->vector->px - cub->vector->prev_px);
 		cub->vector->dy = ft_absolute(cub->vector->py - cub->vector->prev_py);
 		if (cub->vector->dx > cub->vector->dy)
@@ -55,9 +66,22 @@ void	ft_print_vector_line_minimap(t_cub3D *cub, float cos, float sin)
 	}
 }
 
-// calculate the vector starting position
-// convert player's position to pixel coordinates on the minimap
-// calculate the direction of the vector
+void	ft_fill_fov_vectors(t_cub3D *cub, float right_angle, float left_angle)
+{
+	float	new_sin;
+	float	new_cos;
+	double	step;
+
+	step = 0.005;
+	while (right_angle < left_angle)
+	{
+		new_cos = cos(right_angle);
+		new_sin = sin(right_angle);
+		ft_print_vector_line_minimap(cub, new_cos, new_sin);
+		right_angle += step;
+	}
+}
+
 void	ft_field_of_view(t_cub3D *cub)
 {
 	float	right_angle;
@@ -67,11 +91,6 @@ void	ft_field_of_view(t_cub3D *cub)
 	cub->vector->start_y = cub->player->pos_y * cub->mini_map->cell_heigth + (cub->mini_map->cell_heigth / 4);
 	right_angle = cub->player->radians_angle - (cub->player->fov / 2);
 	left_angle  = cub->player->radians_angle + (cub->player->fov / 2);
-	cub->player->cos_right = cos(right_angle);
-	cub->player->sin_right = sin(right_angle);
-	cub->player->cos_left = cos(left_angle);
-	cub->player->sin_left = sin(left_angle);
-	ft_print_vector_line_minimap(cub, cub->player->cos_right, cub->player->sin_right);
-	ft_print_vector_line_minimap(cub, cub->player->cos_left, cub->player->sin_left);
+	ft_fill_fov_vectors(cub, right_angle, left_angle);
 	printf("vector calculated and printed\n");
 }

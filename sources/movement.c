@@ -84,7 +84,7 @@ void	ft_orientation_change_mouse(int key, t_cub3D *cub)
 	(void)cub;
 	if (key == 65363) // mouse move right
 	{
-		cub->player->angle += 25;
+		cub->player->angle += 15;
 		if (cub->player->angle >= 360)
 			cub->player->angle -= 360;
 		cub->player->radians_angle = cub->player->angle * M_PI / 180;
@@ -93,7 +93,7 @@ void	ft_orientation_change_mouse(int key, t_cub3D *cub)
 	}
 	else if (key == 65361) // mouse move left
 	{
-		cub->player->angle -= 25;
+		cub->player->angle -= 15;
 		if (cub->player->angle < 0)
 			cub->player->angle += 360;
 		cub->player->radians_angle = cub->player->angle * M_PI / 180;

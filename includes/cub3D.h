@@ -43,7 +43,7 @@ typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
-	double	radians_angle; // must be in radian (from 0 to 2pi)
+	double	radians_angle;
 	int		angle;
 	float	cos_right;
 	float	sin_right;

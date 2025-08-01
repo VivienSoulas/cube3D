@@ -10,8 +10,7 @@ int	ft_create_window(t_cub3D *cub)
 	return (0);
 }
 
-// opem all texture files
-// change "texture/north..." to relative given path from cub->texture->north_path
+// open all texture files
 int	ft_open_texture(t_cub3D *cub)
 {
 	cub->textures->north = mlx_xpm_file_to_image(cub->mlx_ptr, cub->textures->north_path, &cub->textures->wall_width, &cub->textures->wall_height);
@@ -36,7 +35,6 @@ void	ft_render_image(t_cub3D *cub)
 	cub->img->img_ptr = mlx_new_image(cub->mlx_ptr, cub->window_width, cub->window_height);
 	cub->img->img_pixels_ptr = mlx_get_data_addr(cub->img->img_ptr, &cub->img->bits_per_pixel, &cub->img->line_len, &cub->img->endian);
 
-// here needs to be the raycasting function(s) instead of image render only with colours
 	ft_image_render(cub);
 
 	mlx_put_image_to_window(cub->mlx_ptr, cub->window, cub->img->img_ptr, 0, 0);
