@@ -31,17 +31,17 @@ void	ft_fill_vector_line(t_cub3D *cub)
 }
 
 // calculate and print the vector line on minimap
-void	ft_print_vector_line_minimap(t_cub3D *cub, int start_x, int start_y)
+void	ft_print_vector_line_minimap(t_cub3D *cub, float cos, float sin)
 {
 	int	i;
 
 	i = 0;
-	cub->vector->prev_px = start_x;
-	cub->vector->prev_py = start_y;
+	cub->vector->prev_px = cub->vector->start_x;
+	cub->vector->prev_py = cub->vector->start_y;
 	while (i < cub->mini_map->vector_length)
 	{
-		cub->vector->px = start_x + (int)(cub->player->cos * i * cub->mini_map->cell_width);
-		cub->vector->py = start_y + (int)(cub->player->sin * i * cub->mini_map->cell_heigth);
+		cub->vector->px = cub->vector->start_x + (int)(cos * i * cub->mini_map->cell_width);
+		cub->vector->py = cub->vector->start_y + (int)(sin * i * cub->mini_map->cell_heigth);
 		cub->vector->dx = ft_absolute(cub->vector->px - cub->vector->prev_px);
 		cub->vector->dy = ft_absolute(cub->vector->py - cub->vector->prev_py);
 		if (cub->vector->dx > cub->vector->dy)
@@ -60,10 +60,18 @@ void	ft_print_vector_line_minimap(t_cub3D *cub, int start_x, int start_y)
 // calculate the direction of the vector
 void	ft_field_of_view(t_cub3D *cub)
 {
+	float	right_angle;
+	float	left_angle;
+
 	cub->vector->start_x = cub->player->pos_x * cub->mini_map->cell_width + (cub->mini_map->cell_width / 4);
 	cub->vector->start_y = cub->player->pos_y * cub->mini_map->cell_heigth + (cub->mini_map->cell_heigth / 4);
-	cub->player->cos = cos(cub->player->radians_angle);
-	cub->player->sin = sin(cub->player->radians_angle);
-	ft_print_vector_line_minimap(cub, cub->vector->start_x, cub->vector->start_y);
+	right_angle = cub->player->radians_angle - (cub->player->fov / 2);
+	left_angle  = cub->player->radians_angle + (cub->player->fov / 2);
+	cub->player->cos_right = cos(right_angle);
+	cub->player->sin_right = sin(right_angle);
+	cub->player->cos_left = cos(left_angle);
+	cub->player->sin_left = sin(left_angle);
+	ft_print_vector_line_minimap(cub, cub->player->cos_right, cub->player->sin_right);
+	ft_print_vector_line_minimap(cub, cub->player->cos_left, cub->player->sin_left);
 	printf("vector calculated and printed\n");
 }

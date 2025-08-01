@@ -27,13 +27,13 @@ typedef struct s_vector
 	int		start_y;
 	int		px;
 	int		py;
+	int		dx;
+	int		dy;
 	int		steps;
 	int		prev_px;
 	int		prev_py;
-	int		line_y;
 	int		line_x;
-	int		dx;
-	int		dy;
+	int		line_y;
 	int		denom;
 
 }	t_vector;
@@ -45,9 +45,12 @@ typedef struct s_player
 	double	pos_y;
 	double	radians_angle; // must be in radian (from 0 to 2pi)
 	int		angle;
-	float	cos;
-	float	sin;
+	float	cos_right;
+	float	sin_right;
+	float	cos_left;
+	float	sin_left;
 	char	start_dir;
+	float	fov;
 }	t_player;
 
 typedef struct s_map
@@ -162,7 +165,7 @@ void	ft_mini_map_render(t_cub3D *cub);
 
 // minimap vector
 void	ft_fill_vector_line(t_cub3D *cub);
-void	ft_print_vector_line_minimap(t_cub3D *cub, int start_x, int start_y);
+void	ft_print_vector_line_minimap(t_cub3D *cub, float cos, float sin);
 void	ft_field_of_view(t_cub3D *cub);
 
 // movement
