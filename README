@@ -15,3 +15,13 @@ ft_resize:
 //		destroy wall textures and redisplay with new scales/calculations
 
 weapon to scale (generally how to resize images)
+
+think about:
+empty map
+only new line
+only spaces
+only tabs
+wrong textures path
+
+
+mouse needs to stop moving

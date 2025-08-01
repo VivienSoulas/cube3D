@@ -14,16 +14,16 @@ int	ft_create_window(t_cub3D *cub)
 // change "texture/north..." to relative given path from cub->texture->north_path
 int	ft_open_texture(t_cub3D *cub)
 {
-	cub->textures->north = mlx_xpm_file_to_image(cub->mlx_ptr, "textures/North.xpm", &cub->textures->wall_width, &cub->textures->wall_height);
+	cub->textures->north = mlx_xpm_file_to_image(cub->mlx_ptr, cub->textures->north_path, &cub->textures->wall_width, &cub->textures->wall_height);
 	if (!cub->textures->north)
 		return (ft_exit(cub), ft_error(5), 1);
-	cub->textures->south = mlx_xpm_file_to_image(cub->mlx_ptr, "textures/South.xpm", &cub->textures->wall_width, &cub->textures->wall_height);
+	cub->textures->south = mlx_xpm_file_to_image(cub->mlx_ptr, cub->textures->south_path, &cub->textures->wall_width, &cub->textures->wall_height);
 	if (!cub->textures->south)
 		return (ft_exit(cub), ft_error(5), 1);
-	cub->textures->east = mlx_xpm_file_to_image(cub->mlx_ptr, "textures/East.xpm", &cub->textures->wall_width, &cub->textures->wall_height);
+	cub->textures->east = mlx_xpm_file_to_image(cub->mlx_ptr, cub->textures->east_path, &cub->textures->wall_width, &cub->textures->wall_height);
 	if (!cub->textures->east)
 		return (ft_exit(cub), ft_error(5), 1);
-	cub->textures->west = mlx_xpm_file_to_image(cub->mlx_ptr, "textures/West.xpm", &cub->textures->wall_width, &cub->textures->wall_height);
+	cub->textures->west = mlx_xpm_file_to_image(cub->mlx_ptr, cub->textures->west_path, &cub->textures->wall_width, &cub->textures->wall_height);
 	if (!cub->textures->west)
 		return (ft_exit(cub), ft_error(5), 1);
 	printf("all textures open\n");

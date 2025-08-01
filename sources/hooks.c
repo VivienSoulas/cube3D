@@ -26,13 +26,15 @@ int	ft_mouse_move_event(int x, int y, void *cub)
 	printf("Mouse in position x=%d\n", x);
 	if (init_x < x) // left movement
 	{
-		printf("leffft\n");
-		ft_orientation_change(65361, cub);
+		init_x = x;
+		printf("mouse movement to the left\n");
+		ft_orientation_change_mouse(65361, cub);
 	}
 	else if (init_x > x)
 	{
-		printf("righttt\n");
-		ft_orientation_change(65363, cub); // right movement
+		init_x = x;
+		printf("mouse movement to the right\n");
+		ft_orientation_change_mouse(65363, cub); // right movement
 	}
 	mlx_put_image_to_window(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, ((t_cub3D *)cub)->mini_map->img_ptr, 0, 0);
 	return (0);

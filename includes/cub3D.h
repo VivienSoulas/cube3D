@@ -2,16 +2,11 @@
 # define CUB3D_H
 
 # define DEFAULT_WIDTH 1000
-# define DEFAULT_HEIGHT 750
+# define DEFAULT_HEIGHT 1000
 
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
-
-# define UP 1
-# define DOWN 2
-# define RIGHT 3
-# define LEFT 4
 
 # include "libft.h"
 # include "mlx.h"
@@ -26,16 +21,32 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
+typedef struct s_vector
+{
+	int		start_x;
+	int		start_y;
+	int		px;
+	int		py;
+	int		steps;
+	int		prev_px;
+	int		prev_py;
+	int		line_y;
+	int		line_x;
+	int		dx;
+	int		dy;
+	int		denom;
+
+}	t_vector;
+
 // radians = degrees * pi / 180
 typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
 	double	radians_angle; // must be in radian (from 0 to 2pi)
-	//double	dir_x;
-	//double	dir_y;
-	//double	plane_x;
-	//double	plane_y;
+	int		angle;
+	float	cos;
+	float	sin;
 	char	start_dir;
 }	t_player;
 
@@ -84,6 +95,7 @@ typedef struct s_mini_map
 	int		player_colour;
 	double	player_mini_x;
 	double	player_mini_y;
+	int		vector_length;
 }	t_mini_map;
 
 // image to render for window
@@ -113,6 +125,7 @@ typedef struct s_cub3D
 	t_textures		*textures;
 	t_map			*map;
 	t_player		*player;
+	t_vector		*vector;
 }	t_cub3D;
 
 // error
@@ -142,13 +155,21 @@ int		ft_initialise_mlx(t_cub3D *cub);
 void	ft_map_parsing(int fd, t_cub3D *cub);
 
 // mini map
-void	ft_mini_map_render(t_cub3D *cub);
 void	ft_pixel_to_mini_map(t_mini_map *mini_map, int x, int y, int colour);
+void	ft_player_to_minimap(t_cub3D *cub);
+void	ft_printing_mini_map(t_cub3D *cub, int x, int y, int colour);
+void	ft_mini_map_render(t_cub3D *cub);
+
+// minimap vector
+void	ft_fill_vector_line(t_cub3D *cub);
+void	ft_print_vector_line_minimap(t_cub3D *cub, int start_x, int start_y);
+void	ft_field_of_view(t_cub3D *cub);
 
 // movement
 void	ft_movement_hooks(int key, t_cub3D *cub);
 void	ft_side_movement(int key, t_cub3D *cub);
 void	ft_orientation_change(int key, t_cub3D *cub);
+void	ft_orientation_change_mouse(int key, t_cub3D *cub);
 
 // render
 void	ft_pixel_to_window(t_image *image, int x, int y, int colour);
@@ -156,6 +177,9 @@ void	ft_image_render(t_cub3D *cub);
 
 // temp
 int		ft_read_map(t_cub3D *cub);
+
+// utils
+int		ft_absolute(int a);
 
 // window
 int		ft_create_window(t_cub3D *cub);

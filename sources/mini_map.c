@@ -8,29 +8,9 @@ void	ft_pixel_to_mini_map(t_mini_map *mini_map, int x, int y, int colour)
 	*((unsigned int *)(offset + mini_map->img_pixels_ptr)) = colour;
 }
 
-void	ft_field_of_view(t_cub3D *cub)
-{
-	float	dx;
-	float	dy;
-	int		i;
-	int		px;
-	int		py;
-
-	i = 0;
-	dx = cos(cub->player->radians_angle);
-	dy = sin(cub->player->radians_angle);
-	while (i < cub->map->height)
-	{
-		px = cub->player->pos_x + dx * i;
-		py = cub->player->pos_y + dy * i;
-	}
-	ft_pixel_to_mini_map(cub->mini_map, px, py, 0x0000ff);
-	printf("field of view calculated and printed\n");
-}
-
 // calculte the player's relative position to the minimap
 // then find the position is the map and colours it
-void ft_player_to_minimap(t_cub3D *cub)
+void	ft_player_to_minimap(t_cub3D *cub)
 {
 	int	my;
 	int	mx;
@@ -38,17 +18,18 @@ void ft_player_to_minimap(t_cub3D *cub)
 	cub->mini_map->player_mini_x = cub->player->pos_x * cub->mini_map->cell_width;
 	cub->mini_map->player_mini_y = cub->player->pos_y * cub->mini_map->cell_heigth;
 	my = 0;
-	while (my < cub->mini_map->cell_heigth)
+	while (my < (cub->mini_map->cell_heigth / 2))
 	{
 		mx = 0;
-		while (mx < cub->mini_map->cell_width)
+		while (mx < (cub->mini_map->cell_width / 2))
 		{
 			ft_pixel_to_mini_map(cub->mini_map, cub->mini_map->player_mini_x + mx, cub->mini_map->player_mini_y + my, cub->mini_map->player_colour);
 			mx++;
 		}
 		my++;
 	}
-	//ft_field_of_view(cub);
+	printf("player displayed in map\n");
+	ft_field_of_view(cub);
 }
 
 // convert the received grid cells into pixels cell to colour
@@ -96,6 +77,7 @@ void	ft_mini_map_render(t_cub3D *cub)
 		}
 		y++;
 	}
+	printf("minimap generated\n");
 	ft_player_to_minimap(cub);
-	printf("minimap render generated\n");
+	printf("full minimap render generated\n");
 }

@@ -61,10 +61,43 @@ void	ft_orientation_change(int key, t_cub3D *cub)
 	(void)cub;
 	if (key == 65363) // right arrow / mouse move right
 	{
+		cub->player->angle += 5;
+		if (cub->player->angle >= 360)
+			cub->player->angle -= 360;
+		cub->player->radians_angle = cub->player->angle * M_PI / 180;
+		ft_mini_map_render(cub);
 		printf("rotating to the right\n");
 	}
 	else if (key == 65361) // left arrow / mouse move left
 	{
+		cub->player->angle -= 5;
+		if (cub->player->angle < 0)
+			cub->player->angle += 360;
+		cub->player->radians_angle = cub->player->angle * M_PI / 180;
+		ft_mini_map_render(cub);
+		printf("rotating to the left\n");
+	}
+}
+
+void	ft_orientation_change_mouse(int key, t_cub3D *cub)
+{
+	(void)cub;
+	if (key == 65363) // right arrow / mouse move right
+	{
+		cub->player->angle += 20;
+		if (cub->player->angle >= 360)
+			cub->player->angle -= 360;
+		cub->player->radians_angle = cub->player->angle * M_PI / 180;
+		ft_mini_map_render(cub);
+		printf("rotating to the right\n");
+	}
+	else if (key == 65361) // left arrow / mouse move left
+	{
+		cub->player->angle -= 20;
+		if (cub->player->angle < 0)
+			cub->player->angle += 360;
+		cub->player->radians_angle = cub->player->angle * M_PI / 180;
+		ft_mini_map_render(cub);
 		printf("rotating to the left\n");
 	}
 }
