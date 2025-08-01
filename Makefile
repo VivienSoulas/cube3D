@@ -1,7 +1,7 @@
 NAME		=	cub3D
 
 SOURCES		=	main.c error.c map_parsing.c free.c exit.c utils.c hooks.c initialisation.c mini_map.c render.c \
-				temp.c window.c movement.c ray_casting.c
+				temp.c window.c movement.c ray_casting.c minimap_vector.c
 GNL_SOURCES		=	get_next_line.c get_next_line_utils.c
 
 SRC_DIR		=	sources
@@ -15,7 +15,7 @@ OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o) $(GNL_SRC:$(GNL_DIR)/%.c=$(OBJ_DIR)
 
 ARGS		?=
 CC			=	cc
-CFLAGS		=	-Werror -Wall -Wextra -I$(HEADERS) -I$(LIBFT) -I$(MINILIB) #-I$(GNL_DIR)
+CFLAGS		=	-Werror -Wall -Wextra -I$(HEADERS) -I$(LIBFT) -I$(MINILIB) -I$(GNL_DIR)
 MINI_FLAGS	=	-L$(MINILIB) -lmlx -lXext -lX11 -lbsd
 
 # ANSI color codes

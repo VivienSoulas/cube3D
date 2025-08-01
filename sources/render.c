@@ -26,9 +26,9 @@ void	ft_image_render(t_cub3D *cub)
 			map_x = x * cub->map->width / cub->window_width;
 			map_y = y * cub->map->height / cub->window_height;
 			if (cub->map->grid[map_y][map_x] == '1')
-				colour = cub->mini_map->wall_colour;
+				colour = 0x333333;
 			else if (cub->map->grid[map_y][map_x] == '0')
-				colour = cub->floor_color;
+				colour = 0xffffff;
 			ft_pixel_to_window(cub->img, x, y, colour);
 			x++;
 		}
