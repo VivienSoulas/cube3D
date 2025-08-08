@@ -34,5 +34,6 @@ void	ft_image_render(t_cub3D *cub)
 		}
 		y++;
 	}
+	//ft_player_to_minimap(cub);
 	printf("image render generated\n");
 }

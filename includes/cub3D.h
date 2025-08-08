@@ -57,6 +57,7 @@ typedef struct s_cub3D
 	int				window_height;
 	int				floor_color;
 	int				ceiling_color;
+	int				mouse_x;
 	t_image			*img;
 	t_mini_map		*mini_map;
 	t_weapon		*weapon;

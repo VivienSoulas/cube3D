@@ -15,6 +15,7 @@ int	ft_initialise_cub(t_cub3D *cub, char **av)
 	cub->window_width = DEFAULT_WIDTH;
 	cub->window_height = DEFAULT_HEIGHT;
 	cub->player->fov = M_PI / 3;
+	cub->mouse_x = 0;
 	// ft_map_parsing(fd, cub);
 	// if (!cub->map)
 	// 	return (ft_exit(cub), ft_error(4), 1);

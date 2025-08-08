@@ -4,7 +4,7 @@ void	ft_movement_hooks(int key, t_cub3D *cub)
 {
 	int	new_y;
 
-	if (key == 119) // w
+	if (key == 119 || key == 65362) // w or up arrow
 	{
 		new_y = cub->player->pos_y - 0.5;
 		if (cub->map->grid[(int)new_y][(int)cub->player->pos_x] != '1')
@@ -15,7 +15,7 @@ void	ft_movement_hooks(int key, t_cub3D *cub)
 		else
 			printf("wall colision detected\n");
 	}
-	else if (key == 115) //s
+	else if (key == 115 || key == 65364) //s or down arrow
 	{
 		new_y = cub->player->pos_y + 0.5;
 		if (cub->map->grid[(int)new_y][(int)cub->player->pos_x] != '1')

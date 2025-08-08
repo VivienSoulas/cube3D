@@ -19,20 +19,18 @@ int	ft_key_hooks(int key, t_cub3D *cub)
 // mlx_mouse_get_pos(((t_cub3D *)cub)->window, &x, &y);
 int	ft_mouse_move_event(int x, int y, void *cub)
 {
-	int	init_x;
-
-	init_x = x;
 	mlx_mouse_get_pos(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, &x, &y);
 	printf("Mouse in position x=%d\n", x);
-	if (init_x < x) // left movement
+	if (((t_cub3D *)cub)->mouse_x < x) // left movement
 	{
-		init_x = x;
+		((t_cub3D *)cub)->mouse_x = x;
 		printf("mouse movement to the left\n");
 		ft_orientation_change_mouse(65361, cub);
+		((t_cub3D *)cub)->mouse_x = x;
 	}
-	else if (init_x > x)
+	else if (((t_cub3D *)cub)->mouse_x > x)
 	{
-		init_x = x;
+		((t_cub3D *)cub)->mouse_x = x;
 		printf("mouse movement to the right\n");
 		ft_orientation_change_mouse(65363, cub); // right movement
 	}
