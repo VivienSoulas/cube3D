@@ -6,3 +6,8 @@ int	ft_absolute(int a)
 		return (-a);
 	return (a);
 }
+
+void	ft_dda()
+{
+	
+}

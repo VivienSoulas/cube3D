@@ -2,23 +2,15 @@
 
 static int	ft_in_bonds_minimap(t_cub3D *cub, int x, int y)
 {
-	// int	grid_x;
-	// int	grid_y;
-
 	if (x > cub->mini_map->width || x < 0)
 		return (1);
 	if (y > cub->mini_map->height || y < 0)
 		return (1);
-	// grid_x = x / cub->mini_map->cell_width;
-	// grid_y = y / cub->mini_map->cell_heigth;
-	// if (grid_x >= cub->map->width || grid_y >= cub->map->height)
-	// 	return (1);
-	// if (cub->map->grid[grid_y][grid_x] == '1')
-	// 	return (1);
 	return (0);
 }
 
 // fill the dots between the previous function
+// DDA algorythm to add here
 void	ft_fill_vector_line(t_cub3D *cub)
 {
 	int	s;
@@ -39,8 +31,8 @@ void	ft_fill_vector_line(t_cub3D *cub)
 	}
 }
 
-// calculate and print the vector line on minimap
-void	ft_print_vector_line_minimap(t_cub3D *cub, float cos, float sin)
+// calculate and print the vector line on minimap (for now only dots)
+void	ft_print_vector_minimap(t_cub3D *cub, float cos, float sin)
 {
 	int	i;
 
@@ -51,8 +43,6 @@ void	ft_print_vector_line_minimap(t_cub3D *cub, float cos, float sin)
 	{
 		cub->vector->px = cub->vector->start_x + (int)(cos * i * cub->mini_map->cell_width);
 		cub->vector->py = cub->vector->start_y + (int)(sin * i * cub->mini_map->cell_heigth);
-		// if (ft_in_bonds_minimap(cub, cub->vector->px, cub->vector->py) == 1)
-		// 	break ;
 		cub->vector->dx = ft_absolute(cub->vector->px - cub->vector->prev_px);
 		cub->vector->dy = ft_absolute(cub->vector->py - cub->vector->prev_py);
 		if (cub->vector->dx > cub->vector->dy)
@@ -60,6 +50,7 @@ void	ft_print_vector_line_minimap(t_cub3D *cub, float cos, float sin)
 		else
 			cub->vector->steps = cub->vector->dy;
 		ft_fill_vector_line(cub);
+// call dda algorythm instead of ft_fill_vector_line
 		cub->vector->prev_px = cub->vector->px;
 		cub->vector->prev_py =cub->vector->py;
 		i++;
@@ -72,12 +63,12 @@ void	ft_fill_fov_vectors(t_cub3D *cub, float right_angle, float left_angle)
 	float	new_cos;
 	double	step;
 
-	step = 0.005;
+	step = 0.001;
 	while (right_angle < left_angle)
 	{
 		new_cos = cos(right_angle);
 		new_sin = sin(right_angle);
-		ft_print_vector_line_minimap(cub, new_cos, new_sin);
+		ft_print_vector_minimap(cub, new_cos, new_sin);
 		right_angle += step;
 	}
 }

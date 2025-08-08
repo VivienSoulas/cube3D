@@ -38,19 +38,19 @@ int	ft_mouse_move_event(int x, int y, void *cub)
 	return (0);
 }
 
-int	ft_resize(void *cub)
-{
-	mlx_destroy_image(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->img->img_ptr);
-// find new window size;
-	ft_render_image(((t_cub3D *)cub));
+//int	ft_resize(void *cub)
+//{
+//	mlx_destroy_image(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->img->img_ptr);
+//// find new window size;
+//	ft_render_image(((t_cub3D *)cub));
 
-	mlx_destroy_image(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->mini_map->img_ptr);
-	ft_render_mini_map(((t_cub3D *)cub));
+//	mlx_destroy_image(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->mini_map->img_ptr);
+//	ft_render_mini_map(((t_cub3D *)cub));
 
-	mlx_destroy_image(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->weapon->weapon);
-	ft_render_weapon(((t_cub3D *)cub));
-	return (0);
-}
+//	mlx_destroy_image(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->weapon->weapon);
+//	ft_render_weapon(((t_cub3D *)cub));
+//	return (0);
+//}
 
 int	ft_red_cross(void *cub)
 {

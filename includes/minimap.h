@@ -50,7 +50,7 @@ void	ft_mini_map_render(t_cub3D *cub);
 
 // minimap vector
 void	ft_fill_vector_line(t_cub3D *cub);
-void	ft_print_vector_line_minimap(t_cub3D *cub, float cos, float sin);
+void	ft_print_vector_minimap(t_cub3D *cub, float cos, float sin);
 void	ft_fill_fov_vectors(t_cub3D *cub, float right_angle, float left_angle);
 void	ft_field_of_view(t_cub3D *cub);
 
