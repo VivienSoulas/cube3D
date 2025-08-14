@@ -28,7 +28,6 @@ void	ft_player_to_minimap(t_cub3D *cub)
 		}
 		my++;
 	}
-	printf("player displayed in map\n");
 	ft_field_of_view(cub);
 }
 
@@ -77,7 +76,5 @@ void	ft_mini_map_render(t_cub3D *cub)
 		}
 		y++;
 	}
-	printf("minimap generated\n");
 	ft_player_to_minimap(cub);
-	printf("full minimap render generated\n");
 }

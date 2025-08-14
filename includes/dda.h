@@ -4,10 +4,20 @@
 // Forward declaration to avoid circular dependency
 typedef struct s_cub3D t_cub3D;
 
+typedef struct s_wall
+{
+	double	wall_distance;
+	double	mini_distance;
+	int		hit_side;
+	int		hit;
+}	t_wall;
+
 typedef struct s_dda
 {
 	int		mapX;
 	int		mapY;
+	int		mini_mapX;
+	int		mini_mapY;
 	double	dirX;
 	double	dirY;
 	double	planeX;
@@ -22,6 +32,6 @@ typedef struct s_dda
 	double	deltaDistY;
 }	t_dda;
 
-int	ft_dda(t_cub3D *cub, double cameraX);
+void	ft_dda(t_cub3D *cub, double rayDistX, double rayDistY);
 
 #endif

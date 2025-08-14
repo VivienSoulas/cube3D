@@ -60,6 +60,8 @@ typedef struct s_cub3D
 	int				floor_color;
 	int				ceiling_color;
 	int				mouse_x;
+	double			new_x;
+	double			new_y;
 	t_image			*img;
 	t_mini_map		*mini_map;
 	t_weapon		*weapon;
@@ -68,6 +70,7 @@ typedef struct s_cub3D
 	t_player		*player;
 	t_vector		*vector;
 	t_dda			*dda;
+	t_wall			*wall;
 }	t_cub3D;
 
 // error

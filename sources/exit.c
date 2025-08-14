@@ -36,11 +36,11 @@ void	ft_destroy_texture(t_cub3D *cub)
 		if (cub->textures->west)
 			mlx_destroy_image(cub->mlx_ptr, cub->textures->west);
 	}
-	if (cub->weapon)
-	{
-		if (cub->weapon->weapon)
-			mlx_destroy_image(cub->mlx_ptr, cub->weapon->weapon);
-	}
+	// if (cub->weapon)
+	// {
+	// 	if (cub->weapon->weapon)
+	// 		mlx_destroy_image(cub->mlx_ptr, cub->weapon->weapon);
+	// }
 }
 
 void	ft_free_cub(t_cub3D **cub)
@@ -53,14 +53,16 @@ void	ft_free_cub(t_cub3D **cub)
 		ft_free_set_null((void **)&(*cub)->img);
 	if ((*cub)->mini_map)
 		ft_free_set_null((void **)&(*cub)->mini_map);
-	if ((*cub)->weapon)
-		ft_free_set_null((void **)&(*cub)->weapon);
+	// if ((*cub)->weapon)
+	// 	ft_free_set_null((void **)&(*cub)->weapon);
 	if ((*cub)->textures)
 		ft_free_set_null((void **)&(*cub)->textures);
 	if ((*cub)->vector)
 		ft_free_set_null((void **)&(*cub)->vector);
 	if ((*cub)->dda)
 		ft_free_set_null((void **)&(*cub)->dda);
+	if ((*cub)->wall)
+		ft_free_set_null((void **)&(*cub)->wall);
 	if ((*cub)->map)
 	{
 		if ((*cub)->map->grid)

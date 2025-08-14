@@ -43,6 +43,7 @@ int		ft_initialise_mlx(t_cub3D *cub);
 
 // render
 void	ft_pixel_to_window(t_image *image, int x, int y, int colour);
+void	ft_draw_culums(t_cub3D *cub, int x);
 void	ft_image_render(t_cub3D *cub);
 
 // window

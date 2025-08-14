@@ -29,7 +29,6 @@ int	main(int ac, char **av)
 	mlx_hook(cub->window, 2, 1L << 0, ft_key_hooks, cub);
 	mlx_hook(cub->window, 6, 1L << 6, ft_mouse_move_event, cub);
 	mlx_hook(cub->window, 17, 0, ft_red_cross, cub);
-	// mlx_hook(cub->window, 25, 1L << 18, ft_resize, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (ft_exit(cub), 0);
 }
