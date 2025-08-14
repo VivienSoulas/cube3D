@@ -56,6 +56,8 @@ void	ft_side_movement(int key, t_cub3D *cub)
 	}
 }
 
+
+// when changing orientation also update DDA struct !!
 void	ft_orientation_change(int key, t_cub3D *cub)
 {
 	(void)cub;
@@ -64,7 +66,7 @@ void	ft_orientation_change(int key, t_cub3D *cub)
 		cub->player->angle += 10;
 		if (cub->player->angle >= 360)
 			cub->player->angle -= 360;
-		cub->player->radians_angle = cub->player->angle * M_PI / 180;
+		ft_update_dda_vectors(cub);
 		ft_mini_map_render(cub);
 		printf("rotating to the right\n");
 	}
@@ -73,12 +75,13 @@ void	ft_orientation_change(int key, t_cub3D *cub)
 		cub->player->angle -= 10;
 		if (cub->player->angle < 0)
 			cub->player->angle += 360;
-		cub->player->radians_angle = cub->player->angle * M_PI / 180;
+		ft_update_dda_vectors(cub);
 		ft_mini_map_render(cub);
 		printf("rotating to the left\n");
 	}
 }
 
+// when changing orientation also update DDA struct !!
 void	ft_orientation_change_mouse(int key, t_cub3D *cub)
 {
 	(void)cub;

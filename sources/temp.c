@@ -40,6 +40,10 @@ int	ft_read_map(t_cub3D *cub)
     cub->map->height = map_height;
 
     // Place player inside the map, not in a wall
+	// E = 0, dirX = 1, dirY = 0
+	// N = 90, dirX = 0, dirY = -1
+	// W = 180, dirX = -1, dirY = 0
+	// S = 270, dirX = 0, dirY = 1
     cub->player->pos_x = 2;
     cub->player->pos_y = 2;
     cub->player->start_dir = 'N';

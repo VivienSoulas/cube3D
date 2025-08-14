@@ -9,19 +9,22 @@ int	ft_initialise_cub(t_cub3D *cub, char **av)
 	cub->textures = ft_calloc(1, sizeof(t_textures));
 	cub->player = ft_calloc(1, sizeof(t_player));
 	cub->vector = ft_calloc(1, sizeof(t_vector));
+	cub->dda = ft_calloc(1, sizeof(t_dda));
 	if (cub->fd == -1 || !cub->img || !cub->mini_map
-		|| !cub->weapon || !cub->textures || !cub->player || !cub->vector)
+		|| !cub->weapon || !cub->textures || !cub->player || !cub->vector
+		|| !cub->dda)
 		return (ft_exit(cub), ft_error(4), 1);
 	cub->window_width = DEFAULT_WIDTH;
 	cub->window_height = DEFAULT_HEIGHT;
 	cub->player->fov = M_PI / 3;
+	cub->player->fov_factor = tan(cub->player->fov / 2);
 	cub->mouse_x = 0;
 	// ft_map_parsing(fd, cub);
-	// if (!cub->map)
+// if (!cub->map)
 	// 	return (ft_exit(cub), ft_error(4), 1);
 if (ft_read_map(cub) == 1)
 return (ft_exit(cub), ft_error(4), 1);
-	cub->player->radians_angle = cub->player->angle * M_PI / 180;
+		ft_update_dda_vector(cub);
 	return (0);
 }
 

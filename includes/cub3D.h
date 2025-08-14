@@ -26,6 +26,7 @@
 # include "minimap.h"
 # include "movement.h"
 # include "graphic.h"
+# include "dda.h"
 
 typedef struct s_player
 {
@@ -39,6 +40,7 @@ typedef struct s_player
 	float	sin_left;
 	char	start_dir;
 	float	fov;
+	double	fov_factor;
 }	t_player;
 
 typedef struct s_map
@@ -65,6 +67,7 @@ typedef struct s_cub3D
 	t_map			*map;
 	t_player		*player;
 	t_vector		*vector;
+	t_dda			*dda;
 }	t_cub3D;
 
 // error
@@ -90,5 +93,6 @@ int		ft_read_map(t_cub3D *cub);
 
 // utils
 int		ft_absolute(int a);
+void	ft_update_dda_vector(t_cub3D *cub);
 
 #endif

@@ -7,7 +7,11 @@ int	ft_absolute(int a)
 	return (a);
 }
 
-void	ft_dda()
+void	ft_update_dda_vector(t_cub3D *cub)
 {
-	
+	cub->player->radians_angle = cub->player->angle * M_PI / 180;
+	cub->dda->dirX = cos(cub->player->radians_angle);
+	cub->dda->dirY = -sin(cub->player->radians_angle);
+	cub->dda->planeX = sin(cub->player->radians_angle) * cub->player->fov_factor;
+	cub->dda->planeY = cos(cub->player->radians_angle) * cub->player->fov_factor;
 }

@@ -59,6 +59,8 @@ void	ft_free_cub(t_cub3D **cub)
 		ft_free_set_null((void **)&(*cub)->textures);
 	if ((*cub)->vector)
 		ft_free_set_null((void **)&(*cub)->vector);
+	if ((*cub)->dda)
+		ft_free_set_null((void **)&(*cub)->dda);
 	if ((*cub)->map)
 	{
 		if ((*cub)->map->grid)
