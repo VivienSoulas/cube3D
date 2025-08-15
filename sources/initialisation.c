@@ -20,6 +20,7 @@ int	ft_initialise_cub(t_cub3D *cub, char **av)
 	cub->player->fov = M_PI / 3;
 	cub->player->fov_factor = tan(cub->player->fov / 2);
 	cub->mouse_x = 0;
+	cub->mouse_on_off = 1;
 	// ft_map_parsing(fd, cub);
 // if (!cub->map)
 	// 	return (ft_exit(cub), ft_error(4), 1);
