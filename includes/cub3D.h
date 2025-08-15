@@ -1,8 +1,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define DEFAULT_WIDTH 500
-# define DEFAULT_HEIGHT 500
+# define DEFAULT_WIDTH 1000
+# define DEFAULT_HEIGHT 1000
 
 #ifndef M_PI
 # define M_PI 3.14159265358979323846

@@ -63,7 +63,7 @@ void	ft_fill_fov_vectors(t_cub3D *cub, float right_angle, float left_angle)
 	double	new_cos;
 	double	step;
 
-	step = 0.02;
+	step = 0.01;
 	while (right_angle < left_angle)
 	{
 		new_cos = cos(right_angle);

@@ -60,7 +60,7 @@ $(MINI_LIB):
 	@make -C $(MINILIB)
 	@echo "$(BLUE)minilibx: libmlx.a created$(RESET)"
 
-PHONY: all clean fclean re val
+PHONY: all clean fclean re val run
 
 all: $(LIBFT_LIB) $(MINI_LIB) $(NAME)
 
@@ -84,3 +84,6 @@ val: $(NAME)
 	else \
 		valgrind --suppressions=x11.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) $(ARGS); \
 	fi
+
+run: $(NAME)
+	./$(NAME) maps/map1.cub

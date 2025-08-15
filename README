@@ -1,24 +1,9 @@
-key_event_hook:
-// think about how to handle big maps that dont fit in the minimap
+weapon to scale ??
 
-ft_mouse_move_event:
-// later needs to change minimap view (maybe ?)
-// or at least change the view of the 1st person from roght to left
-// can not look up or down
-
-ft_resize:
-// resize shoould change :
-//		window size and image displayed size
-//		minimap size
-//		weapon size
-//		wall texture size
-//		destroy wall textures and redisplay with new scales/calculations
-
-weapon to scale (generally how to resize images)
-
-think about:
+parsing think about:
 empty map
 only new line
 only spaces
 only tabs
 wrong textures path
+different order of inputs

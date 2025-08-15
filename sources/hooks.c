@@ -14,20 +14,52 @@ int	ft_key_hooks(int key, t_cub3D *cub)
 	return (0);
 }
 
-// mlx_mouse_get_pos(((t_cub3D *)cub)->window, &x, &y);
-int	ft_mouse_move_event(int x, int y, void *cub)
+//// mlx_mouse_get_pos(((t_cub3D *)cub)->window, &x, &y);
+//int	ft_mouse_move_event(int x, int y, void *cub)
+//{
+//	mlx_mouse_get_pos(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, &x, &y);
+//	if (((t_cub3D *)cub)->mouse_x < x - 10) // left movement
+//	{
+//		//if (((t_cub3D *)cub)->mouse_x <= (((t_cub3D *)cub)->window_width - 10))
+//		//	mlx_mouse_move(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, (((t_cub3D *)cub)->window_width / 2), (((t_cub3D *)cub)->window_height / 2));
+//		((t_cub3D *)cub)->mouse_x = x;
+//		ft_orientation_change(65363, cub); // left movement
+//		((t_cub3D *)cub)->mouse_x = x;
+//	}
+//	else if (((t_cub3D *)cub)->mouse_x > x + 10)
+//	{
+//		//if (((t_cub3D *)cub)->mouse_x <= 0)
+//		//	mlx_mouse_move(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, (((t_cub3D *)cub)->window_width / 2), (((t_cub3D *)cub)->window_height / 2));
+//		((t_cub3D *)cub)->mouse_x = x;
+//		ft_orientation_change(65361, cub); // right movement
+//	}
+//	mlx_put_image_to_window(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, ((t_cub3D *)cub)->mini_map->img_ptr, 0, 0);
+//	return (0);
+//}
+
+int		ft_mouse_move_event(int x, int y, void *cub)
 {
-	mlx_mouse_get_pos(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, &x, &y);
-	if (((t_cub3D *)cub)->mouse_x < x - 10) // left movement
+	int	center_x;
+	int	center_y;
+	int	mx;
+	int	my;
+
+	(void)y;
+	mlx_mouse_get_pos(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, &mx, &my);
+	center_x = ((t_cub3D *)cub)->window_width / 2;
+	center_y = ((t_cub3D *)cub)->window_height / 2;
+	mx = x - center_x;
+	if (mx != 0)
 	{
-		((t_cub3D *)cub)->mouse_x = x;
-		ft_orientation_change(65363, cub);
-		((t_cub3D *)cub)->mouse_x = x;
-	}
-	else if (((t_cub3D *)cub)->mouse_x > x + 10)
-	{
-		((t_cub3D *)cub)->mouse_x = x;
-		ft_orientation_change(65361, cub); // right movement
+		if (mx > 8)
+		{
+			ft_orientation_change(65363, cub);
+		}
+		else if (mx < -8)
+		{
+			ft_orientation_change(65361, cub);
+		}
+		mlx_mouse_move(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, center_x, center_y);
 	}
 	mlx_put_image_to_window(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, ((t_cub3D *)cub)->mini_map->img_ptr, 0, 0);
 	return (0);
