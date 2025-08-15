@@ -101,5 +101,6 @@ int		ft_read_map(t_cub3D *cub);
 int		ft_alloc_struct(t_cub3D *cub);
 int		ft_absolute(int a);
 void	ft_update_dda_vector(t_cub3D *cub);
+void	ft_update(t_cub3D *cub);
 
 #endif

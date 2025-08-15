@@ -36,7 +36,8 @@ int	ft_open_texture(t_cub3D *cub)
 	return (0);
 }
 
-// here needs to be the raycasting function(s) instead of image render only with colours
+// here needs to be the raycasting function(s)
+// instead of image render only with colours
 void	ft_render_image(t_cub3D *cub)
 {
 	if (!cub->img->img_ptr)
@@ -55,14 +56,17 @@ void	ft_render_image(t_cub3D *cub)
 // find and display weapon image
 // int	ft_render_weapon(t_cub3D *cub)
 // {
-// 	cub->weapon->weapon = mlx_xpm_file_to_image(cub->mlx_ptr, "textures/weapon.xpm", &cub->weapon->weapon_width, &cub->weapon->weapon_height);
+// 	cub->weapon->weapon = mlx_xpm_file_to_image(cub->mlx_ptr,
+	// "textures/weapon.xpm", &cub->weapon->weapon_width,
+	// &cub->weapon->weapon_height);
 // 	if (!cub->weapon->weapon)
 // 		return (ft_exit(cub), ft_error(5), 1);
 // 	cub->weapon->weapon_x = (cub->window_width - cub->weapon->weapon_width) / 2;
 // 	cub->weapon->weapon_y = cub->window_height - cub->weapon->weapon_height;
 // 	if (cub->weapon->weapon_y < 0)
 // 		cub->weapon->weapon_y = 0;
-// 	mlx_put_image_to_window(cub->mlx_ptr, cub->window, cub->weapon->weapon, cub->weapon->weapon_x, cub->weapon->weapon_y);
+// 	mlx_put_image_to_window(cub->mlx_ptr, cub->window,
+//	cub->weapon->weapon, cub->weapon->weapon_x, cub->weapon->weapon_y);
 // 	printf("weapon created and applied to window\n");
 // 	return (0);
 // }

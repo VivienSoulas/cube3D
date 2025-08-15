@@ -25,7 +25,7 @@ void	ft_render_wall(t_cub3D *cub, int x, int y)
 			colour = 0x000045;
 		else // North
 			colour = 0x450045;
-	}				
+	}
 	ft_pixel_to_window(cub->img, x, y, colour);
 }
 
