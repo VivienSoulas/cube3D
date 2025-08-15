@@ -32,6 +32,9 @@ typedef struct s_dda
 	double	deltaDistY;
 }	t_dda;
 
+void	ft_wall_distance(t_cub3D *cub);
+void	ft_finding_wall(t_cub3D *cub);
+void	ft_steps(t_cub3D *cub, double rayDirX, double rayDirY);
 void	ft_dda(t_cub3D *cub, double rayDistX, double rayDistY);
 
 #endif
