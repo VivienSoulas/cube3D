@@ -50,6 +50,6 @@ void	ft_image_render(t_cub3D *cub);
 int		ft_create_window(t_cub3D *cub);
 int		ft_open_texture(t_cub3D *cub);
 void	ft_render_image(t_cub3D *cub);
-int		ft_render_weapon(t_cub3D *cub);
+// int		ft_render_weapon(t_cub3D *cub);
 
 #endif

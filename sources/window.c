@@ -59,10 +59,10 @@ void	ft_render_image(t_cub3D *cub)
 // render minimap to scale
 void	ft_render_mini_map(t_cub3D *cub)
 {
-	cub->mini_map->width = cub->window_width / 5;
-	cub->mini_map->height = cub->mini_map->width;
 	if (!cub->mini_map->img_ptr)
 	{
+		cub->mini_map->width = cub->window_width / 5;
+		cub->mini_map->height = cub->mini_map->width;
 		cub->mini_map->img_ptr = mlx_new_image(cub->mlx_ptr, cub->mini_map->width, cub->mini_map->height);
 		cub->mini_map->img_pixels_ptr = mlx_get_data_addr(cub->mini_map->img_ptr, &cub->mini_map->bits_per_pixel, &cub->mini_map->line_len, &cub->mini_map->endian);
 	}

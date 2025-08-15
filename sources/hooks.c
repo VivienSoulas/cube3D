@@ -18,13 +18,13 @@ int	ft_key_hooks(int key, t_cub3D *cub)
 int	ft_mouse_move_event(int x, int y, void *cub)
 {
 	mlx_mouse_get_pos(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, &x, &y);
-	if (((t_cub3D *)cub)->mouse_x < x - 5) // left movement
+	if (((t_cub3D *)cub)->mouse_x < x - 10) // left movement
 	{
 		((t_cub3D *)cub)->mouse_x = x;
 		ft_orientation_change(65363, cub);
 		((t_cub3D *)cub)->mouse_x = x;
 	}
-	else if (((t_cub3D *)cub)->mouse_x > x + 5)
+	else if (((t_cub3D *)cub)->mouse_x > x + 10)
 	{
 		((t_cub3D *)cub)->mouse_x = x;
 		ft_orientation_change(65361, cub); // right movement
