@@ -15,6 +15,8 @@ void	ft_draw_culums(t_cub3D *cub, int x)
 	int	wallend;
 	int	y;
 
+	int colour;
+
 	y = 0;
 	wallheight = (int)(cub->window_height / cub->wall->wall_distance);
 	wallstart = -wallheight / 2 + cub->window_height / 2;
@@ -28,7 +30,24 @@ void	ft_draw_culums(t_cub3D *cub, int x)
 		if (y < wallstart)
 			ft_pixel_to_window(cub->img, x, y, cub->ceiling_color);
 		else if (y >= wallstart && y <= wallend)
-			ft_pixel_to_window(cub->img, x, y, 0xffffff);
+		{
+			if (cub->wall->hit_side == 0) // East and West
+			{
+				if (cub->dda->raydirx > 0) // East
+					colour = 0xffffff;
+				else // West
+					colour = 0x000000;
+			}
+			else // Nort and South
+			{
+				if (cub->dda->raydiry > 0) // South
+					colour = 0x000045;
+				else // North
+					colour = 0x450045;
+			}
+				
+			ft_pixel_to_window(cub->img, x, y, colour);
+		}
 		else
 			ft_pixel_to_window(cub->img, x, y, cub->floor_color);
 		y++;
@@ -45,9 +64,9 @@ void	ft_image_render(t_cub3D *cub)
 	while (x < cub->window_width)
 	{
 		camerax = 2 * x / (double)cub->window_width - 1;
-		cub->dda->rayDirX = cub->dda->dirX + cub->dda->planeX * camerax;
-		cub->dda->rayDirY = cub->dda->dirY + cub->dda->planeY * camerax;
-		ft_dda(cub, cub->dda->rayDirX, cub->dda->rayDirY);
+		cub->dda->raydirx = cub->dda->dirx + cub->dda->planex * camerax;
+		cub->dda->raydiry = cub->dda->diry + cub->dda->planey * camerax;
+		ft_dda(cub, cub->dda->raydirx, cub->dda->raydiry);
 		ft_draw_culums(cub, x);
 		x++;
 	}

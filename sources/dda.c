@@ -6,11 +6,11 @@ void	ft_wall_distance(t_cub3D *cub)
 	double	dy;
 
 	if (cub->wall->hit_side == 0)
-		cub->wall->wall_distance = (cub->dda->sideDistX - cub->dda->deltaDistX);
+		cub->wall->wall_distance = (cub->dda->sidedistx - cub->dda->deltadistx);
 	else
-		cub->wall->wall_distance = (cub->dda->sideDistY - cub->dda->deltaDistY);
-	dx = cub->dda->mapX - cub->player->pos_x;
-	dy = cub->dda->mapY - cub->player->pos_y;
+		cub->wall->wall_distance = (cub->dda->sidedisty - cub->dda->deltadisty);
+	dx = cub->dda->mapx - cub->player->pos_x;
+	dy = cub->dda->mapy - cub->player->pos_y;
 	cub->wall->mini_distance = sqrt(dx * dx + dy * dy);
 }
 
@@ -19,69 +19,69 @@ void	ft_finding_wall(t_cub3D *cub)
 	cub->wall->hit = 0;
 	while (cub->wall->hit == 0)
 	{
-		if (cub->dda->sideDistX < cub->dda->sideDistY)
+		if (cub->dda->sidedistx < cub->dda->sidedisty)
 		{
-			cub->dda->sideDistX += cub->dda->deltaDistX;
-			cub->dda->mapX += cub->dda->stepX;
+			cub->dda->sidedistx += cub->dda->deltadistx;
+			cub->dda->mapx += cub->dda->stepx;
 			cub->wall->hit_side = 0;
 		}
 		else
 		{
-			cub->dda->sideDistY += cub->dda->deltaDistY;
-			cub->dda->mapY += cub->dda->stepY;
+			cub->dda->sidedisty += cub->dda->deltadisty;
+			cub->dda->mapy += cub->dda->stepy;
 			cub->wall->hit_side = 1;
 		}
-		if (cub->dda->mapX < 0 || cub->dda->mapX >= cub->map->width
-			|| cub->dda->mapY < 0 || cub->dda->mapY >= cub->map->height)
+		if (cub->dda->mapx < 0 || cub->dda->mapx >= cub->map->width
+			|| cub->dda->mapy < 0 || cub->dda->mapy >= cub->map->height)
 		{
 			cub->wall->hit = 1;
 		}
-		else if (cub->map->grid[cub->dda->mapY][cub->dda->mapX] == '1')
+		else if (cub->map->grid[cub->dda->mapy][cub->dda->mapx] == '1')
 			cub->wall->hit = 1;
 	}
 }
 
-void	ft_steps(t_cub3D *cub, double rayDirX, double rayDirY)
+void	ft_steps(t_cub3D *cub, double raydirx, double raydiry)
 {
-	if (rayDirX < 0)
+	if (raydirx < 0)
 	{
-		cub->dda->stepX = -1;
-		cub->dda->sideDistX = (cub->player->pos_x
-				- (double)cub->dda->mapX) * cub->dda->deltaDistX;
+		cub->dda->stepx = -1;
+		cub->dda->sidedistx = (cub->player->pos_x
+				- (double)cub->dda->mapx) * cub->dda->deltadistx;
 	}
 	else
 	{
-		cub->dda->stepX = 1;
-		cub->dda->sideDistX = ((double)cub->dda->mapX
-				+ 1.0 - cub->player->pos_x) * cub->dda->deltaDistX;
+		cub->dda->stepx = 1;
+		cub->dda->sidedistx = ((double)cub->dda->mapx
+				+ 1.0 - cub->player->pos_x) * cub->dda->deltadistx;
 	}
-	if (rayDirY < 0)
+	if (raydiry < 0)
 	{
-		cub->dda->stepY = -1;
-		cub->dda->sideDistY = (cub->player->pos_y
-				- (double)cub->dda->mapY) * cub->dda->deltaDistY;
+		cub->dda->stepy = -1;
+		cub->dda->sidedisty = (cub->player->pos_y
+				- (double)cub->dda->mapy) * cub->dda->deltadisty;
 	}
 	else
 	{
-		cub->dda->stepY = 1;
-		cub->dda->sideDistY = ((double)cub->dda->mapY
-				+ 1.0 - cub->player->pos_y) * cub->dda->deltaDistY;
+		cub->dda->stepy = 1;
+		cub->dda->sidedisty = ((double)cub->dda->mapy
+				+ 1.0 - cub->player->pos_y) * cub->dda->deltadisty;
 	}
 }
 
-void	ft_dda(t_cub3D *cub, double rayDirX, double rayDirY)
+void	ft_dda(t_cub3D *cub, double raydirx, double raydiry)
 {
-	cub->dda->mapX = (int)cub->player->pos_x;
-	cub->dda->mapY = (int)cub->player->pos_y;
-	if (rayDirX == 0)
-		cub->dda->deltaDistX = 1e30;
+	cub->dda->mapx = (int)cub->player->pos_x;
+	cub->dda->mapy = (int)cub->player->pos_y;
+	if (raydirx == 0)
+		cub->dda->deltadistx = 1e30;
 	else
-		cub->dda->deltaDistX = fabs(1.0 / rayDirX);
-	if (rayDirY == 0)
-		cub->dda->deltaDistY = 1e30;
+		cub->dda->deltadistx = fabs(1.0 / raydirx);
+	if (raydiry == 0)
+		cub->dda->deltadisty = 1e30;
 	else
-		cub->dda->deltaDistY = fabs(1.0 / rayDirY);
-	ft_steps(cub, rayDirX, rayDirY);
+		cub->dda->deltadisty = fabs(1.0 / raydiry);
+	ft_steps(cub, raydirx, raydiry);
 	ft_finding_wall(cub);
 	ft_wall_distance(cub);
 }
