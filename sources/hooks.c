@@ -63,15 +63,15 @@ int	ft_mouse_move_event(int x, int y, void *cub)
 	mx = x - center_x;
 	if (mx != 0)
 	{
+		mlx_mouse_move(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, center_x, center_y);
 		if (mx > 5)
-		{
-			ft_orientation_change_mouse(65536, cub);
-		}
-		else if (mx < -5)
 		{
 			ft_orientation_change_mouse(65361, cub);
 		}
-		mlx_mouse_move(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, center_x, center_y);
+		else if (mx < -5)
+		{
+			ft_orientation_change_mouse(65363, cub);
+		}
 	}
 	mlx_put_image_to_window(((t_cub3D *)cub)->mlx_ptr, ((t_cub3D *)cub)->window, ((t_cub3D *)cub)->mini_map->img_ptr, 0, 0);
 	return (0);
