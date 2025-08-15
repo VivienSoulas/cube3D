@@ -3,17 +3,7 @@
 int	ft_initialise_cub(t_cub3D *cub, char **av)
 {
 	cub->fd = open(av[1], O_RDONLY);
-	cub->img = ft_calloc(1, sizeof(t_image));
-	cub->mini_map = ft_calloc(1, sizeof(t_mini_map));
-	// cub->weapon = ft_calloc(1, sizeof(t_weapon));
-	cub->textures = ft_calloc(1, sizeof(t_textures));
-	cub->player = ft_calloc(1, sizeof(t_player));
-	cub->vector = ft_calloc(1, sizeof(t_vector));
-	cub->dda = ft_calloc(1, sizeof(t_dda));
-	cub->wall = ft_calloc(1, sizeof(t_wall));
-	if (cub->fd == -1 || !cub->img || !cub->mini_map
-		/* || !cub->weapon  */|| !cub->textures || !cub->player || !cub->vector
-		|| !cub->dda || !cub->wall)
+	if (ft_alloc_struct(cub) == 1)
 		return (ft_exit(cub), ft_error(4), 1);
 	cub->window_width = DEFAULT_WIDTH;
 	cub->window_height = DEFAULT_HEIGHT;

@@ -43,12 +43,8 @@ void	ft_destroy_texture(t_cub3D *cub)
 	// }
 }
 
-void	ft_free_cub(t_cub3D **cub)
+void	ft_free_struct(t_cub3D **cub)
 {
-	if (!cub || !*cub)
-		return ;
-	if ((*cub)->fd > 0)
-		close((*cub)->fd);
 	if ((*cub)->img)
 		ft_free_set_null((void **)&(*cub)->img);
 	if ((*cub)->mini_map)
@@ -63,13 +59,22 @@ void	ft_free_cub(t_cub3D **cub)
 		ft_free_set_null((void **)&(*cub)->dda);
 	if ((*cub)->wall)
 		ft_free_set_null((void **)&(*cub)->wall);
+	if ((*cub)->player)
+		ft_free_set_null((void **)&(*cub)->player);
+}
+
+void	ft_free_cub(t_cub3D **cub)
+{
+	if (!cub || !*cub)
+		return ;
+	if ((*cub)->fd > 0)
+		close((*cub)->fd);
+	ft_free_struct(cub);
 	if ((*cub)->map)
 	{
 		if ((*cub)->map->grid)
 			ft_free_array((*cub)->map->grid);
 		ft_free_set_null((void **)&(*cub)->map);
 	}
-	if ((*cub)->player)
-		ft_free_set_null((void **)&(*cub)->player);
 	ft_free_set_null((void **)&(*cub));
 }

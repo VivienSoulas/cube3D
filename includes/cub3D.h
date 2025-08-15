@@ -80,8 +80,9 @@ void	ft_error(int id);
 
 // exit
 void	ft_exit(t_cub3D *cub);
-void	ft_free_cub(t_cub3D **cub);
 void	ft_destroy_texture(t_cub3D *cub);
+void	ft_free_struct(t_cub3D **cub);
+void	ft_free_cub(t_cub3D **cub);
 
 // free
 void	ft_free_set_null(void **data);
@@ -97,6 +98,7 @@ void	ft_map_parsing(int fd, t_cub3D *cub);
 int		ft_read_map(t_cub3D *cub);
 
 // utils
+int		ft_alloc_struct(t_cub3D *cub);
 int		ft_absolute(int a);
 void	ft_update_dda_vector(t_cub3D *cub);
 
