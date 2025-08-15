@@ -98,15 +98,8 @@ int	ft_read_map(t_cub3D *cub)
     // Place player in open area (avoid the wall obstacle)
     cub->player->pos_x = 2.5;
     cub->player->pos_y = 2.5;
-    cub->player->start_dir = 'E';  // Face East instead of North
-    cub->player->angle = 0;        // 0° = East
-	cub->player->radians_angle = cub->player->angle * M_PI / 180;
-
-	// initialise the dda according to player's orientation
-	cub->dda->dirx = cos(cub->player->radians_angle);
-	cub->dda->diry = -sin(cub->player->radians_angle);
-	cub->dda->planex = sin(cub->player->radians_angle) * 0.66;
-	cub->dda->planey = cos(cub->player->radians_angle) * 0.66;
+    cub->player->start_dir = 'S';  // Face East instead of North
+    cub->player->angle = 270;        // 0° = East
 
     cub->ceiling_color = 0x0000FF;
     cub->floor_color = 0x00FF00;
