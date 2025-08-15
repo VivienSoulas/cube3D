@@ -25,7 +25,7 @@ int	ft_initialise_cub(t_cub3D *cub, char **av)
 	// 	return (ft_exit(cub), ft_error(4), 1);
 if (ft_read_map(cub) == 1)
 return (ft_exit(cub), ft_error(4), 1);
-		ft_update_dda_vector(cub);
+	ft_update_dda_vector(cub);
 	return (0);
 }
 

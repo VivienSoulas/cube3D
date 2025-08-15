@@ -62,6 +62,7 @@ typedef struct s_cub3D
 	int				mouse_x;
 	double			new_x;
 	double			new_y;
+	int				keypressed[65537];
 	t_image			*img;
 	t_mini_map		*mini_map;
 	t_weapon		*weapon;

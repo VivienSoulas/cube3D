@@ -10,24 +10,24 @@ void	ft_pixel_to_window(t_image *image, int x, int y, int colour)
 
 void	ft_draw_culums(t_cub3D *cub, int x)
 {
-	int	wallHeight;
-	int	drawStart;
-	int	drawEnd;
+	int	wallheight;
+	int	wallstart;
+	int	wallend;
 	int	y;
 
 	y = 0;
-	wallHeight = (int)(cub->window_height / cub->wall->wall_distance);
-	drawStart = -wallHeight / 2 + cub->window_height /2;
-	drawEnd = wallHeight / 2 + cub->window_height /2;
-	if (drawStart < 0)
-		drawStart = 0;
-	if (drawEnd >= cub->window_height)
-		drawEnd = cub->window_height - 1;
+	wallheight = (int)(cub->window_height / cub->wall->wall_distance);
+	wallstart = -wallheight / 2 + cub->window_height / 2;
+	wallend = wallheight / 2 + cub->window_height / 2;
+	if (wallstart < 0)
+		wallstart = 0;
+	if (wallend >= cub->window_height)
+		wallend = cub->window_height - 1;
 	while (y < cub->window_height)
 	{
-		if (y < drawStart)
+		if (y < wallstart)
 			ft_pixel_to_window(cub->img, x, y, cub->ceiling_color);
-		else if (y >= drawStart && y <= drawEnd)
+		else if (y >= wallstart && y <= wallend)
 			ft_pixel_to_window(cub->img, x, y, 0xffffff);
 		else
 			ft_pixel_to_window(cub->img, x, y, cub->floor_color);
@@ -39,14 +39,14 @@ void	ft_draw_culums(t_cub3D *cub, int x)
 void	ft_image_render(t_cub3D *cub)
 {
 	int		x;
-	double	cameraX;
+	double	camerax;
 
 	x = 0;
 	while (x < cub->window_width)
 	{
-		cameraX = 2 * x / (double)cub->window_width - 1;
-		cub->dda->rayDirX = cub->dda->dirX + cub->dda->planeX * cameraX;
-		cub->dda->rayDirY = cub->dda->dirY + cub->dda->planeY * cameraX;
+		camerax = 2 * x / (double)cub->window_width - 1;
+		cub->dda->rayDirX = cub->dda->dirX + cub->dda->planeX * camerax;
+		cub->dda->rayDirY = cub->dda->dirY + cub->dda->planeY * camerax;
 		ft_dda(cub, cub->dda->rayDirX, cub->dda->rayDirY);
 		ft_draw_culums(cub, x);
 		x++;
