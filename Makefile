@@ -1,6 +1,9 @@
+### Precisei remover a minilibx pra compilar no meu computar
+
 NAME		=	cub3D
 
-SOURCES		=	main.c error.c map_parsing.c free.c exit.c utils.c hooks.c initialisation.c mini_map.c render.c \
+SOURCES = main.c arg_validator.c input_validator.c
+# SOURCES		=	main.c error.c map_parsing.c free.c exit.c utils.c hooks.c initialisation.c mini_map.c render.c \
 				temp.c window.c movement.c ray_casting.c minimap_vector.c
 GNL_SOURCES		=	get_next_line.c get_next_line_utils.c
 
@@ -16,7 +19,7 @@ OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o) $(GNL_SRC:$(GNL_DIR)/%.c=$(OBJ_DIR)
 ARGS		?=
 CC			=	cc
 CFLAGS		=	-Werror -Wall -Wextra -I$(HEADERS) -I$(LIBFT) -I$(MINILIB) -I$(GNL_DIR)
-MINI_FLAGS	=	-L$(MINILIB) -lmlx -lXext -lX11 -lbsd
+# MINI_FLAGS	=	-L$(MINILIB) -lmlx -lXext -lX11 -lbsd
 
 # ANSI color codes
 BLACK	=	\033[38;2;0;0;0m
@@ -42,12 +45,12 @@ LIBFT		=	./libft
 LIBFT_LIB	=	$(LIBFT)/libft.a
 
 # minilibs library
-MINILIB		=	./minilibx/minilibx-linux
-MINI_LIB	=	$(MINILIB)/libmlx.a
+# MINILIB		=	./minilibx/minilibx-linux
+# MINI_LIB	=	$(MINILIB)/libmlx.a
 
 # instructions to make NAME
-$(NAME): $(OBJ) $(LIBFT_LIB) $(MINI_LIB)
-	@$(CC) $(OBJ) $(LIBFT_LIB) $(MINI_LIB) $(MINI_FLAGS) -lm -o $(NAME)
+$(NAME): $(OBJ) $(LIBFT_LIB) #$(MINI_LIB)
+	@$(CC) $(OBJ) $(LIBFT_LIB) -lm -o $(NAME)
 	@echo "$(LIME)==========================\nSUCCESS : Program compiled\n==========================\n$(RESET)"
 
 # instructions to compile libft
@@ -84,3 +87,4 @@ val: $(NAME)
 	else \
 		valgrind --suppressions=x11.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) $(ARGS); \
 	fi
+#
