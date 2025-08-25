@@ -8,6 +8,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "libft.h"
+# include "../get_next_line/get_next_line.h"
 
 typedef struct s_input
 {
@@ -15,10 +16,14 @@ typedef struct s_input
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
+	bool	has_floor_color;
+	bool	has_celling_color;
+	//int		*floor_color;
 	//floor color
 	//celling color
 	char	**map;
-
+	char	*file_name;
+	int		fd;
 } t_input;
 
 //input_validator
