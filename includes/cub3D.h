@@ -10,6 +10,13 @@
 # include "libft.h"
 # include "../get_next_line/get_next_line.h"
 
+typedef	struct s_colors
+{
+	int	r;
+	int	g;
+	int	bx;
+} t_colors;
+
 typedef struct s_input
 {
 	char	*no_texture;
@@ -18,9 +25,8 @@ typedef struct s_input
 	char	*ea_texture;
 	bool	has_floor_color;
 	bool	has_celling_color;
-	//int		*floor_color;
-	//floor color
-	//celling color
+	t_colors	celling;
+	t_colors	floor;
 	char	**map;
 	char	*file_name;
 	int		fd;
