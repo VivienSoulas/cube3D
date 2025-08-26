@@ -137,12 +137,6 @@ void input_collors(char *line, t_input *data)
 {
 	int *rgb_color;
 
-	//I think I need a validation that I had the value returned here
-	// if (line[1] != ' ')
-	// {
-	// 	printf("missing space: %s\n", line);
-	// 	return ;
-	// }
 	rgb_color = valid_color(line);
 	if (rgb_color == NULL)
 		return ;
@@ -169,6 +163,58 @@ void input_collors(char *line, t_input *data)
 	}
 }
 
+void	input_textures(char *line, t_input *data)
+{
+	char	*texture;
+
+	if (!ft_isalpha(line[1]) || line[2] != ' ')
+	{
+		printf("Invalid texture path\n");
+		return ; //in this case it is invalid;
+	}
+	texture = ft_strtrim(line + 2, " \n\t");
+	printf("texture: *%s*\n", texture);
+	if (line[0] == 'N' && line[1] == 'O')
+	{
+		data->no_texture = texture;
+		printf("data->no_texture: *%s*\n", data->no_texture);
+	}
+	else if (line[0] == 'S' && line[1] == 'O')
+	{
+		data->so_texture = texture;
+		printf("data->so_texture: *%s*\n", data->so_texture);
+	}
+	else if (line[0] == 'W' && line[1] == 'E')
+	{
+		data->we_texture = texture;
+		printf("data->we_texture: *%s*\n", data->we_texture);
+	}
+	else if (line[0] == 'E' && line[1] == 'A')
+	{
+		data->ea_texture = texture;
+		printf("data->ea_texture: *%s*\n", data->ea_texture);
+	}
+	else
+	{
+		printf("Invalid character\n");
+		return ;
+	}
+}
+
+void	input_colors_and_textures(char *line, t_input *data)
+{
+	if (line[0] == 'C' || line[0] == 'F')
+	{
+		input_collors(line, data);
+			//pensar numa checagem para ver se a funcao input color nao retornou sem preencher os valores
+	}
+	else
+	{
+		input_textures(line, data);
+			//getting textures
+	}
+}
+
 void	input_data(t_input *data, char *arg)
 {
 
@@ -182,15 +228,10 @@ void	input_data(t_input *data, char *arg)
     }
     while ((line = get_next_line(data->fd)) != NULL)
     {
-        printf("%s", line);
-		if (line[0] == 'C' || line[0] == 'F')
+		printf("%s", line);
+		if (ft_isalpha(line[0]))
 		{
-			input_collors(line, data);
-			//pensar numa checagem para ver se a funcao input color nao retornou sem preencher os valores
-		}
-		else if (line[0] == 'N' || line[0] == 'S' || line[0] == 'W' || line[0] == 'E')
-		{
-			//getting textures
+			input_colors_and_textures(line, data);
 		}
 		if (data->no_texture != NULL && data->so_texture != NULL
 			&& data->ea_texture != NULL && data->we_texture != NULL
@@ -200,8 +241,8 @@ void	input_data(t_input *data, char *arg)
 		}
 		//else (check if it missing some textures and
 		//celling and floor, because only after that the map starts)
-        free(line);  // very important: free the allocated memory from get_next_line
-    }
+		free(line);  // very important: free the allocated memory from get_next_line
+	}
     // close(fd);
 }
 
