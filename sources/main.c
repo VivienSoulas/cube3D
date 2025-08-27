@@ -14,6 +14,8 @@ void initialize_data(t_input *input)
 	input->we_texture = NULL;
 	input->has_celling_color = false;
 	input->has_floor_color = false;
+	input->has_map_started = false;
+	input->total_lines = 0;
 }
 
 int	check_map_char(char **map)
@@ -39,21 +41,48 @@ int	check_map_char(char **map)
 	}
 	return (0);
 }
+char	*validate_map(char *line, int i, int tot_lines)
+{
+	//implemente validation;
+	printf("i: %d\n", i);
+	printf("tot_lines: %d\n", tot_lines);
+	return (line);
+}
 
-// void	input_map(char *line, t_input *data)
-// {
-// 	int	i;
+void	input_map(t_input *data, char *arg)
+{
+	char	*line;
+	char	*new_line;
+	int		i;
+	int		x;
+	int		map_lenth;
 
-// 	i = 0;
-
-// }
+	i = 0;
+	x = 0;
+	map_lenth = data->total_lines - data->map_starts;
+	data->map = malloc(sizeof(char *) * map_lenth + 1);
+	//check if malloc worked
+	data->map[map_lenth] = NULL;
+	data->fd = open(arg, O_RDONLY);
+ 	while ((line = get_next_line(data->fd)) != NULL)
+	{
+		if (i < data->map_starts)
+			i++;
+		else
+		{
+			new_line = validate_map(line, x, map_lenth);
+			x++;
+			data->map[x] = new_line;
+			printf("data->map: %s\n", data->map[x]);
+		}
+	}
+	close(data->fd);
+}
 
 void	input_data(t_input *data, char *arg)
 {
 	char	*line;
-	int		i;
 
-	i = 1;
     data->fd = open(arg, O_RDONLY);
     if (data->fd < 0)
     {
@@ -66,7 +95,7 @@ void	input_data(t_input *data, char *arg)
 		// printf("line: %d\n", i);
 		if (line[0] == '\n')
 		{
-			i++;
+			data->total_lines++;
 		}
 		else
 		{
@@ -76,15 +105,13 @@ void	input_data(t_input *data, char *arg)
 			}
 			else if (data->no_texture != NULL && data->so_texture != NULL
 				&& data->ea_texture != NULL && data->we_texture != NULL
-				&& data->has_celling_color != false && data->has_floor_color != false)
+				&& data->has_celling_color != false && data->has_floor_color != false
+				&& data->has_map_started == false)
 			{
-				// input_map(line, data);
-				// printf("map starts on line: %d\n", i);
-				// printf("Map starts\n");
-				data->map_starts = i;
-				break;
+				data->map_starts = data->total_lines;
+				data->has_map_started = true;
 			}
-			i++;
+			data->total_lines++;
 		}
 		free(line);  // very important: free the allocated memory from get_next_line
 	}
@@ -99,6 +126,7 @@ int main(int argc, char **argv)
 	check_args(argc, argv);
 	initialize_data(&data);
 	input_data(&data, argv[1]);
+	input_map(&data, argv[1]);
 
 	//I think the best would be validade de .cub file before save it inside the struct
 	//Validade arg

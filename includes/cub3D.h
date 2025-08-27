@@ -28,6 +28,8 @@ typedef struct s_input
 	t_colors	celling;
 	t_colors	floor;
 	int		map_starts;
+	bool	has_map_started;
+	int		total_lines;
 	char	**map;
 	char	*file_name;
 	int		fd;
