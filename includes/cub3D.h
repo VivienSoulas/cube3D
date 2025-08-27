@@ -27,13 +27,14 @@ typedef struct s_input
 	bool	has_celling_color;
 	t_colors	celling;
 	t_colors	floor;
+	int		map_starts;
 	char	**map;
 	char	*file_name;
 	int		fd;
 } t_input;
 
 //input_validator
-int	check_map_char(char **map);
+void	input_colors_and_textures(char *line, t_input *data);
 
 //arg_validator
 void	check_args(int argc, char **argv);
