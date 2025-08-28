@@ -5,7 +5,7 @@
 #include <stdio.h>   // printf
 #include <stdlib.h>  // free
 
-void initialize_data(t_input *input)
+void instantiate_data(t_input *input)
 {
 	input->map=NULL;
 	input->no_texture = NULL;
@@ -41,15 +41,42 @@ int	check_map_char(char **map)
 	}
 	return (0);
 }
-char	*validate_map(char *line, int i, int tot_lines)
+bool	is_map_valid(char *line, int i, int tot_lines)
 {
-	//implemente validation;
+	int	x;
+
+	x = 0;
 	printf("i: %d\n", i);
 	printf("tot_lines: %d\n", tot_lines);
-	return (line);
+	//validation for first and last line
+	if (i == 0 || i == tot_lines - 1)
+	{
+		while (line[x] ==' ')
+		x++;
+		while (line[x] != '\n')
+		{
+			if (line[x] != '1')
+			{
+				printf("Invalid map - not surronded by walls\n");
+				return (NULL);
+			}
+			x++;
+		}
+	}
+	else
+	{
+		while (line[x] != '\n')
+			x++;
+		if (line[0] != '1' || line[x-1] != '1')
+		{
+			printf("Invalid map - not surronded by walls\n");
+			return (NULL);
+		}
+	}
+	return (true);
 }
 
-void	input_map(t_input *data, char *arg)
+void	init_map(t_input *data, char *arg)
 {
 	char	*line;
 	char	*new_line;
@@ -64,13 +91,17 @@ void	input_map(t_input *data, char *arg)
 	//check if malloc worked
 	data->map[map_lenth] = NULL;
 	data->fd = open(arg, O_RDONLY);
+	if (has_fd_opened(data->fd))
+		return;
  	while ((line = get_next_line(data->fd)) != NULL)
 	{
 		if (i < data->map_starts)
 			i++;
 		else
 		{
-			new_line = validate_map(line, x, map_lenth);
+			new_line = ft_strtrim(line, "\n");
+			if (new_line == NULL)
+				break ;
 			x++;
 			data->map[x] = new_line;
 			printf("data->map: %s\n", data->map[x]);
@@ -79,16 +110,13 @@ void	input_map(t_input *data, char *arg)
 	close(data->fd);
 }
 
-void	input_data(t_input *data, char *arg)
+void	init_attributes(t_input *data, char *arg)
 {
 	char	*line;
 
     data->fd = open(arg, O_RDONLY);
-    if (data->fd < 0)
-    {
-        perror("Failure to open file");
-        return;
-    }
+    if (has_fd_opened(data->fd))
+		return;
     while ((line = get_next_line(data->fd)) != NULL)
     {
 		// printf("%s", line);
@@ -122,11 +150,10 @@ void	input_data(t_input *data, char *arg)
 int main(int argc, char **argv)
 {
 	t_input	data;
-	//Check if I receive the necessary args and if name is correct
-	check_args(argc, argv);
-	initialize_data(&data);
-	input_data(&data, argv[1]);
-	input_map(&data, argv[1]);
+	check_args(argc, argv);//I am using exit to leave the program
+	instantiate_data(&data); //nothing to fail
+	init_attributes(&data, argv[1]);
+	init_map(&data, argv[1]);
 
 	//I think the best would be validade de .cub file before save it inside the struct
 	//Validade arg

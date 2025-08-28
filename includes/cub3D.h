@@ -19,20 +19,20 @@ typedef	struct s_colors
 
 typedef struct s_input
 {
-	char	*no_texture;
-	char	*so_texture;
-	char	*we_texture;
-	char	*ea_texture;
-	bool	has_floor_color;
-	bool	has_celling_color;
+	char		*no_texture;
+	char		*so_texture;
+	char		*we_texture;
+	char		*ea_texture;
+	bool		has_floor_color;
+	bool		has_celling_color;
 	t_colors	celling;
 	t_colors	floor;
-	int		map_starts;
-	bool	has_map_started;
-	int		total_lines;
-	char	**map;
-	char	*file_name;
-	int		fd;
+	int			map_starts;
+	bool		has_map_started;
+	int			total_lines;
+	char		**map;
+	char		*file_name;
+	int			fd;
 } t_input;
 
 //input_validator
@@ -40,5 +40,8 @@ void	input_colors_and_textures(char *line, t_input *data);
 
 //arg_validator
 void	check_args(int argc, char **argv);
+
+//error_handling
+bool	has_fd_opened(int	fd);
 
 #endif
