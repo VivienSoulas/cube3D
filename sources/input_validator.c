@@ -125,8 +125,10 @@ void input_collors(char *line, t_input *data)
 	int *rgb_color;
 
 	rgb_color = valid_color(line);
+	// test to check if exit here remove the leaks
+	//rgb_color = NULL;
 	if (rgb_color == NULL)
-		return ;
+		ft_exit(1, line);
 	//think of a way that this returns stops the process to continue, maybe use a int returning 0 in case it worked and 1 in case it didn't work?
 	if (line[0] == 'C')
 	{
@@ -157,7 +159,7 @@ void	input_textures(char *line, t_input *data)
 	if (!ft_isalpha(line[1]) || line[2] != ' ')
 	{
 		printf("Invalid texture path\n");
-		return ; //in this case it is invalid;
+		ft_exit(1, line);
 	}
 	texture = ft_strtrim(line + 2, " \n\t");
 	printf("texture: *%s*\n", texture);
@@ -184,8 +186,10 @@ void	input_textures(char *line, t_input *data)
 	else
 	{
 		printf("Invalid character\n");
-		return ;
+		free(texture);
+		ft_exit(1, line);
 	}
+	free(texture);
 }
 
 void	input_colors_and_textures(char *line, t_input *data)

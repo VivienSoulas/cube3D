@@ -43,5 +43,6 @@ void	check_args(int argc, char **argv);
 
 //error_handling
 bool	has_fd_opened(int	fd);
+void	ft_exit(int	exit_code, char *line);
 
 #endif

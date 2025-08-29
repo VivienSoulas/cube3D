@@ -7,7 +7,7 @@ void	check_arg_extension(char *arg)
 	len = ft_strlen(arg);
 	if (ft_strncmp(&arg[len - 4], ".cub", 4) != 0)
 	{
-		printf("The map should have .cup extension");
+		printf("The map should have .cub extension");
 		exit (1);
 	}
 }

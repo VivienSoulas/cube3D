@@ -18,20 +18,21 @@ void instantiate_data(t_input *input)
 	input->total_lines = 0;
 }
 
-int	check_map_char(char **map)
+int	check_map_char(t_input	*data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (map[i] != NULL)
+	while (data->map[i] != NULL)
 	{
 		j = 0;
-		while (map[i][j] != '\0')
+		while (data->map[i][j] != '\0')
 		{
-			if (map[i][j] != '0' || map[i][j] != '1'
-				|| map[i][j] != 'N' || map[i][j] != 'S'
-				|| map[i][j] != 'E' || map[i][j] != 'W')
+			if (data->map[i][j] != '0' && data->map[i][j] != '1'
+				&& data->map[i][j] != 'N' && data->map[i][j] != 'S'
+				&& data->map[i][j] != 'E' && data->map[i][j] != 'W'
+				&& data->map[i][j] != ' ')
 			{
 				return (1);
 			}
@@ -91,7 +92,7 @@ void	init_map(t_input *data, char *arg)
 	//check if malloc worked
 	data->map[map_lenth] = NULL;
 	data->fd = open(arg, O_RDONLY);
-	if (has_fd_opened(data->fd))
+	if (has_fd_opened(data->fd) == false)
 		return;
  	while ((line = get_next_line(data->fd)) != NULL)
 	{
@@ -102,9 +103,9 @@ void	init_map(t_input *data, char *arg)
 			new_line = ft_strtrim(line, "\n");
 			if (new_line == NULL)
 				break ;
-			x++;
 			data->map[x] = new_line;
 			printf("data->map: %s\n", data->map[x]);
+			x++;
 		}
 	}
 	close(data->fd);
@@ -115,22 +116,16 @@ void	init_attributes(t_input *data, char *arg)
 	char	*line;
 
     data->fd = open(arg, O_RDONLY);
-    if (has_fd_opened(data->fd))
-		return;
+    if (has_fd_opened(data->fd) == false)
+		ft_exit(1, NULL);
     while ((line = get_next_line(data->fd)) != NULL)
     {
-		// printf("%s", line);
-		// printf("line: %d\n", i);
 		if (line[0] == '\n')
-		{
 			data->total_lines++;
-		}
 		else
 		{
 			if (ft_isalpha(line[0]))
-			{
 				input_colors_and_textures(line, data);
-			}
 			else if (data->no_texture != NULL && data->so_texture != NULL
 				&& data->ea_texture != NULL && data->we_texture != NULL
 				&& data->has_celling_color != false && data->has_floor_color != false
@@ -150,10 +145,16 @@ void	init_attributes(t_input *data, char *arg)
 int main(int argc, char **argv)
 {
 	t_input	data;
+
 	check_args(argc, argv);//I am using exit to leave the program
 	instantiate_data(&data); //nothing to fail
 	init_attributes(&data, argv[1]);
 	init_map(&data, argv[1]);
+	if (check_map_char(&data) == 1)
+	{
+		//make free and etc.
+		return (1);
+	}
 
 	//I think the best would be validade de .cub file before save it inside the struct
 	//Validade arg
