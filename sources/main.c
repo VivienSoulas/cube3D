@@ -321,8 +321,7 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	printf("Longest line: %d\n", find_the_longest_line(&data));
-	printf("flood fill: %d\n", flood_fill(&data,0, 3, 4));
-	int i = 0;
+	printf("flood fill: %d\n", flood_fill(&data,0, (&data)->player_x, (&data)->player_y));	int i = 0;
 	while ((&data)->map[i] != NULL)
 	{
 		printf("%s\n", (&data)->map[i]);
