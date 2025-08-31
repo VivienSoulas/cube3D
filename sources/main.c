@@ -304,7 +304,10 @@ int main(int argc, char **argv)
 	instantiate_data(&data); //nothing to fail
 	init_attributes(&data, argv[1]);
 	init_map(&data, argv[1]);
-	init_player_position(&data);
+	init_player_position(&data); //implement the player position inside
+									//the structure. I think the best will
+									//be havind a player struct that is
+									//linked inside the data struct
 	if (check_map_char(&data) == 1)
 	{
 		//make free and etc.
