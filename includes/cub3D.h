@@ -33,6 +33,8 @@ typedef struct s_input
 	char		**map;
 	char		*file_name;
 	int			fd;
+	int			player_x;
+	int			player_y;
 } t_input;
 
 //input_validator

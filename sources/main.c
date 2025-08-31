@@ -265,6 +265,11 @@ int	flood_fill(t_input *data, int r, int x, int y)
 	return (r);
 }
 
+bool	is_player(char	c)
+{
+	return (c == 'N' || c == 'S'|| c == 'W' || c == 'E');
+}
+
 /*
 * If the function needs to return the player posistion, it can be renamed to
 * find_player_postion, if the position is on set in `data` on this function,
@@ -277,12 +282,12 @@ void	init_player_position(t_input *data)
 	bool is_player_found = 0;
 
 	x = 0;
-	y = 0;
 	while (data->map[x])
 	{
+		y = 0;
 		while(data->map[x][y])
 		{
-			if (data->map[x][y] == 'N')
+			if (is_player(data->map[x][y]))
 			{
 				is_player_found = 1;
 				break;
@@ -293,7 +298,9 @@ void	init_player_position(t_input *data)
 			break;
 		x++;
 	}
-	printf("Player position is x: %d and y:%d", x, y);
+	data->player_x = x;
+	data->player_y = y;
+	printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
 }
 
 int main(int argc, char **argv)
