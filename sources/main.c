@@ -307,30 +307,51 @@ char	**copy_map(t_input	*data)
 	return (new_map);
 }
 
+void init_and_validade_input(t_input *data, char *argv)
+{
+	char **map;
+
+	init_attributes(data, argv);
+	init_map(data, argv);
+	init_player_position(data);
+	if (check_map_char(data) == 1)
+	{
+		//make free and etc.
+		//mudar pra exit
+		return ;
+	}
+	map = copy_map(data);
+	// printf("flood fill: %d\n", flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines));
+	if (flood_fill(map, 0, data->player_x, data->player_y, data->total_lines) != 0)
+		printf("invalid map\n");
+	print_map(map);
+}
+
 int main(int argc, char **argv)
 {
 	t_input	data;
 
 	check_args(argc, argv);//I am using exit to leave the program
 	instantiate_data(&data); //nothing to fail
-	init_attributes(&data, argv[1]);
-	init_map(&data, argv[1]);
-	init_player_position(&data); //implement the player position inside
+	init_and_validade_input(&data, argv[1]);
+	// init_attributes(&data, argv[1]);
+	// init_map(&data, argv[1]);
+	// init_player_position(&data); //implement the player position inside
 									//the structure. I think the best will
 									//be havind a player struct that is
 									//linked inside the data struct
-	if (check_map_char(&data) == 1)
-	{
-		//make free and etc.
-		return (1);
-	}
-	printf("Longest line: %d\n", find_the_longest_line(&data));
-	char **map;
-	map = copy_map(&data);
-	// printf("flood fill: %d\n", flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines));
-	if (flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines) != 0)
-		printf("invalid map\n");
-	print_map(map);
+	// if (check_map_char(&data) == 1)
+	// {
+	// 	//make free and etc.
+	// 	return (1);
+	// }
+	// printf("Longest line: %d\n", find_the_longest_line(&data));
+	// char **map;
+	// map = copy_map(&data);
+	// // printf("flood fill: %d\n", flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines));
+	// if (flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines) != 0)
+	// 	printf("invalid map\n");
+	// print_map(map);
 	//I think the best would be validade de .cub file before save it inside the struct
 	//Validade arg
 		//argv should have a file that contains:
