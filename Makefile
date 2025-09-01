@@ -2,7 +2,7 @@
 
 NAME		=	cub3D
 
-SOURCES =	main.c arg_validator.c input_validator.c error_handling.c
+SOURCES =	main.c arg_validator.c input_validator.c error_handling.c utils.c
 # SOURCES		=	main.c error.c map_parsing.c free.c exit.c utils.c hooks.c initialisation.c mini_map.c render.c \
 				temp.c window.c movement.c ray_casting.c minimap_vector.c
 GNL_SOURCES		=	get_next_line.c get_next_line_utils.c
@@ -59,9 +59,9 @@ $(LIBFT_LIB):
 	@echo "$(BLUE)libft: libft.a created$(RESET)"
 
 # build ML42 Library
-$(MINI_LIB):
-	@make -C $(MINILIB)
-	@echo "$(BLUE)minilibx: libmlx.a created$(RESET)"
+# $(MINI_LIB):
+# 	@make -C $(MINILIB)
+# 	@echo "$(BLUE)minilibx: libmlx.a created$(RESET)"
 
 PHONY: all clean fclean re val
 
@@ -70,13 +70,13 @@ all: $(LIBFT_LIB) $(MINI_LIB) $(NAME)
 clean:
 	@rm -rf $(OBJ_DIR)
 	@make -C $(LIBFT) clean
-	@make -C $(MINILIB) clean
+# 	@make -C $(MINILIB) clean
 	@echo "$(RED)/!\ Objects files removed /!\ $(RESET)"
 
 fclean: clean
 	@rm -f $(NAME)
 	@make -C $(LIBFT) fclean
-	@make -C $(MINILIB) clean
+# 	@make -C $(MINILIB) clean
 	@echo "$(RED)/!\ Executable removed /!\ $(RESET)"
 
 re: fclean all

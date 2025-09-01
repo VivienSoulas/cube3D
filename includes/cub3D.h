@@ -47,4 +47,7 @@ void	check_args(int argc, char **argv);
 bool	has_fd_opened(int	fd);
 void	ft_exit(int	exit_code, char *line);
 
+// utils
+void	print_map(char **map);
+
 #endif

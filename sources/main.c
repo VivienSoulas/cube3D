@@ -317,12 +317,6 @@ char	**copy_map(t_input	*data)
 		new_map[i] = ft_strdup(data->map[i]);
 		i++;
 	}
-	i = 0;
-	while (new_map[i] != NULL)
-	{
-		printf("new_map: %s\n", new_map[i]);
-		i++;
-	}
 	return (new_map);
 }
 
@@ -345,14 +339,11 @@ int main(int argc, char **argv)
 	}
 	printf("Longest line: %d\n", find_the_longest_line(&data));
 	char **map;
-
 	map = copy_map(&data);
-	printf("flood fill: %d\n", flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines));	int i = 0;
-	while ((&data)->map[i] != NULL)
-	{
-		printf("%s\n", (&data)->map[i]);
-		i++;
-	}
+	// printf("flood fill: %d\n", flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines));
+	if (flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines) != 0)
+		printf("invalid map\n");
+	print_map(map);
 	//I think the best would be validade de .cub file before save it inside the struct
 	//Validade arg
 		//argv should have a file that contains:
