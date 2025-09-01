@@ -5,19 +5,6 @@
 #include <stdio.h>   // printf
 #include <stdlib.h>  // free
 
-void instantiate_data(t_input *input)
-{
-	input->map=NULL;
-	input->no_texture = NULL;
-	input->so_texture = NULL;
-	input->ea_texture = NULL;
-	input->we_texture = NULL;
-	input->has_celling_color = false;
-	input->has_floor_color = false;
-	input->has_map_started = false;
-	input->total_lines = 0;
-}
-
 int	check_map_char(t_input	*data)
 {
 	int	i;

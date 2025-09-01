@@ -50,4 +50,7 @@ void	ft_exit(int	exit_code, char *line);
 // utils
 void	print_map(char **map);
 
+//instantiate_data
+void instantiate_data(t_input *input);
+
 #endif
