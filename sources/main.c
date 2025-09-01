@@ -235,33 +235,33 @@ void	init_attributes(t_input *data, char *arg)
 // }
 
 
-int	flood_fill(t_input *data, int r, int x, int y)
+int	flood_fill(char **map, int r, int x, int y, int	total_lines)
 {
 	// printf("--%s--\n", data->map[x]);
-	if (data->map[0] && ft_strchr(data->map[0], '0'))
+	if (map[0] && ft_strchr(map[0], '0'))
 		return (1);
-	if (!data->map[x])
+	if (!map[x])
 		return (1);
-	if (ft_strlen(data->map[x]) == 0)
+	if (ft_strlen(map[x]) == 0)
 		return (1);
-	if (data->map[x][y] && (data->map[x][y] == '1' \
-		|| data->map[x][y] == '2'))
+	if (map[x][y] && (map[x][y] == '1' \
+		|| map[x][y] == '2'))
 		return (0);
-	if ((x > data->total_lines - 1 || x < 0)
-		|| (y > (int)ft_strlen(data->map[x]) || y < 0))
+	if ((x > total_lines - 1 || x < 0)
+		|| (y > (int)ft_strlen(map[x]) || y < 0))
 		return (1);
-	if (data->map[x][y] == ' ')
+	if (map[x][y] == ' ')
     	return (1); // leak: reached empty space
-	if (data->map[x][y] != '1' && data->map[x][y] != '2' && data->map[x][y] != '0'
- 	   && data->map[x][y] != 'N' && data->map[x][y] != 'S'
- 	   && data->map[x][y] != 'E' && data->map[x][y] != 'W')
+	if (map[x][y] != '1' && map[x][y] != '2' && map[x][y] != '0'
+ 	   && map[x][y] != 'N' && map[x][y] != 'S'
+ 	   && map[x][y] != 'E' && map[x][y] != 'W')
  	   return (1); // invalid character
 
-	data->map[x][y] = '2';
-	r += flood_fill(data, r, x, y + 1);
-	r += flood_fill(data, r, x, y - 1);
-	r += flood_fill(data, r, x + 1, y);
-	r += flood_fill(data, r, x - 1, y);
+	map[x][y] = '2';
+	r += flood_fill(map, r, x, y + 1, total_lines);
+	r += flood_fill(map, r, x, y - 1, total_lines);
+	r += flood_fill(map, r, x + 1, y, total_lines);
+	r += flood_fill(map, r, x - 1, y, total_lines);
 	return (r);
 }
 
@@ -303,6 +303,29 @@ void	init_player_position(t_input *data)
 	printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
 }
 
+char	**copy_map(t_input	*data)
+{
+	char	**new_map;
+	int		i;
+
+	printf("total line: %d\n", (data->total_lines - data->map_starts));
+	new_map = ft_calloc(sizeof(char *), (data->total_lines - data->map_starts + 1));
+	//check faillure
+	i = 0;
+	while (i < (data->total_lines - data->map_starts))
+	{
+		new_map[i] = ft_strdup(data->map[i]);
+		i++;
+	}
+	i = 0;
+	while (new_map[i] != NULL)
+	{
+		printf("new_map: %s\n", new_map[i]);
+		i++;
+	}
+	return (new_map);
+}
+
 int main(int argc, char **argv)
 {
 	t_input	data;
@@ -321,7 +344,10 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	printf("Longest line: %d\n", find_the_longest_line(&data));
-	printf("flood fill: %d\n", flood_fill(&data,0, (&data)->player_x, (&data)->player_y));	int i = 0;
+	char **map;
+
+	map = copy_map(&data);
+	printf("flood fill: %d\n", flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines));	int i = 0;
 	while ((&data)->map[i] != NULL)
 	{
 		printf("%s\n", (&data)->map[i]);
