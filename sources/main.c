@@ -5,7 +5,7 @@
 #include <stdio.h>   // printf
 #include <stdlib.h>  // free
 
-int	check_map_char(t_input	*data)
+int	check_map_char(t_data	*data)
 {
 	int	i;
 	int	j;
@@ -29,7 +29,7 @@ int	check_map_char(t_input	*data)
 	}
 	return (0);
 }
-bool	is_map_valid(t_input *data)
+bool	is_map_valid(t_data *data)
 {
 	int	x;
 	int	i;
@@ -68,7 +68,7 @@ bool	is_map_valid(t_input *data)
 	return (true);
 }
 
-int	find_the_longest_line(t_input *data)
+int	find_the_longest_line(t_data *data)
 {
 	int	i;
 	int	x;
@@ -123,7 +123,7 @@ int	find_the_longest_line(t_input *data)
 // 	return (true);
 // }
 
-void	init_map(t_input *data, char *arg)
+void	init_map(t_data *data, char *arg)
 {
 	char	*line;
 	char	*new_line;
@@ -157,7 +157,7 @@ void	init_map(t_input *data, char *arg)
 	close(data->fd);
 }
 
-void	init_attributes(t_input *data, char *arg)
+void	init_attributes(t_data *data, char *arg)
 {
 	char	*line;
 
@@ -187,7 +187,7 @@ void	init_attributes(t_input *data, char *arg)
     close(data->fd);
 }
 
-// int flood_fill(t_input *data, int y, int x)
+// int flood_fill(t_data *data, int y, int x)
 // {
 //     // out of bounds (top, bottom, left, right)
 //     if (y < 0 || y >= data->total_lines)
@@ -262,7 +262,7 @@ bool	is_player(char	c)
 * find_player_postion, if the position is on set in `data` on this function,
 * init_player_position or fill_player_position are valid alternatives.
 */
-void	init_player_position(t_input *data)
+void	init_player_position(t_data *data)
 {
 	int	x;
 	int	y;
@@ -290,7 +290,7 @@ void	init_player_position(t_input *data)
 	printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
 }
 
-char	**copy_map(t_input	*data)
+char	**copy_map(t_data	*data)
 {
 	char	**new_map;
 	int		i;
@@ -307,7 +307,7 @@ char	**copy_map(t_input	*data)
 	return (new_map);
 }
 
-void init_and_validade_input(t_input *data, char *argv)
+void init_and_validade_data(t_data *data, char *argv)
 {
 	char **map;
 
@@ -329,43 +329,10 @@ void init_and_validade_input(t_input *data, char *argv)
 
 int main(int argc, char **argv)
 {
-	t_input	data;
+	t_data	data;
 
 	check_args(argc, argv);//I am using exit to leave the program
 	instantiate_data(&data); //nothing to fail
-	init_and_validade_input(&data, argv[1]);
-	// init_attributes(&data, argv[1]);
-	// init_map(&data, argv[1]);
-	// init_player_position(&data); //implement the player position inside
-									//the structure. I think the best will
-									//be havind a player struct that is
-									//linked inside the data struct
-	// if (check_map_char(&data) == 1)
-	// {
-	// 	//make free and etc.
-	// 	return (1);
-	// }
-	// printf("Longest line: %d\n", find_the_longest_line(&data));
-	// char **map;
-	// map = copy_map(&data);
-	// // printf("flood fill: %d\n", flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines));
-	// if (flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines) != 0)
-	// 	printf("invalid map\n");
-	// print_map(map);
-	//I think the best would be validade de .cub file before save it inside the struct
-	//Validade arg
-		//argv should have a file that contains:
-			//NO texture
-			//SO texture
-			//WE texture
-			//EA texture
-			//Floor color
-			//Celling color
-			//map
-		//Is map valid
-			//Has only the allowed characters (0, 1, N, S, E, W)?
-			//Is it surronded by walls?
-			//Spaces are a valid part of the map
-
+	init_and_validade_data(&data, argv[1]); //a lot to free and use exit or return
 	return (0);
 }

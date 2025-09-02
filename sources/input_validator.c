@@ -120,7 +120,7 @@ int *valid_color(char *line)
 }
 
 
-void input_collors(char *line, t_input *data)
+void input_collors(char *line, t_data *data)
 {
 	int *rgb_color;
 
@@ -152,7 +152,7 @@ void input_collors(char *line, t_input *data)
 	}
 }
 
-void	input_textures(char *line, t_input *data)
+void	input_textures(char *line, t_data *data)
 {
 	char	*texture;
 
@@ -192,7 +192,7 @@ void	input_textures(char *line, t_input *data)
 	free(texture);
 }
 
-void	input_colors_and_textures(char *line, t_input *data)
+void	input_colors_and_textures(char *line, t_data *data)
 {
 	if (line[0] == 'C' || line[0] == 'F')
 	{

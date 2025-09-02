@@ -17,7 +17,7 @@ typedef	struct s_colors
 	int	bx;
 } t_colors;
 
-typedef struct s_input
+typedef struct s_data
 {
 	char		*no_texture;
 	char		*so_texture;
@@ -35,10 +35,10 @@ typedef struct s_input
 	int			fd;
 	int			player_x;
 	int			player_y;
-} t_input;
+} t_data;
 
 //input_validator
-void	input_colors_and_textures(char *line, t_input *data);
+void	input_colors_and_textures(char *line, t_data *data);
 
 //arg_validator
 void	check_args(int argc, char **argv);
@@ -51,6 +51,6 @@ void	ft_exit(int	exit_code, char *line);
 void	print_map(char **map);
 
 //instantiate_data
-void instantiate_data(t_input *input);
+void instantiate_data(t_data *input);
 
 #endif
