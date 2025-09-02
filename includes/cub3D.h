@@ -53,4 +53,7 @@ void	print_map(char **map);
 //instantiate_data
 void instantiate_data(t_data *input);
 
+//init_data
+void init_and_validade_data(t_data *data, char *argv);
+
 #endif

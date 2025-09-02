@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/08/28 09:29:09 by natalia       #+#    #+#                 */
-/*   Updated: 2025/08/29 13:41:58 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/02 11:15:45 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	has_fd_opened(int	fd)
 {
 	if (fd < 0)
     {
-        perror("Failure to open file");
+        perror("Failure to open file\n");
         return (false);
     }
 	return (true);
