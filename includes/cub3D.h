@@ -14,7 +14,7 @@ typedef	struct s_colors
 {
 	int	r;
 	int	g;
-	int	bx;
+	int	b;
 } t_colors;
 
 typedef struct s_data
@@ -38,7 +38,7 @@ typedef struct s_data
 } t_data;
 
 //input_validator
-void	input_colors_and_textures(char *line, t_data *data);
+bool	is_attributes_inputed(char *line, t_data *data);
 
 //arg_validator
 void	check_args(int argc, char **argv);

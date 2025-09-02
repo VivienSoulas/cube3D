@@ -68,88 +68,131 @@ char **split_and_trim(char *line)
 	return (rgb_color);
 }
 
-int *valid_color(char *line)
+bool	is_valid_color(char	**rgb_color)
 {
-    char **rgb_color;
-    int  *rgb;
-    int   i;
+	int	i;
+	int	rgb;
 
-	if (line[1] != ' ')
-	{
-		printf("missing space: %s\n", line);
-		return (NULL);
-	}
-    rgb_color = split_and_trim(line + 1);
-    if (!rgb_color)
-        return (NULL);
-    rgb = malloc(sizeof(int) * 3);
-    if (!rgb)
-    {
-        free_array(rgb_color);
-        return (NULL);
-    }
-    i = 0;
-    while (rgb_color[i])
+	i = 0;
+	while (rgb_color[i])
     {
         if (!is_valid_number(rgb_color[i]))
         {
             printf("Error: invalid RGB component -> *%s*\n", rgb_color[i]);
-			free_array(rgb_color);
-            free(rgb);
-            return (NULL);
+            return (false);
         }
-        rgb[i] = ft_atoi(rgb_color[i]);
-        if (rgb[i] < 0 || rgb[i] > 255)
+        rgb = ft_atoi(rgb_color[i]);
+        if (rgb < 0 || rgb > 255)
         {
-            printf("Error: RGB out of range -> %d\n", rgb[i]);
-            free_array(rgb_color);
-            free(rgb);
-            return (NULL);
+            printf("Error: RGB out of range -> %d\n", rgb);
+            return (false);
         }
         i++;
     }
     if (i != 3)
     {
         printf("Error: wrong number of RGB components\n");
-        free_array(rgb_color);
-        free(rgb);
-        return (NULL);
+        return (false);
     }
+	return (true);
+}
+
+int *valid_color(char *line)
+{
+    char **rgb_color;
+	int	*rgb;
+    int   i;
+
+	i = 0;
+	rgb = 0;
+	// if (line[1] != ' ')
+	// {
+	// 	printf("missing space: %s\n", line);
+	// 	return (NULL);
+	// }
+    rgb_color = split_and_trim(line + 1);
+    if (!rgb_color)
+        return (NULL);
+	if (is_valid_color(rgb_color))
+	{
+		rgb = malloc(sizeof(int) * 3);
+		if (!rgb)
+		{
+			free_array(rgb_color);
+			return (NULL);
+		}
+		while (rgb_color[i])
+		{
+			rgb[i] = ft_atoi(rgb_color[i]);
+			i++;
+		}
+	}
+	else
+	{
+		free_array(rgb_color);
+		return (NULL);
+	}
     free_array(rgb_color); // free strings + array
     return (rgb);          // return parsed {R, G, B}
 }
+// bool input_collors(char *line, t_data *data)
+// {
+// 	int 	*rgb;
 
+// 	if (line[1] != ' ')
+// 	{
+// 		printf("missing space: %s\n", line);
+// 		return (false);
+// 	}
+// 	rgb = valid_color(line);
+// 	if (rgb == NULL)
+// 		return (false);
+// 	if (line[0] == 'C')
+// 	{
+// 		data->celling.r = rgb[0];
+// 		printf("after atoi %d\n", data->celling.r);
+// 		data->celling.g = rgb[1];
+// 		printf("after atoi %d\n", data->celling.g);
+// 		data->celling.b = rgb[2];
+// 		printf("after atoi %d\n", data->celling.bx);
+// 		data->has_celling_color = true;
+// 	}
+// 	else
+// 	{
+// 		data->floor.r = rgb[0];
+// 		printf("after atoi %d\n", data->floor.r);
+// 		data->floor.g = rgb[1];
+// 		printf("after atoi %d\n", data->floor.g);
+// 		data->floor.b = rgb[2];
+// 		printf("after atoi %d\n", data->floor.bx);
+// 		data->has_floor_color = true;
+// 	}
+// 	return (true);
+// }
 
-void input_collors(char *line, t_data *data)
+bool input_collors(char *line, t_data *data)
 {
-	int *rgb_color;
+	int 	*rgb;
+	t_colors	*target;
 
-	rgb_color = valid_color(line);
-	// test to check if exit here remove the leaks
-	//rgb_color = NULL;
-	if (rgb_color == NULL)
-		ft_exit(1, line);
-	//think of a way that this returns stops the process to continue, maybe use a int returning 0 in case it worked and 1 in case it didn't work?
+	rgb = valid_color(line);
+	if (rgb == NULL)
+		return (false);
 	if (line[0] == 'C')
 	{
-		data->celling.r = rgb_color[0];
-		printf("after atoi %d\n", data->celling.r);
-		data->celling.g = rgb_color[1];
-		printf("after atoi %d\n", data->celling.g);
-		data->celling.bx = rgb_color[2];
-		printf("after atoi %d\n", data->celling.bx);
+		target = &data->celling;
 		data->has_celling_color = true;
 	}
 	else
 	{
-		data->floor.r = rgb_color[0];
-		printf("after atoi %d\n", data->floor.r);
-		data->floor.g = rgb_color[1];
-		printf("after atoi %d\n", data->floor.g);
-		data->floor.bx = rgb_color[2];
-		printf("after atoi %d\n", data->floor.bx);
+		target = &data->floor;
 		data->has_floor_color = true;
 	}
+	target->r = rgb[0];
+	target->g = rgb[1];
+	target->b = rgb[2];
+	printf("after atoi R: %d G: %d B: %d\n", target->r, target->g, target->b);
+	return (true);
 }
 
 void	input_textures(char *line, t_data *data)
@@ -192,16 +235,23 @@ void	input_textures(char *line, t_data *data)
 	free(texture);
 }
 
-void	input_colors_and_textures(char *line, t_data *data)
+bool	is_attributes_inputed(char *line, t_data *data)
 {
-	if (line[0] == 'C' || line[0] == 'F')
+	if ((line[0] == 'C' || line[0] == 'F') && line[1] == ' ')
 	{
-		input_collors(line, data);
+		if (input_collors(line, data) == false)
+			return (false);
 			//pensar numa checagem para ver se a funcao input color nao retornou sem preencher os valores
 	}
-	else
+	else if (line[2] == ' ')
 	{
 		input_textures(line, data);
 			//getting textures
 	}
+	else
+	{
+		printf("missing space: %s\n", line);
+		return (false);
+	}
+	return (true);
 }
