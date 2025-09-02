@@ -11,6 +11,6 @@ int main(int argc, char **argv)
 
 	check_args(argc, argv);//I am using exit to leave the program
 	instantiate_data(&data); //nothing to fail
-	init_and_validade_data(&data, argv[1]); //a lot to free and use exit or return
+	parse_data(&data, argv[1]); //a lot to free and use exit or return
 	return (0);
 }

@@ -38,14 +38,14 @@ typedef struct s_data
 } t_data;
 
 //input_validator
-bool	is_attributes_inputed(char *line, t_data *data);
+bool	are_attributes_initialized(char *line, t_data *data);
 
 //arg_validator
 void	check_args(int argc, char **argv);
 
 //error_handling
 bool	has_fd_opened(int	fd);
-void	ft_exit(int	exit_code, char *line);
+void	ft_exit(int	exit_code, char *line, t_data *data);
 
 // utils
 void	print_map(char **map);
@@ -54,6 +54,6 @@ void	print_map(char **map);
 void instantiate_data(t_data *input);
 
 //init_data
-void init_and_validade_data(t_data *data, char *argv);
+void parse_data(t_data *data, char *argv);
 
 #endif
