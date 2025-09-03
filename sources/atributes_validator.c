@@ -1,11 +1,8 @@
 #include "../includes/cub3D.h"
 
- //check colors
- //check walls
-
 int	is_valid_number(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str || !*str)
@@ -20,21 +17,7 @@ int	is_valid_number(char *str)
 
 }
 
-void free_array(char **array)
-{
-	int i = 0;
-
-	if (!array)
-		return;
-	while (array[i] )
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
-
-char **split_and_trim(char *line)
+char	**split_and_trim(char *line)
 {
 	char	**rgb_color;
 	char	*temp;
@@ -114,78 +97,9 @@ int *get_color_input(char *line)
 		return (free_array(rgb_color), NULL);
 	return (free_array(rgb_color), rgb);
 }
-bool are_collors_initialized(char *line, t_data *data)
-{
-	int 	*rgb;
 
-	rgb = get_color_input(line);
-	if (rgb == NULL)
-		return (false);
-	if (line[0] == 'C')
-	{
-		data->celling.r = rgb[0];
-		data->celling.g = rgb[1];
-		data->celling.b = rgb[2];
-		data->has_celling_color = true;
-		printf("after atoi R: %d G: %d B: %d\n", data->celling.r, data->celling.g, data->celling.b);
 
-	}
-	else
-	{
-		data->floor.r = rgb[0];
-		data->floor.g = rgb[1];
-		data->floor.b = rgb[2];
-		data->has_floor_color = true;
-		printf("after atoi R: %d G: %d B: %d\n", data->floor.r, data->floor.g, data->floor.b);
-	}
-	return (true);
-}
 
-bool	are_textures_initialized(char *line, t_data *data)
-{
-	char	*texture;
 
-	if (!ft_isalpha(line[1]) || line[2] != ' ')
-	{
-		printf("Invalid texture path\n");
-		return (false);
-	}
-	texture = ft_strtrim(line + 2, " \n\t");
-	printf("texture: *%s*\n", texture);
-	if (line[0] == 'N' && line[1] == 'O')
-		data->no_texture = texture;
-	else if (line[0] == 'S' && line[1] == 'O')
-		data->so_texture = texture;
-	else if (line[0] == 'W' && line[1] == 'E')
-		data->we_texture = texture;
-	else if (line[0] == 'E' && line[1] == 'A')
-		data->ea_texture = texture;
-	else
-	{
-		printf("Invalid character\n");
-		free(texture);
-		return (false);
-	}
-	free(texture);
-	return (true);
-}
 
-bool	are_attributes_initialized(char *line, t_data *data)
-{
-	if ((line[0] == 'C' || line[0] == 'F') && line[1] == ' ')
-	{
-		if (are_collors_initialized(line, data) == false)
-			return (false);
-	}
-	else if (line[2] == ' ')
-	{
-		if (are_textures_initialized(line, data) == false)
-			return (false);
-	}
-	else
-	{
-		printf("missing space: %s\n", line);
-		return (false);
-	}
-	return (true);
-}
+

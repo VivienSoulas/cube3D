@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/02 11:16:33 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/02 17:05:05 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/03 11:38:43 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,74 +94,41 @@ int	find_the_longest_line(t_data *data)
 	return (longest_line);
 }
 
-// bool	is_map_valid(char *line, int i, int tot_lines)
-// {
-// 	int	x;
-
-// 	x = 0;
-// 	printf("i: %d\n", i);
-// 	printf("tot_lines: %d\n", tot_lines);
-// 	//validation for first and last line
-// 	if (i == 0 || i == tot_lines - 1)
-// 	{
-// 		while (line[x] ==' ')
-// 		x++;
-// 		while (line[x] != '\n')
-// 		{
-// 			if (line[x] != '1')
-// 			{
-// 				printf("Invalid map - not surronded by walls\n");
-// 				return (NULL);
-// 			}
-// 			x++;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		while (line[x] != '\n')
-// 			x++;
-// 		if (line[0] != '1' || line[x-1] != '1')
-// 		{
-// 			printf("Invalid map - not surronded by walls\n");
-// 			return (NULL);
-// 		}
-// 	}
-// 	return (true);
-// }
-
-void	init_map(t_data *data, char *arg)
+void	init_map(t_data *data, char *arg) //I need to optimize this function
 {
 	char	*line;
-	char	*new_line;
-	int		i;
-	int		x;
-	int		map_lenth;
+	int		index_line;
+	int		index_map;
 
-	i = 0;
-	x = 0;
-	map_lenth = data->total_lines - data->map_starts;
-	data->map = malloc(sizeof(char *) * map_lenth + 1);
-	//check if malloc worked
-	data->map[map_lenth] = NULL;
+	index_line = 0;
+	index_map = 0;
+	data->map = ft_calloc(sizeof(char *), ((data->total_lines - data->map_starts) + 1));
+	if (data->map == NULL)
+		return ;
 	data->fd = open(arg, O_RDONLY);
 	if (has_fd_opened(data->fd) == false)
 		return;
- 	while ((line = get_next_line(data->fd)) != NULL)
+	while ((line = get_next_line(data->fd)) != NULL)
 	{
-		if (i < data->map_starts)
-			i++;
-		else
+		printf("index line: %d\n", index_line);
+		if (index_line++ >= data->map_starts)
 		{
-			new_line = ft_strtrim(line, "\n");
-			if (new_line == NULL)
+			if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n')
+				line[ft_strlen(line) - 1] = '\0';
+			data->map[index_map] = ft_strdup(line);
+			printf("data->map: %s\n", data->map[index_map]);
+			if (data->map[index_map] == NULL)
+			{
+				free(line);
 				break ;
-			data->map[x] = new_line;
-			printf("data->map: %s\n", data->map[x]);
-			x++;
+			}
+			index_map++;
 		}
+		free(line);
 	}
 	close(data->fd);
 }
+
 
 bool	has_map_started(t_data *data)
 {
@@ -174,33 +141,6 @@ bool	has_map_started(t_data *data)
 		return (true);
 	}
 	return (false);
-}
-
-void	init_attributes(t_data *data, char *arg)
-{
-	char	*line;
-
-	data->fd = open(arg, O_RDONLY);
-	if (has_fd_opened(data->fd) == false)
-		ft_exit(1, NULL, data); //check if exit will work well or should I change to return and make init atributes a bool
-	while ((line = get_next_line(data->fd)) != NULL)
-	{
-		if (line[0] == '\n')
-			data->total_lines++;
-		else
-		{
-			if (ft_isalpha(line[0]))
-			{
-				if(are_attributes_initialized(line, data) == false)
-					ft_exit(1, line, data);//check if close fd inside ft_exit has worked
-			}
-			else if (has_map_started(data))
-				data->has_map_started = true;
-			data->total_lines++;
-		}
-		free(line);
-	}
-	close(data->fd);
 }
 
 int	flood_fill(char **map, int r, int x, int y, int	total_lines)
@@ -266,9 +206,13 @@ void	init_player_position(t_data *data)
 			break;
 		x++;
 	}
-	data->player_x = x;
-	data->player_y = y;
-	printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
+	printf("test\n");
+	if (is_player_found == 1)
+	{
+		data->player_x = x;
+		data->player_y = y;
+		printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
+	}
 }
 
 char	**copy_map(t_data	*data)
@@ -293,7 +237,10 @@ void parse_data(t_data *data, char *argv)
 
 	init_attributes(data, argv);
 	init_map(data, argv);
+	print_map(data->map);
 	init_player_position(data);
+	if (data->player_x == -1 && data->player_y == -1)
+		printf("There's no player\n");
 	if (check_map_char(data) == 1)
 	{
 		//make free and etc.
@@ -304,5 +251,5 @@ void parse_data(t_data *data, char *argv)
 	// printf("flood fill: %d\n", flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines));
 	if (flood_fill(map, 0, data->player_x, data->player_y, data->total_lines) != 0)
 		printf("invalid map\n");
-	print_map(map);
+	// print_map(map);
 }

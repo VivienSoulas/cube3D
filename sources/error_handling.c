@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/08/28 09:29:09 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/02 17:02:20 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/03 10:53:51 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,18 @@ void	ft_exit(int	exit_code, char *line, t_data *data)
 	if (data->fd)
 		close(data->fd);
 	exit(exit_code);
+}
+
+void free_array(char **array)
+{
+	int i = 0;
+
+	if (!array)
+		return;
+	while (array[i] )
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }

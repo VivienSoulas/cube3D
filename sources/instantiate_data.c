@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/01 09:24:55 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/01 12:34:53 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/03 11:37:40 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,6 @@ void instantiate_data(t_data *input)
 	input->has_floor_color = false;
 	input->has_map_started = false;
 	input->total_lines = 0;
+	input->player_x = -1;
+	input->player_y = -1;
 }

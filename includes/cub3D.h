@@ -37,15 +37,13 @@ typedef struct s_data
 	int			player_y;
 } t_data;
 
-//input_validator
-bool	are_attributes_initialized(char *line, t_data *data);
-
 //arg_validator
 void	check_args(int argc, char **argv);
 
 //error_handling
 bool	has_fd_opened(int	fd);
 void	ft_exit(int	exit_code, char *line, t_data *data);
+void free_array(char **array);
 
 // utils
 void	print_map(char **map);
@@ -53,7 +51,14 @@ void	print_map(char **map);
 //instantiate_data
 void instantiate_data(t_data *input);
 
-//init_data
+//parse_data
 void parse_data(t_data *data, char *argv);
+bool	has_map_started(t_data *data);
+
+//atributes_validator
+int *get_color_input(char *line);
+
+//init_atribute
+void	init_attributes(t_data *data, char *arg);
 
 #endif
