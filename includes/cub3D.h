@@ -61,4 +61,9 @@ int *get_color_input(char *line);
 //init_atribute
 void	init_attributes(t_data *data, char *arg);
 
+//map_validador.
+bool	is_player(char	c);
+bool	has_map_started(t_data *data);
+int	flood_fill(char **map, int r, int x, int y, int	total_lines);
+
 #endif

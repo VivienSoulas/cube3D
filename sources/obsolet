@@ -1,0 +1,58 @@
+// bool	is_map_valid(t_data *data)
+// {
+// 	int	x;
+// 	int	i;
+
+// 	x = 0;
+// 	i = 0;
+// 	printf("tot_lines: %d\n", data->total_lines);
+// 	//validation for first and last line
+// 	while (data->map[i] != NULL)
+// 	{
+// 		if (i == 0 || i == data->total_lines - 1)
+// 		{
+// 			while (data->map[i][x] ==' ')
+// 				x++;
+// 			while (data->map[i][x] != '\n')
+// 			{
+// 				if (data->map[i][x] != '1')
+// 				{
+// 					printf("Invalid map - not surronded by walls\n");
+// 					return (NULL);
+// 				}
+// 				x++;
+// 			}
+// 		}
+// 		else
+// 		{
+// 			while (data->map[i][x] != '\n')
+// 				x++;
+// 			if (data->map[i][x] != '1' || data->map[i][x] != '1')
+// 			{
+// 				printf("Invalid map - not surronded by walls\n");
+// 				return (NULL);
+// 			}
+// 		}
+// 	}
+// 	return (true);
+// }
+
+// int	find_the_longest_line(t_data *data)
+// {
+// 	int	i;
+// 	int	x;
+// 	int	longest_line;
+
+// 	i = 0;
+// 	longest_line = 0;
+// 	while (data->map[i] != NULL)
+// 	{
+// 		x = 0;
+// 		while (data->map[i][x] != '\0')
+// 			x++;
+// 		if (x > longest_line)
+// 			longest_line = x;
+// 		i++;
+// 	}
+// 	return (longest_line);
+// }

@@ -6,92 +6,34 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/02 11:16:33 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/03 11:38:43 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/09 09:43:03 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3D.h"
-int	check_map_char(t_data	*data)
-{
-	int	i;
-	int	j;
 
-	i = 0;
-	while (data->map[i] != NULL)
-	{
-		j = 0;
-		while (data->map[i][j] != '\0')
-		{
-			if (data->map[i][j] != '0' && data->map[i][j] != '1'
-				&& data->map[i][j] != 'N' && data->map[i][j] != 'S'
-				&& data->map[i][j] != 'E' && data->map[i][j] != 'W'
-				&& data->map[i][j] != ' ')
-			{
-				return (1);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-bool	is_map_valid(t_data *data)
+bool	has_invalid_char(t_data	*data)
 {
 	int	x;
-	int	i;
+	int	y;
 
 	x = 0;
-	i = 0;
-	printf("tot_lines: %d\n", data->total_lines);
-	//validation for first and last line
-	while (data->map[i] != NULL)
+	while (data->map[x] != NULL)
 	{
-		if (i == 0 || i == data->total_lines - 1)
+		y = 0;
+		while (data->map[x][y] != '\0')
 		{
-			while (data->map[i][x] ==' ')
-				x++;
-			while (data->map[i][x] != '\n')
+			if (data->map[x][y] != '0' && data->map[x][y] != '1'
+				&& !is_player(data->map[x][y]) && data->map[x][y] != ' ')
 			{
-				if (data->map[i][x] != '1')
-				{
-					printf("Invalid map - not surronded by walls\n");
-					return (NULL);
-				}
-				x++;
+				printf("Invalid char: '%c' on position [%d][%d]\n", data->map[x][y], x, y);
+				return (1);
 			}
+			y++;
 		}
-		else
-		{
-			while (data->map[i][x] != '\n')
-				x++;
-			if (data->map[i][x] != '1' || data->map[i][x] != '1')
-			{
-				printf("Invalid map - not surronded by walls\n");
-				return (NULL);
-			}
-		}
+		x++;
 	}
-	return (true);
-}
-
-int	find_the_longest_line(t_data *data)
-{
-	int	i;
-	int	x;
-	int	longest_line;
-
-	i = 0;
-	longest_line = 0;
-	while (data->map[i] != NULL)
-	{
-		x = 0;
-		while (data->map[i][x] != '\0')
-			x++;
-		if (x > longest_line)
-			longest_line = x;
-		i++;
-	}
-	return (longest_line);
+	return (0);
 }
 
 void	init_map(t_data *data, char *arg) //I need to optimize this function
@@ -107,10 +49,10 @@ void	init_map(t_data *data, char *arg) //I need to optimize this function
 		return ;
 	data->fd = open(arg, O_RDONLY);
 	if (has_fd_opened(data->fd) == false)
-		return;
+		return free (data->map);
 	while ((line = get_next_line(data->fd)) != NULL)
 	{
-		printf("index line: %d\n", index_line);
+		// printf("index line: %d\n", index_line);
 		if (index_line++ >= data->map_starts)
 		{
 			if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n')
@@ -127,55 +69,6 @@ void	init_map(t_data *data, char *arg) //I need to optimize this function
 		free(line);
 	}
 	close(data->fd);
-}
-
-
-bool	has_map_started(t_data *data)
-{
-	if (data->no_texture != NULL && data->so_texture != NULL
-		&& data->ea_texture != NULL && data->we_texture != NULL
-		&& data->has_celling_color != false && data->has_floor_color != false
-		&& data->has_map_started == false)
-	{
-		data->map_starts = data->total_lines;
-		return (true);
-	}
-	return (false);
-}
-
-int	flood_fill(char **map, int r, int x, int y, int	total_lines)
-{
-	// printf("--%s--\n", data->map[x]);
-	if (map[0] && ft_strchr(map[0], '0'))
-		return (1);
-	if (!map[x])
-		return (1);
-	if (ft_strlen(map[x]) == 0)
-		return (1);
-	if (map[x][y] && (map[x][y] == '1' \
-		|| map[x][y] == '2'))
-		return (0);
-	if ((x > total_lines - 1 || x < 0)
-		|| (y > (int)ft_strlen(map[x]) || y < 0))
-		return (1);
-	if (map[x][y] == ' ')
-    	return (1); // leak: reached empty space
-	if (map[x][y] != '1' && map[x][y] != '2' && map[x][y] != '0'
- 	   && map[x][y] != 'N' && map[x][y] != 'S'
- 	   && map[x][y] != 'E' && map[x][y] != 'W')
- 	   return (1); // invalid character
-
-	map[x][y] = '2';
-	r += flood_fill(map, r, x, y + 1, total_lines);
-	r += flood_fill(map, r, x, y - 1, total_lines);
-	r += flood_fill(map, r, x + 1, y, total_lines);
-	r += flood_fill(map, r, x - 1, y, total_lines);
-	return (r);
-}
-
-bool	is_player(char	c)
-{
-	return (c == 'N' || c == 'S'|| c == 'W' || c == 'E');
 }
 
 /*
@@ -198,6 +91,8 @@ void	init_player_position(t_data *data)
 			if (is_player(data->map[x][y]))
 			{
 				is_player_found = 1;
+				data->player_x = x;
+				data->player_y = y;
 				break;
 			}
 			y++;
@@ -206,13 +101,7 @@ void	init_player_position(t_data *data)
 			break;
 		x++;
 	}
-	printf("test\n");
-	if (is_player_found == 1)
-	{
-		data->player_x = x;
-		data->player_y = y;
-		printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
-	}
+	printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
 }
 
 char	**copy_map(t_data	*data)
@@ -240,16 +129,18 @@ void parse_data(t_data *data, char *argv)
 	print_map(data->map);
 	init_player_position(data);
 	if (data->player_x == -1 && data->player_y == -1)
-		printf("There's no player\n");
-	if (check_map_char(data) == 1)
 	{
-		//make free and etc.
-		//mudar pra exit
-		return ;
+		printf("There's no player\n");
+		ft_exit(1, NULL, data); //check if it worked
 	}
+	if (has_invalid_char(data) == 1) //only the flood fill check is not enought because the number 2
+		ft_exit (1, NULL, data);
 	map = copy_map(data);
-	// printf("flood fill: %d\n", flood_fill(map, 0, (&data)->player_x, (&data)->player_y, (&data)->total_lines));
 	if (flood_fill(map, 0, data->player_x, data->player_y, data->total_lines) != 0)
-		printf("invalid map\n");
-	// print_map(map);
+	{
+		printf("Invalid map\n");
+		free_array(map);
+		ft_exit(1, NULL, data);
+	}
+	free(map);
 }

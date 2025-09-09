@@ -10,6 +10,7 @@ SOURCES =	main.c \
 			instantiate_data.c \
 			parse_data.c \
 			init_atributes.c \
+			map_validator.c \
 # SOURCES		=	main.c error.c map_parsing.c free.c exit.c utils.c hooks.c initialisation.c mini_map.c render.c \
 				temp.c window.c movement.c ray_casting.c minimap_vector.c
 GNL_SOURCES		=	get_next_line.c get_next_line_utils.c

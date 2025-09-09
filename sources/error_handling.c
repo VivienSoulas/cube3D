@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/08/28 09:29:09 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/03 10:53:51 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/09 09:39:18 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,23 @@
 bool	has_fd_opened(int	fd)
 {
 	if (fd < 0)
-    {
-        perror("Failure to open file\n");
-        return (false);
-    }
+	{
+		perror("Failure to open file\n");
+		return (false);
+	}
 	return (true);
 }
 
 void	ft_exit(int	exit_code, char *line, t_data *data)
 {
-	printf("Before free line: %s\n", line); //remove, only for test
 	if (line != NULL)
 		free(line);
 	if (data->fd)
 		close(data->fd);
+	if (data->map != NULL)
+	{
+		free_array(data->map);
+	}
 	exit(exit_code);
 }
 
