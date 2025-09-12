@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/02 11:16:33 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/12 14:18:07 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/12 14:57:32 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	validate_map(t_data *data)
 	{
 		if (flood_fill(map, 0, pos[0], pos[1] , (data->total_lines - data->map_starts)) != 0)
 		{
-			print_map(map); //Remove this line
+			print_map(map); //TODO Remove this line
 			free_array(map);
 			free(pos);
 			ft_exit(1, NULL, data, "Invalid map");
@@ -162,7 +162,7 @@ void	validate_map(t_data *data)
 		pos = find_zero(map);
 	}
 	free(pos);
-	print_map(map); //Remove this line
+	print_map(map); //TODO Remove this line
 	free_array(map);
 }
 
@@ -170,11 +170,11 @@ void parse_data(t_data *data, char *argv)
 {
 	init_attributes(data, argv);
 	init_map(data, argv);
-	print_map(data->map);
-	init_player_position(data);//acho que posso incluir aqui a checagem se tem mais de 1 players
+	print_map(data->map);//TODO Remove this line
+	init_player_position(data);
 	if (data->player_x == -1 && data->player_y == -1)
-		ft_exit(1, NULL, data, "There's no player"); //check if it worked
-	if (has_invalid_char(data) == 1) //only the flood fill check is not enought because the number 2
+		ft_exit(1, NULL, data, "There's no player"); //TODO check if it worked
+	if (has_invalid_char(data) == 1)
 		ft_exit (1, NULL, data, NULL);
 	validate_map(data);
 }

@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/08/28 09:29:09 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/12 14:16:09 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/12 14:56:38 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ bool	has_fd_opened(int	fd)
 	}
 	return (true);
 }
+
+// char	*error_msg(int exit_code)
+// {
+
+// }
 
 void	ft_exit(int	exit_code, char *line, t_data *data, char *msg)
 {
