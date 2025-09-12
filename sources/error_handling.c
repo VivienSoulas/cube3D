@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/08/28 09:29:09 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/09 13:47:29 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/12 14:16:09 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_exit(int	exit_code, char *line, t_data *data, char *msg)
 		free_array(data->map);
 	}
 	if (msg != NULL)
-		printf("%s\n", msg);
+		printf("Error\n%s\n", msg);
 	exit(exit_code);
 }
 

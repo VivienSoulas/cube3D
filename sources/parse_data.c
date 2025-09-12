@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/02 11:16:33 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/10 15:13:50 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/12 14:18:07 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,24 +94,80 @@ void	init_player_position(t_data *data)
 		{
 			if (is_player(data->map[x][y]))
 			{
+				if (is_player_found)
+					ft_exit(1, NULL, data, "There are more than 1 player");
 				is_player_found = 1;
 				data->player_x = x;
 				data->player_y = y;
-				break;
 			}
 			y++;
 		}
-		if (is_player_found)
-			break;
 		x++;
 	}
 	// printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
 }
 
+int	*find_zero(char **map)
+{
+	int	i;
+	int	j;
+	int	*pos;
+
+	i = 0;
+	pos = ft_calloc(2, sizeof(int));
+	if (pos == NULL)
+		return (NULL);
+	pos[0] = -1;
+	while(map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == '0')
+			{
+				pos[0] = i;
+				pos[1] = j;
+				return (pos);
+			}
+			j++;
+		}
+		i++;
+	}
+	return(pos);
+}
+
+void	validate_map(t_data *data)
+{
+	char	**map;
+	int		*pos;
+
+	map = copy_map(data);
+	if (map == NULL)
+		ft_exit(1, NULL, data, "Failure on parsing");
+	pos = find_zero(map);
+	if (pos == NULL)
+	{
+		free(map);
+		ft_exit(1, NULL, data, "Failure on parsing");
+	}
+	while (pos[0] != -1)
+	{
+		if (flood_fill(map, 0, pos[0], pos[1] , (data->total_lines - data->map_starts)) != 0)
+		{
+			print_map(map); //Remove this line
+			free_array(map);
+			free(pos);
+			ft_exit(1, NULL, data, "Invalid map");
+		}
+		pos = find_zero(map);
+	}
+	free(pos);
+	print_map(map); //Remove this line
+	free_array(map);
+}
+
 void parse_data(t_data *data, char *argv)
 {
-	char **map;
-
 	init_attributes(data, argv);
 	init_map(data, argv);
 	print_map(data->map);
@@ -120,17 +176,5 @@ void parse_data(t_data *data, char *argv)
 		ft_exit(1, NULL, data, "There's no player"); //check if it worked
 	if (has_invalid_char(data) == 1) //only the flood fill check is not enought because the number 2
 		ft_exit (1, NULL, data, NULL);
-	map = copy_map(data);
-	if (map == NULL)
-		ft_exit(1, NULL, data, "Failure on parsing");
-	if (flood_fill(map, data->player_x, data->player_y, (data->total_lines - data->map_starts)) != 0)
-	{
-		print_map(map);
-		free_array(map);
-		ft_exit(1, NULL, data, "Invalid map");
-	}
-	print_map(map);
-	free_array(map);
-	//Verify if the parse is check if the map has ONLY one player
-	//Verify if the parse is check if the map HAS ONE player
+	validate_map(data);
 }
