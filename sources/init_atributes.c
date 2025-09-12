@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/03 10:55:16 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/03 11:01:45 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/09 13:50:52 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	init_attributes(t_data *data, char *arg)
 
 	data->fd = open(arg, O_RDONLY);
 	if (has_fd_opened(data->fd) == false)
-		ft_exit(1, NULL, data); //check if exit will work well or should I change to return and make init atributes a bool
+		ft_exit(1, NULL, data, NULL); //check if exit will work well or should I change to return and make init atributes a bool
 	while ((line = get_next_line(data->fd)) != NULL)
 	{
 		if (line[0] == '\n')
@@ -104,7 +104,7 @@ void	init_attributes(t_data *data, char *arg)
 			if (ft_isalpha(line[0]))
 			{
 				if(are_attributes_initialized(line, data) == false)
-					ft_exit(1, line, data);//check if close fd inside ft_exit has worked
+					ft_exit(1, line, data, NULL);//check if close fd inside ft_exit has worked
 			}
 			else if (has_map_started(data))
 				data->has_map_started = true;

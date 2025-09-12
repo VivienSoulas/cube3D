@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/08/28 09:29:09 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/09 09:39:18 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/09 13:47:29 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	has_fd_opened(int	fd)
 	return (true);
 }
 
-void	ft_exit(int	exit_code, char *line, t_data *data)
+void	ft_exit(int	exit_code, char *line, t_data *data, char *msg)
 {
 	if (line != NULL)
 		free(line);
@@ -32,6 +32,8 @@ void	ft_exit(int	exit_code, char *line, t_data *data)
 	{
 		free_array(data->map);
 	}
+	if (msg != NULL)
+		printf("%s\n", msg);
 	exit(exit_code);
 }
 

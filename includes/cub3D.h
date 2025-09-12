@@ -42,17 +42,18 @@ void	check_args(int argc, char **argv);
 
 //error_handling
 bool	has_fd_opened(int	fd);
-void	ft_exit(int	exit_code, char *line, t_data *data);
-void free_array(char **array);
+void	ft_exit(int	exit_code, char *line, t_data *data, char *msg);
+void	free_array(char **array);
 
 // utils
 void	print_map(char **map);
+char	**copy_map(t_data	*data);
 
 //instantiate_data
-void instantiate_data(t_data *input);
+void	instantiate_data(t_data *input);
 
 //parse_data
-void parse_data(t_data *data, char *argv);
+void	parse_data(t_data *data, char *argv);
 bool	has_map_started(t_data *data);
 
 //atributes_validator
@@ -64,6 +65,6 @@ void	init_attributes(t_data *data, char *arg);
 //map_validador.
 bool	is_player(char	c);
 bool	has_map_started(t_data *data);
-int	flood_fill(char **map, int r, int x, int y, int	total_lines);
+int		flood_fill(char **map, int x, int y, int	total_lines);
 
 #endif

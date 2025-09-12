@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/02 11:16:33 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/09 09:43:03 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/10 15:13:50 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ bool	has_invalid_char(t_data	*data)
 	return (0);
 }
 
+char	*check_and_dup_line(char *line)
+{
+	if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n')
+		line[ft_strlen(line) - 1] = '\0';
+		return (ft_strdup(line));
+}
+
 void	init_map(t_data *data, char *arg) //I need to optimize this function
 {
 	char	*line;
@@ -55,10 +62,7 @@ void	init_map(t_data *data, char *arg) //I need to optimize this function
 		// printf("index line: %d\n", index_line);
 		if (index_line++ >= data->map_starts)
 		{
-			if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n')
-				line[ft_strlen(line) - 1] = '\0';
-			data->map[index_map] = ft_strdup(line);
-			printf("data->map: %s\n", data->map[index_map]);
+			data->map[index_map] = check_and_dup_line(line);
 			if (data->map[index_map] == NULL)
 			{
 				free(line);
@@ -101,25 +105,9 @@ void	init_player_position(t_data *data)
 			break;
 		x++;
 	}
-	printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
+	// printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
 }
 
-char	**copy_map(t_data	*data)
-{
-	char	**new_map;
-	int		i;
-
-	printf("total line: %d\n", (data->total_lines - data->map_starts));
-	new_map = ft_calloc(sizeof(char *), (data->total_lines - data->map_starts + 1));
-	//check faillure
-	i = 0;
-	while (i < (data->total_lines - data->map_starts))
-	{
-		new_map[i] = ft_strdup(data->map[i]);
-		i++;
-	}
-	return (new_map);
-}
 void parse_data(t_data *data, char *argv)
 {
 	char **map;
@@ -127,20 +115,22 @@ void parse_data(t_data *data, char *argv)
 	init_attributes(data, argv);
 	init_map(data, argv);
 	print_map(data->map);
-	init_player_position(data);
+	init_player_position(data);//acho que posso incluir aqui a checagem se tem mais de 1 players
 	if (data->player_x == -1 && data->player_y == -1)
-	{
-		printf("There's no player\n");
-		ft_exit(1, NULL, data); //check if it worked
-	}
+		ft_exit(1, NULL, data, "There's no player"); //check if it worked
 	if (has_invalid_char(data) == 1) //only the flood fill check is not enought because the number 2
-		ft_exit (1, NULL, data);
+		ft_exit (1, NULL, data, NULL);
 	map = copy_map(data);
-	if (flood_fill(map, 0, data->player_x, data->player_y, data->total_lines) != 0)
+	if (map == NULL)
+		ft_exit(1, NULL, data, "Failure on parsing");
+	if (flood_fill(map, data->player_x, data->player_y, (data->total_lines - data->map_starts)) != 0)
 	{
-		printf("Invalid map\n");
+		print_map(map);
 		free_array(map);
-		ft_exit(1, NULL, data);
+		ft_exit(1, NULL, data, "Invalid map");
 	}
-	free(map);
+	print_map(map);
+	free_array(map);
+	//Verify if the parse is check if the map has ONLY one player
+	//Verify if the parse is check if the map HAS ONE player
 }
