@@ -32,16 +32,18 @@ typedef struct s_data
 	int			player_x;
 	int			player_y;
 	char		start_dir;
+	int			map_width;
+	int			map_height;
 } t_data;
 
 t_data 	*ft_parse(int ac, char **av);
 
 //arg_validator
-void	check_args(int argc, char **argv);
+int		check_args(int argc, char **argv);
 
 //error_handling
 bool	has_fd_opened(int	fd);
-void	ft_exit_parsing(int	exit_code, char *line, t_data *data, char *msg);
+int		ft_exit_parsing(int	exit_code, char *line, t_data *data, char *msg);
 void	free_array(char **array);
 
 // utils
@@ -52,14 +54,16 @@ char	**copy_map(t_data	*data);
 void	instantiate_data(t_data *input);
 
 //parse_data
-void	parse_data(t_data *data, char *argv);
+int		parse_data(t_data *data, char *argv);
 bool	has_map_started(t_data *data);
+int		init_player_position(t_data *data);
+int		validate_map(t_data *data);
 
 //atributes_validator
-int *get_color_input(char *line);
+int		*get_color_input(char *line);
 
 //init_atribute
-void	init_attributes(t_data *data, char *arg);
+int		init_attributes(t_data *data, char *arg);
 
 //map_validador.
 bool	is_player(char	c);

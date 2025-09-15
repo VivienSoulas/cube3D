@@ -27,7 +27,7 @@ bool	has_fd_opened(int	fd)
 
 // }
 
-void	ft_exit_parsing(int	exit_code, char *line, t_data *data, char *msg)
+int	ft_exit_parsing(int	exit_code, char *line, t_data *data, char *msg)
 {
 	if (line != NULL)
 		free(line);
@@ -39,7 +39,7 @@ void	ft_exit_parsing(int	exit_code, char *line, t_data *data, char *msg)
 	}
 	if (msg != NULL)
 		printf("Error\n%s\n", msg);
-	exit(exit_code);
+	return (exit_code);
 }
 
 void free_array(char **array)

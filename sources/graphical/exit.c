@@ -1,5 +1,28 @@
 #include "cub3D.h"
 
+void	ft_free_data(t_cub3D **cub)
+{
+	if (!(*cub)->data)
+		return ;
+	if ((*cub)->data->no_texture)
+		ft_free_set_null((void **)&(*cub)->data->no_texture);
+	if ((*cub)->data->so_texture)
+		ft_free_set_null((void **)&(*cub)->data->so_texture);
+	if ((*cub)->data->we_texture)
+		ft_free_set_null((void **)&(*cub)->data->we_texture);
+	if ((*cub)->data->ea_texture)
+		ft_free_set_null((void **)&(*cub)->data->ea_texture);
+	if ((*cub)->data->map)
+		ft_free_array((*cub)->data->map);
+	if ((*cub)->data->file_name)
+		ft_free_set_null((void **)&(*cub)->data->file_name);
+	if ((*cub)->data->fd > 0)
+		close((*cub)->data->fd);
+	if ((*cub)->map)
+		(*cub)->map->grid = NULL;
+	ft_free_set_null((void **)&(*cub)->data);
+}
+
 void	ft_exit(t_cub3D *cub)
 {
 	ft_destroy_texture(cub);
@@ -20,6 +43,7 @@ void	ft_exit(t_cub3D *cub)
 		mlx_destroy_display(cub->mlx_ptr);
 		ft_free_set_null((void **)&cub->mlx_ptr);
 	}
+	ft_free_data(&cub);
 	ft_free_cub(&cub);
 }
 

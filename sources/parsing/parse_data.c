@@ -80,32 +80,36 @@ void	init_map(t_data *data, char *arg) //I need to optimize this function
 * find_player_postion, if the position is on set in `data` on this function,
 * init_player_position or fill_player_position are valid alternatives.
 */
-void	init_player_position(t_data *data)
+int	init_player_position(t_data *data)
 {
 	int	x;
 	int	y;
 	bool is_player_found = 0;
 
-	x = 0;
-	while (data->map[x])
+	y = 0;
+	while (data->map[y])
 	{
-		y = 0;
-		while(data->map[x][y])
+		x = 0;
+		while(data->map[y][x])
 		{
-			if (is_player(data->map[x][y]))
+			if (is_player(data->map[y][x]))
 			{
 				if (is_player_found)
-					ft_exit_parsing(1, NULL, data, "There are more than 1 player");
+					return (1);  // More than 1 player found
 				is_player_found = 1;
-				data->start_dir = data->map[x][y];
+				data->start_dir = data->map[y][x];
 				data->player_x = x;
 				data->player_y = y;
 			}
-			y++;
+			x++;
 		}
-		x++;
+		if (data->map_width < x)
+			data->map_width = x;
+		y++;
 	}
+	data->map_height = y;
 	// printf("4 Player position: [%d][%d]\n", data->player_x, data->player_y);
+	return (0);
 }
 
 int	*find_zero(char **map)
@@ -137,19 +141,19 @@ int	*find_zero(char **map)
 	return(pos);
 }
 
-void	validate_map(t_data *data)
+int	validate_map(t_data *data)
 {
 	char	**map;
 	int		*pos;
 
 	map = copy_map(data);
 	if (map == NULL)
-		ft_exit_parsing(1, NULL, data, "Failure on parsing");
+		return (1);  // Failure on parsing
 	pos = find_zero(map);
 	if (pos == NULL)
 	{
 		free(map);
-		ft_exit_parsing(1, NULL, data, "Failure on parsing");
+		return (1);  // Failure on parsing
 	}
 	while (pos[0] != -1)
 	{
@@ -158,24 +162,30 @@ void	validate_map(t_data *data)
 			print_map(map); //TODO Remove this line
 			free_array(map);
 			free(pos);
-			ft_exit_parsing(1, NULL, data, "Invalid map");
+			return (1);  // Invalid map
 		}
+		free(pos);
 		pos = find_zero(map);
 	}
 	free(pos);
 	print_map(map); //TODO Remove this line
 	free_array(map);
+	return (0);
 }
 
-void parse_data(t_data *data, char *argv)
+int parse_data(t_data *data, char *argv)
 {
-	init_attributes(data, argv);
+	if (init_attributes(data, argv) != 0)
+		return (1);
 	init_map(data, argv);
 	print_map(data->map);//TODO Remove this line
-	init_player_position(data);
+	if (init_player_position(data) != 0)
+		return (1);  // Error in player position (more than 1 player)
 	if (data->player_x == -1 && data->player_y == -1)
-		ft_exit_parsing(1, NULL, data, "There's no player"); //TODO check if it worked
+		return (1);  // No player found
 	if (has_invalid_char(data) == 1)
-		ft_exit_parsing (1, NULL, data, NULL);
-	validate_map(data);
+		return (1);  // Invalid characters in map
+	if (validate_map(data) != 0)
+		return (1);  // Map validation failed
+	return (0);
 }

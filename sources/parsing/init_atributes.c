@@ -36,6 +36,7 @@ bool are_collors_initialized(char *line, t_data *data)
 		data->has_floor_color = true;
 		printf("after atoi R: %d G: %d B: %d\n", data->floor.r, data->floor.g, data->floor.b);
 	}
+	free(rgb);
 	return (true);
 }
 
@@ -88,13 +89,13 @@ bool	are_attributes_initialized(char *line, t_data *data)
 	return (true);
 }
 
-void	init_attributes(t_data *data, char *arg)
+int	init_attributes(t_data *data, char *arg)
 {
 	char	*line;
 
 	data->fd = open(arg, O_RDONLY);
 	if (has_fd_opened(data->fd) == false)
-		ft_exit_parsing(1, NULL, data, NULL); //check if exit will work well or should I change to return and make init atributes a bool
+		return (1);  // Failed to open file
 	while ((line = get_next_line(data->fd)) != NULL)
 	{
 		if (line[0] == '\n')
@@ -103,8 +104,12 @@ void	init_attributes(t_data *data, char *arg)
 		{
 			if (ft_isalpha(line[0]))
 			{
-				if(are_attributes_initialized(line, data) == false)
-					ft_exit_parsing(1, line, data, NULL);//check if close fd inside ft_exit has worked
+				if (are_attributes_initialized(line, data) == false)
+				{
+					free(line);
+					close(data->fd);
+					return (1);  // Failed to parse attributes
+				}
 			}
 			else if (has_map_started(data))
 				data->has_map_started = true;
@@ -113,4 +118,5 @@ void	init_attributes(t_data *data, char *arg)
 		free(line);
 	}
 	close(data->fd);
+	return (0);
 }

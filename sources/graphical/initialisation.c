@@ -26,22 +26,10 @@ int	ft_convert_tdata(t_cub3D *cub)
 	if (!cub->map)
 		return (ft_exit(cub), ft_error(4), 1);
 	cub->map->grid = cub->data->map;
-int y = 0;
-int x;
-while (cub->map->grid[y])
-{
-	x = 0;
-	while (cub->map->grid[y][x])
-	{
-
-	}
-	y++;
-}
-	cub->map->width = cub->data->total_lines;
-	cub->map->height = cub->data->total_lines;
+	cub->map->width = cub->data->map_width;
+	cub->map->height = cub->data->map_height;
 	cub->player->pos_x = (double)cub->data->player_x;
 	cub->player->pos_y = (double)cub->data->player_y;
-
 	cub->player->start_dir = cub->data->start_dir;
 	if (cub->data->start_dir == 'N')
 		cub->player->angle = 270;
@@ -53,7 +41,7 @@ while (cub->map->grid[y])
 		cub->player->angle = 180;
 	
 	cub->ceiling_color = 0x000000;
-	cub->floor_color = 0xffffff;
+	cub->floor_color = 0xffff00;
 
 	cub->textures->north_path = cub->data->no_texture;
 	cub->textures->south_path = cub->data->so_texture;
