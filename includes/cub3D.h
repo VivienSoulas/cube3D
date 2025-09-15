@@ -83,8 +83,9 @@ void	ft_error(int id);
 // exit
 void	ft_exit(t_cub3D *cub);
 void	ft_destroy_texture(t_cub3D *cub);
-void	ft_free_struct(t_cub3D **cub);
+void	ft_free_data(t_cub3D **cub);
 void	ft_free_cub(t_cub3D **cub);
+void	ft_free_struct(t_cub3D **cub);
 
 // free
 void	ft_free_set_null(void **data);

@@ -1,28 +1,5 @@
 #include "cub3D.h"
 
-void	ft_free_data(t_cub3D **cub)
-{
-	if (!(*cub)->data)
-		return ;
-	if ((*cub)->data->no_texture)
-		ft_free_set_null((void **)&(*cub)->data->no_texture);
-	if ((*cub)->data->so_texture)
-		ft_free_set_null((void **)&(*cub)->data->so_texture);
-	if ((*cub)->data->we_texture)
-		ft_free_set_null((void **)&(*cub)->data->we_texture);
-	if ((*cub)->data->ea_texture)
-		ft_free_set_null((void **)&(*cub)->data->ea_texture);
-	if ((*cub)->data->map)
-		ft_free_array((*cub)->data->map);
-	if ((*cub)->data->file_name)
-		ft_free_set_null((void **)&(*cub)->data->file_name);
-	if ((*cub)->data->fd > 0)
-		close((*cub)->data->fd);
-	if ((*cub)->map)
-		(*cub)->map->grid = NULL;
-	ft_free_set_null((void **)&(*cub)->data);
-}
-
 void	ft_exit(t_cub3D *cub)
 {
 	ft_destroy_texture(cub);
@@ -62,22 +39,27 @@ void	ft_destroy_texture(t_cub3D *cub)
 	}
 }
 
-void	ft_free_struct(t_cub3D **cub)
+void	ft_free_data(t_cub3D **cub)
 {
-	if ((*cub)->img)
-		ft_free_set_null((void **)&(*cub)->img);
-	if ((*cub)->mini_map)
-		ft_free_set_null((void **)&(*cub)->mini_map);
-	if ((*cub)->textures)
-		ft_free_set_null((void **)&(*cub)->textures);
-	if ((*cub)->vector)
-		ft_free_set_null((void **)&(*cub)->vector);
-	if ((*cub)->dda)
-		ft_free_set_null((void **)&(*cub)->dda);
-	if ((*cub)->wall)
-		ft_free_set_null((void **)&(*cub)->wall);
-	if ((*cub)->player)
-		ft_free_set_null((void **)&(*cub)->player);
+	if (!(*cub)->data)
+		return ;
+	if ((*cub)->data->no_texture)
+		ft_free_set_null((void **)&(*cub)->data->no_texture);
+	if ((*cub)->data->so_texture)
+		ft_free_set_null((void **)&(*cub)->data->so_texture);
+	if ((*cub)->data->we_texture)
+		ft_free_set_null((void **)&(*cub)->data->we_texture);
+	if ((*cub)->data->ea_texture)
+		ft_free_set_null((void **)&(*cub)->data->ea_texture);
+	if ((*cub)->data->map)
+		ft_free_array((*cub)->data->map);
+	if ((*cub)->data->file_name)
+		ft_free_set_null((void **)&(*cub)->data->file_name);
+	if ((*cub)->data->fd > 0)
+		close((*cub)->data->fd);
+	if ((*cub)->map)
+		(*cub)->map->grid = NULL;
+	ft_free_set_null((void **)&(*cub)->data);
 }
 
 void	ft_free_cub(t_cub3D **cub)
@@ -94,4 +76,22 @@ void	ft_free_cub(t_cub3D **cub)
 		ft_free_set_null((void **)&(*cub)->map);
 	}
 	ft_free_set_null((void **)&(*cub));
+}
+
+void	ft_free_struct(t_cub3D **cub)
+{
+	if ((*cub)->img)
+		ft_free_set_null((void **)&(*cub)->img);
+	if ((*cub)->mini_map)
+		ft_free_set_null((void **)&(*cub)->mini_map);
+	if ((*cub)->textures)
+		ft_free_set_null((void **)&(*cub)->textures);
+	if ((*cub)->vector)
+		ft_free_set_null((void **)&(*cub)->vector);
+	if ((*cub)->dda)
+		ft_free_set_null((void **)&(*cub)->dda);
+	if ((*cub)->wall)
+		ft_free_set_null((void **)&(*cub)->wall);
+	if ((*cub)->player)
+		ft_free_set_null((void **)&(*cub)->player);
 }
