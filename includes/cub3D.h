@@ -14,6 +14,7 @@
 # include <unistd.h>
 # include <errno.h>
 # include <math.h>
+# include <stdbool.h>
 # include <sys/time.h>
 # include <fcntl.h>
 # include <X11/Xlib.h>
@@ -27,6 +28,7 @@
 # include "movement.h"
 # include "graphic.h"
 # include "dda.h"
+# include "parsing.h"
 
 typedef struct s_player
 {
@@ -72,6 +74,7 @@ typedef struct s_cub3D
 	t_vector		*vector;
 	t_dda			*dda;
 	t_wall			*wall;
+	t_data			*data;
 }	t_cub3D;
 
 // error
@@ -88,7 +91,8 @@ void	ft_free_set_null(void **data);
 void	ft_free_array(char **array);
 
 // initialisation
-int		ft_initialise_cub(t_cub3D *cub, char **av);
+int		ft_initialise_cub(t_cub3D *cub, int ac, char **av);
+int		ft_convert_tdata(t_cub3D *cub);
 
 // temp
 int		ft_read_map(t_cub3D *cub);

@@ -1,0 +1,8 @@
+invalid1.cub - has an invalid space on celling color
+invalid2.cub - not a number (F a,100,0)
+invalid3.cub - (F 220,100,0,42) - too many values
+invalid4.cub - (F 220,100)- missing one component
+invalid5.cub - (F220,100,0) - missing space
+invalid6.cub - not surronded by walls on first line
+invalid7.cub - not surronded by walls on last line
+

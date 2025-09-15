@@ -23,7 +23,7 @@ int	ft_open_texture(t_cub3D *cub)
 	c = ft_open_east(cub);
 	d = ft_open_west(cub);
 	if (a == 1 || b == 1 || c == 1 || d == 1)
-		return (1);
+		return (ft_exit(cub), ft_error(5), 1);
 	return (0);
 }
 

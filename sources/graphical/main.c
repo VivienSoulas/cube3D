@@ -21,11 +21,11 @@ int	main(int ac, char **av)
 	cub = ft_calloc(1, sizeof(t_cub3D));
 	if (cub == NULL)
 		return (ft_error(4), 1);
-	if (ft_initialise_cub(cub, av) == 1)
-		return (1);
+	if (ft_initialise_cub(cub, ac, av) == 1)
+		return (ft_exit(cub), 1);
 	ft_initialise_mini_map(cub);
 	if (ft_initialise_mlx(cub) == 1)
-		return (1);
+		return (ft_exit(cub), 1);
 	mlx_hook(cub->window, 2, 1L << 0, ft_key_pressed, cub);
 	mlx_hook(cub->window, 3, 1L << 1, ft_key_released, cub);
 	mlx_loop_hook(cub->mlx_ptr, ft_update_game, cub);
