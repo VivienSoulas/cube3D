@@ -16,8 +16,7 @@ only spaces --- > no error message
 only tabs --- > no error message
 
 wrong textures path --- > good
-
 different order of inputs --- > good
-double parameters --- > no error
 
+double parameters --- > no error
 wrong file name --- > seg fault

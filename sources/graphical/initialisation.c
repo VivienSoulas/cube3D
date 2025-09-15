@@ -39,14 +39,14 @@ int	ft_convert_tdata(t_cub3D *cub)
 		cub->player->angle = 0;
 	else if (cub->data->start_dir == 'W')
 		cub->player->angle = 180;
-	
+
 	cub->ceiling_color = 0x000000;
 	cub->floor_color = 0xffff00;
 
 	cub->textures->north_path = cub->data->no_texture;
 	cub->textures->south_path = cub->data->so_texture;
-	cub->textures->east_path  = cub->data->ea_texture;
-	cub->textures->west_path  = cub->data->we_texture;
+	cub->textures->east_path = cub->data->ea_texture;
+	cub->textures->west_path = cub->data->we_texture;
 	return (0);
 }
 
