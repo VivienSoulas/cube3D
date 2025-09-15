@@ -43,7 +43,7 @@ char	*check_and_dup_line(char *line)
 	return (ft_strdup(line));
 }
 
-void	init_map(t_data *data, char *arg) //I need to optimize this function
+int	init_map(t_data *data, char *arg) //I need to optimize this function
 {
 	char	*line;
 	int		index_line;
@@ -53,10 +53,14 @@ void	init_map(t_data *data, char *arg) //I need to optimize this function
 	index_map = 0;
 	data->map = ft_calloc(sizeof(char *), ((data->total_lines - data->map_starts) + 1));
 	if (data->map == NULL)
-		return ;
+		return (1);
 	data->fd = open(arg, O_RDONLY);
 	if (has_fd_opened(data->fd) == false)
-		return free (data->map);
+	{
+		free(data->map);
+		data->map = NULL;
+		return (1);
+	}
 	while ((line = get_next_line(data->fd)) != NULL)
 	{
 		// printf("index line: %d\n", index_line);
@@ -66,13 +70,20 @@ void	init_map(t_data *data, char *arg) //I need to optimize this function
 			if (data->map[index_map] == NULL)
 			{
 				free(line);
-				break ;
+				close(data->fd);
+				// Free already allocated map lines before breaking
+				while (--index_map >= 0)
+					free(data->map[index_map]);
+				free(data->map);
+				data->map = NULL;
+				return (1);
 			}
 			index_map++;
 		}
 		free(line);
 	}
 	close(data->fd);
+	return (0);
 }
 
 /*
@@ -166,6 +177,11 @@ int	validate_map(t_data *data)
 		}
 		free(pos);
 		pos = find_zero(map);
+		if (pos == NULL)  // Check if find_zero failed
+		{
+			free_array(map);
+			return (1);  // Memory allocation failed
+		}
 	}
 	free(pos);
 	print_map(map); //TODO Remove this line
@@ -177,7 +193,8 @@ int parse_data(t_data *data, char *argv)
 {
 	if (init_attributes(data, argv) != 0)
 		return (1);
-	init_map(data, argv);
+	if (init_map(data, argv) != 0)
+		return (1);  // init_map failed
 	print_map(data->map);//TODO Remove this line
 	if (init_player_position(data) != 0)
 		return (1);  // Error in player position (more than 1 player)

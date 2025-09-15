@@ -34,8 +34,11 @@ char	**split_and_trim(char *line)
 			return (free_array(rgb_color), NULL);
 		free (rgb_color[i]);
 		rgb_color[i] = ft_strdup(temp);
-		if (temp == NULL)
+		if (rgb_color[i] == NULL)  // Check ft_strdup result, not temp
+		{
+			free(temp);
 			return (free_array(rgb_color), NULL);
+		}
 		free(temp);
 		i++;
 	}

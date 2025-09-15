@@ -37,6 +37,14 @@ char	**copy_map(t_data	*data)
 	while (i < (data->total_lines - data->map_starts))
 	{
 		new_map[i] = ft_strdup(data->map[i]);
+		if (new_map[i] == NULL)
+		{
+			// Free already allocated strings
+			while (--i >= 0)
+				free(new_map[i]);
+			free(new_map);
+			return (NULL);
+		}
 		i++;
 	}
 	return (new_map);

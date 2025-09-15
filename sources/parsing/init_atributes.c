@@ -50,6 +50,8 @@ bool	are_textures_initialized(char *line, t_data *data)
 		return (false);
 	}
 	texture = ft_strtrim(line + 2, " \n\t");
+	if (!texture)
+		return (false);
 	printf("texture: *%s*\n", texture);
 	if (line[0] == 'N' && line[1] == 'O')
 		data->no_texture = ft_strdup(texture);
@@ -62,6 +64,15 @@ bool	are_textures_initialized(char *line, t_data *data)
 	else
 	{
 		printf("Invalid character\n");
+		free(texture);
+		return (false);
+	}
+	// Check if ft_strdup failed
+	if ((line[0] == 'N' && line[1] == 'O' && !data->no_texture) ||
+		(line[0] == 'S' && line[1] == 'O' && !data->so_texture) ||
+		(line[0] == 'W' && line[1] == 'E' && !data->we_texture) ||
+		(line[0] == 'E' && line[1] == 'A' && !data->ea_texture))
+	{
 		free(texture);
 		return (false);
 	}
