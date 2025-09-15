@@ -2,12 +2,7 @@ minimap vectors wall collision
 mouse to check at school
 norminette
 
-/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
-CHANGE ALL EXIT TO ft_exit and clean up
-/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
-
 remove ./ in front of textures paths (and maybe add .xpm)
-find window width from parsing (max num of char in longest line)
 
 converte rgb to hexadecimal in initialisation of cub
 
