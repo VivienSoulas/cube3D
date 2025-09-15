@@ -10,7 +10,7 @@ int	ft_open_north(t_cub3D *cub)
 			cub->textures->north_path, &cub->textures->wall_width,
 			&cub->textures->wall_height);
 	if (!cub->textures->north_img)
-		return (ft_exit(cub), ft_error(5), 1);
+		return (ft_error(5), 1);
 	cub->textures->north
 		= (unsigned int *)mlx_get_data_addr(cub->textures->north_img,
 			&bpp, &line_len, &endian);
@@ -27,7 +27,7 @@ int	ft_open_south(t_cub3D *cub)
 			cub->textures->south_path, &cub->textures->wall_width,
 			&cub->textures->wall_height);
 	if (!cub->textures->south_img)
-		return (ft_exit(cub), ft_error(5), 1);
+		return (ft_error(5), 1);
 	cub->textures->south
 		= (unsigned int *)mlx_get_data_addr(cub->textures->south_img,
 			&bpp, &line_len, &endian);
@@ -44,7 +44,7 @@ int	ft_open_east(t_cub3D *cub)
 			cub->textures->east_path, &cub->textures->wall_width,
 			&cub->textures->wall_height);
 	if (!cub->textures->east_img)
-		return (ft_exit(cub), ft_error(5), 1);
+		return (ft_error(5), 1);
 	cub->textures->east
 		= (unsigned int *)mlx_get_data_addr(cub->textures->east_img,
 			&bpp, &line_len, &endian);
@@ -61,7 +61,7 @@ int	ft_open_west(t_cub3D *cub)
 			cub->textures->west_path, &cub->textures->wall_width,
 			&cub->textures->wall_height);
 	if (!cub->textures->west_img)
-		return (ft_exit(cub), ft_error(5), 1);
+		return (ft_error(5), 1);
 	cub->textures->west
 		= (unsigned int *)mlx_get_data_addr(cub->textures->west_img,
 			&bpp, &line_len, &endian);

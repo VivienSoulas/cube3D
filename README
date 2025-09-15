@@ -6,10 +6,18 @@ remove ./ in front of textures paths (and maybe add .xpm)
 
 converte rgb to hexadecimal in initialisation of cub
 
+
+
+
 parsing think about:
-empty map
-only new line
-only spaces
-only tabs
-wrong textures path
-different order of inputs
+empty map --- > no error message
+only new line --- > no error message
+only spaces --- > no error message
+only tabs --- > no error message
+
+wrong textures path --- > good
+
+different order of inputs --- > good
+double parameters --- > no error
+
+wrong file name --- > seg fault
