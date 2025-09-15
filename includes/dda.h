@@ -10,6 +10,11 @@ typedef struct s_wall
 	double	mini_distance;
 	int		hit_side;
 	int		hit;
+	double	wallx;
+	int		wallstart;
+	int		wallend;
+	int		wallheight;
+	int		colour;
 }	t_wall;
 
 typedef struct s_dda

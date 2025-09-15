@@ -13,26 +13,17 @@ int	ft_create_window(t_cub3D *cub)
 // open all texture files
 int	ft_open_texture(t_cub3D *cub)
 {
-	cub->textures->north = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->textures->north_path,
-			&cub->textures->wall_width, &cub->textures->wall_height);
-	if (!cub->textures->north)
-		return (ft_exit(cub), ft_error(5), 1);
-	cub->textures->south = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->textures->south_path, &cub->textures->wall_width,
-			&cub->textures->wall_height);
-	if (!cub->textures->south)
-		return (ft_exit(cub), ft_error(5), 1);
-	cub->textures->east = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->textures->east_path, &cub->textures->wall_width,
-			&cub->textures->wall_height);
-	if (!cub->textures->east)
-		return (ft_exit(cub), ft_error(5), 1);
-	cub->textures->west = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->textures->west_path, &cub->textures->wall_width,
-			&cub->textures->wall_height);
-	if (!cub->textures->west)
-		return (ft_exit(cub), ft_error(5), 1);
+	int	a;
+	int	b;
+	int	c;
+	int	d;
+
+	a = ft_open_north(cub);
+	b = ft_open_south(cub);
+	c = ft_open_east(cub);
+	d = ft_open_west(cub);
+	if (a == 1 || b == 1 || c == 1 || d == 1)
+		return (1);
 	return (0);
 }
 
@@ -48,28 +39,9 @@ void	ft_render_image(t_cub3D *cub)
 				&cub->img->bits_per_pixel, &cub->img->line_len,
 				&cub->img->endian);
 	}
-// might need to destroy textures here when render is using them ?
 	ft_image_render(cub);
 	mlx_put_image_to_window(cub->mlx_ptr, cub->window, cub->img->img_ptr, 0, 0);
 }
-
-// find and display weapon image
-// int	ft_render_weapon(t_cub3D *cub)
-// {
-// 	cub->weapon->weapon = mlx_xpm_file_to_image(cub->mlx_ptr,
-	// "textures/weapon.xpm", &cub->weapon->weapon_width,
-	// &cub->weapon->weapon_height);
-// 	if (!cub->weapon->weapon)
-// 		return (ft_exit(cub), ft_error(5), 1);
-// 	cub->weapon->weapon_x = (cub->window_width - cub->weapon->weapon_width) / 2;
-// 	cub->weapon->weapon_y = cub->window_height - cub->weapon->weapon_height;
-// 	if (cub->weapon->weapon_y < 0)
-// 		cub->weapon->weapon_y = 0;
-// 	mlx_put_image_to_window(cub->mlx_ptr, cub->window,
-//	cub->weapon->weapon, cub->weapon->weapon_x, cub->weapon->weapon_y);
-// 	printf("weapon created and applied to window\n");
-// 	return (0);
-// }
 
 // render minimap to scale
 void	ft_render_mini_map(t_cub3D *cub)

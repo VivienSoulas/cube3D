@@ -9,7 +9,7 @@ int		ft_key_pressed(int key, t_cub3D *cub);
 int		ft_key_released(int key, t_cub3D *cub);
 int		ft_update_game(t_cub3D *cub);
 int		ft_mouse_move_event(int x, int y, void *cub);
-//int		ft_resize(void *cub);
+
 int		ft_red_cross(void *cub);
 
 // movement

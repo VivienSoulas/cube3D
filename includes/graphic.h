@@ -6,16 +6,22 @@ typedef struct s_cub3D t_cub3D;
 
 typedef struct s_textures
 {
-	char	*north_path;
-	void	*north;
-	char	*south_path;
-	void	*south;
-	char	*east_path;
-	void	*east;
-	char	*west_path;
-	void	*west;
-	int		wall_width;
-	int		wall_height;
+	char			*north_path;
+	void			*north_img;
+	unsigned int	*north;
+	char			*south_path;
+	void			*south_img;
+	unsigned int	*south;
+	char			*east_path;
+	void			*east_img;
+	unsigned int	*east;
+	char			*west_path;
+	void			*west_img;
+	unsigned int	*west;
+	int				wall_width;
+	int				wall_height;
+	int				texx;
+	int				texy;
 }	t_textures;
 
 typedef struct s_image
@@ -29,27 +35,34 @@ typedef struct s_image
 	int		height;
 }	t_image;
 
-typedef struct s_weapon
-{
-	void	*weapon;
-	int		weapon_width;
-	int		weapon_height;
-	double	weapon_x;
-	double	weapon_y;
-}	t_weapon;
-
 // initialisation
 int		ft_initialise_mlx(t_cub3D *cub);
 
 // render
 void	ft_pixel_to_window(t_image *image, int x, int y, int colour);
+void	ft_render_walls(t_cub3D *cub, int x, int y);
 void	ft_draw_culums(t_cub3D *cub, int x);
 void	ft_image_render(t_cub3D *cub);
 
+// render walls
+void	ft_calc_tex_y_east(t_cub3D *cub, int y);
+void	ft_calc_tex_y_west(t_cub3D *cub, int y);
+void	ft_calc_tex_y_south(t_cub3D *cub, int y);
+void	ft_calc_tex_y_north(t_cub3D *cub, int y);
+
+// render utils
+void	ft_calc_tex_x_east_west(t_cub3D *cub);
+void	ft_calc_tex_x_north_south(t_cub3D *cub);
+ 
 // window
 int		ft_create_window(t_cub3D *cub);
 int		ft_open_texture(t_cub3D *cub);
 void	ft_render_image(t_cub3D *cub);
-// int		ft_render_weapon(t_cub3D *cub);
+
+// open textures
+int		ft_open_west(t_cub3D *cub);
+int		ft_open_east(t_cub3D *cub);
+int		ft_open_north(t_cub3D *cub);
+int		ft_open_south(t_cub3D *cub);
 
 #endif

@@ -27,20 +27,15 @@ void	ft_destroy_texture(t_cub3D *cub)
 {
 	if (cub->textures)
 	{
-		if (cub->textures->north)
-			mlx_destroy_image(cub->mlx_ptr, cub->textures->north);
-		if (cub->textures->south)
-			mlx_destroy_image(cub->mlx_ptr, cub->textures->south);
-		if (cub->textures->east)
-			mlx_destroy_image(cub->mlx_ptr, cub->textures->east);
-		if (cub->textures->west)
-			mlx_destroy_image(cub->mlx_ptr, cub->textures->west);
+		if (cub->textures->north_img)
+			mlx_destroy_image(cub->mlx_ptr, cub->textures->north_img);
+		if (cub->textures->south_img)
+			mlx_destroy_image(cub->mlx_ptr, cub->textures->south_img);
+		if (cub->textures->east_img)
+			mlx_destroy_image(cub->mlx_ptr, cub->textures->east_img);
+		if (cub->textures->west_img)
+			mlx_destroy_image(cub->mlx_ptr, cub->textures->west_img);
 	}
-	// if (cub->weapon)
-	// {
-	// 	if (cub->weapon->weapon)
-	// 		mlx_destroy_image(cub->mlx_ptr, cub->weapon->weapon);
-	// }
 }
 
 void	ft_free_struct(t_cub3D **cub)
@@ -49,8 +44,6 @@ void	ft_free_struct(t_cub3D **cub)
 		ft_free_set_null((void **)&(*cub)->img);
 	if ((*cub)->mini_map)
 		ft_free_set_null((void **)&(*cub)->mini_map);
-	// if ((*cub)->weapon)
-	// 	ft_free_set_null((void **)&(*cub)->weapon);
 	if ((*cub)->textures)
 		ft_free_set_null((void **)&(*cub)->textures);
 	if ((*cub)->vector)

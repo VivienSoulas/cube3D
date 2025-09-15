@@ -66,7 +66,6 @@ typedef struct s_cub3D
 	int				mouse_on_off;
 	t_image			*img;
 	t_mini_map		*mini_map;
-	t_weapon		*weapon;
 	t_textures		*textures;
 	t_map			*map;
 	t_player		*player;
@@ -90,9 +89,6 @@ void	ft_free_array(char **array);
 
 // initialisation
 int		ft_initialise_cub(t_cub3D *cub, char **av);
-
-// map parsing
-void	ft_map_parsing(int fd, t_cub3D *cub);
 
 // temp
 int		ft_read_map(t_cub3D *cub);

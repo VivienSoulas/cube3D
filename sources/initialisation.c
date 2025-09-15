@@ -11,9 +11,6 @@ int	ft_initialise_cub(t_cub3D *cub, char **av)
 	cub->player->fov_factor = tan(cub->player->fov / 2);
 	cub->mouse_x = 0;
 	cub->mouse_on_off = 1;
-	// ft_map_parsing(fd, cub);
-// if (!cub->map)
-	// 	return (ft_exit(cub), ft_error(4), 1);
 if (ft_read_map(cub) == 1)
 return (ft_exit(cub), ft_error(4), 1);
 	ft_update_dda_vector(cub);
@@ -39,8 +36,6 @@ int	ft_initialise_mlx(t_cub3D *cub)
 	if (ft_open_texture(cub) == 1)
 		return (1);
 	ft_render_image(cub);
-	//if (ft_render_weapon(cub) == 1)
-	//		return (1);
 	ft_render_mini_map(cub);
 	return (0);
 }
