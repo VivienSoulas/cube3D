@@ -20,6 +20,7 @@ different order of inputs --- > good
 wrong file name --- > good
 
 double parameters --- > no error
+missing one texture ----> error
 
 Fixed:
 no textures --- > no error
