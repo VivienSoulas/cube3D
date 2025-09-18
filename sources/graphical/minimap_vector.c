@@ -10,7 +10,6 @@ static int	ft_in_bonds_minimap(t_cub3D *cub, int x, int y)
 }
 
 // fill the dots between the previous function
-// DDA algorythm to add here
 void	ft_fill_vector_line(t_cub3D *cub)
 {
 	int	s;

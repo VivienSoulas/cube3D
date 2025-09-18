@@ -15,15 +15,15 @@ void	ft_player_to_minimap(t_cub3D *cub)
 	int	my;
 	int	mx;
 
-	cub->mini_map->player_mini_x = cub->player->pos_x
+	cub->mini_map->player_mini_x = (int)cub->player->pos_x
 		* cub->mini_map->cell_width;
-	cub->mini_map->player_mini_y = cub->player->pos_y
+	cub->mini_map->player_mini_y = (int)cub->player->pos_y
 		* cub->mini_map->cell_heigth;
 	my = 0;
-	while (my < (cub->mini_map->cell_heigth / 2))
+	while (my < cub->mini_map->cell_heigth)
 	{
 		mx = 0;
-		while (mx < (cub->mini_map->cell_width / 2))
+		while (mx < (cub->mini_map->cell_width))
 		{
 			ft_pixel_to_mini_map(cub->mini_map, cub->mini_map->player_mini_x
 				+ mx, cub->mini_map->player_mini_y
