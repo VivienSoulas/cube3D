@@ -15,6 +15,7 @@
 # include <errno.h>
 # include <math.h>
 # include <stdbool.h>
+# include <time.h>
 # include <sys/time.h>
 # include <fcntl.h>
 # include <X11/Xlib.h>
@@ -54,7 +55,6 @@ typedef struct s_map
 
 typedef struct s_cub3D
 {
-	int				fd;
 	void			*mlx_ptr;
 	void			*window;
 	int				window_width;
@@ -66,6 +66,8 @@ typedef struct s_cub3D
 	double			new_y;
 	int				keypressed[65537];
 	int				mouse_on_off;
+	struct	timeval	start_time;
+	struct	timeval	now;
 	t_image			*img;
 	t_mini_map		*mini_map;
 	t_textures		*textures;

@@ -9,7 +9,7 @@ int	ft_alloc_struct(t_cub3D *cub)
 	cub->vector = ft_calloc(1, sizeof(t_vector));
 	cub->dda = ft_calloc(1, sizeof(t_dda));
 	cub->wall = ft_calloc(1, sizeof(t_wall));
-	if (cub->fd == -1 || !cub->img || !cub->mini_map
+	if (!cub->img || !cub->mini_map
 		|| !cub->textures || !cub->player || !cub->vector
 		|| !cub->dda || !cub->wall)
 		return (1);

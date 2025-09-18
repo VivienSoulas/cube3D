@@ -1,10 +1,10 @@
 minimap vectors wall collision
 mouse to check at school
+anoimation
+textue while walking
 norminette
 
 remove ./ in front of textures paths (and maybe add .xpm)
-
-converte rgb to hexadecimal in initialisation of cub
 
 
 
@@ -17,6 +17,7 @@ only tabs --- > no error message
 
 wrong textures path --- > good
 different order of inputs --- > good
+wrong file name --- > good
 
 double parameters --- > no error
-wrong file name --- > seg fault
+no textures --- > no error

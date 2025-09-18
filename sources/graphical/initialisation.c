@@ -2,7 +2,6 @@
 
 int	ft_initialise_cub(t_cub3D *cub, int ac, char **av)
 {
-	cub->fd = open(av[1], O_RDONLY);
 	if (ft_alloc_struct(cub) == 1)
 		return (ft_exit(cub), ft_error(4), 1);
 	cub->window_width = DEFAULT_WIDTH;
@@ -11,6 +10,7 @@ int	ft_initialise_cub(t_cub3D *cub, int ac, char **av)
 	cub->player->fov_factor = tan(cub->player->fov / 2);
 	cub->mouse_x = 0;
 	cub->mouse_on_off = 1;
+	gettimeofday(&cub->start_time, NULL);
 	cub->data = ft_parse(ac, av);
 	if (!cub->data)
 		return (1);
@@ -25,7 +25,6 @@ int	ft_convert_tdata(t_cub3D *cub)
 	cub->map = malloc(sizeof(t_map));
 	if (!cub->map)
 		return (ft_exit(cub), ft_error(4), 1);
-	cub->map->grid = cub->data->map;
 	cub->map->width = cub->data->map_width;
 	cub->map->height = cub->data->map_height;
 	cub->player->pos_x = (double)cub->data->player_x;
@@ -39,15 +38,15 @@ int	ft_convert_tdata(t_cub3D *cub)
 		cub->player->angle = 0;
 	else if (cub->data->start_dir == 'W')
 		cub->player->angle = 180;
-
-	cub->ceiling_color = 0x000000;
-	cub->floor_color = 0xffff00;
-
+	cub->ceiling_color = (cub->data->floor.r << 16)
+		| (cub->data->floor.g << 8) | cub->data->floor.b;
+	cub->floor_color = (cub->data->celling.r << 16)
+		| (cub->data->celling.g << 8) | cub->data->celling.b;
 	cub->textures->north_path = cub->data->no_texture;
 	cub->textures->south_path = cub->data->so_texture;
 	cub->textures->east_path = cub->data->ea_texture;
 	cub->textures->west_path = cub->data->we_texture;
-	return (0);
+	return (cub->map->grid = cub->data->map, 0);
 }
 
 void	ft_initialise_mini_map(t_cub3D *cub)

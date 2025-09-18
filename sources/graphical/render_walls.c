@@ -46,6 +46,15 @@ void	ft_calc_tex_y_north(t_cub3D *cub, int y)
 		cub->textures->texy = cub->textures->wall_height - 1;
 	if (cub->textures->texy < 0)
 		cub->textures->texy = 0;
-	cub->wall->colour = cub->textures->north[cub->textures->texy
-		* cub->textures->wall_width + cub->textures->texx];
+	gettimeofday(&cub->now, NULL);
+	//if ((cub->start_time - cub->now) % 2 == 0)
+	//{
+		cub->wall->colour = cub->textures->north[cub->textures->texy
+			* cub->textures->wall_width + cub->textures->texx];
+	//}
+	//else
+	//{
+	//	cub->wall->colour = cub->textures->north[cub->textures->texy
+	//		* cub->textures->wall_width + cub->textures->texx];
+	//}
 }
