@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init_atributes.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: natalia <natalia@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/09/03 10:55:16 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/12 15:00:09 by natalia       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init_atributes.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/03 10:55:16 by natalia           #+#    #+#             */
+/*   Updated: 2025/09/18 14:04:41 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ bool	are_textures_initialized(char *line, t_data *data)
 	if (!texture)
 		return (false);
 	printf("texture: *%s*\n", texture);
+	if (*texture == '\0')
+		return (printf("Erro:empty texture: %s", line), free(texture), false);
 	if (line[0] == 'N' && line[1] == 'O')
 		data->no_texture = ft_strdup(texture);
 	else if (line[0] == 'S' && line[1] == 'O')
