@@ -54,6 +54,7 @@ void	ft_calc_tex_y_north(t_cub3D *cub, int y)
 	{
 		cub->wall->colour = cub->textures->north[cub->textures->texy
 			* cub->textures->wall_width + cub->textures->texx];
+		cub->last_change = cub->now;
 	}
 	else
 	{
