@@ -21,8 +21,8 @@ typedef struct s_textures
 	char			*west_path;
 	void			*west_img;
 	unsigned int	*west;
-	int				wall_width;
-	int				wall_height;
+	int				texture_width;
+	int				texture_height;
 	int				texx;
 	int				texy;
 }	t_textures;

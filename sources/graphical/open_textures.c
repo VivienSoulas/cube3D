@@ -7,8 +7,8 @@ int	ft_open_north(t_cub3D *cub)
 	int	endian;
 
 	cub->textures->north_img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->textures->north_path, &cub->textures->wall_width,
-			&cub->textures->wall_height);
+			cub->textures->north_path, &cub->textures->texture_width,
+			&cub->textures->texture_height);
 	if (!cub->textures->north_img)
 		return (1);
 	cub->textures->north
@@ -16,8 +16,8 @@ int	ft_open_north(t_cub3D *cub)
 			&bpp, &line_len, &endian);
 	cub->textures->north_odd_path = ft_strdup("./textures/North_odd.xpm");
 	cub->textures->north_odd_img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->textures->north_odd_path, &cub->textures->wall_width,
-			&cub->textures->wall_height);
+			cub->textures->north_odd_path, &cub->textures->texture_width,
+			&cub->textures->texture_height);
 	if (!cub->textures->north_odd_img)
 		return (1);
 	cub->textures->north_odd
@@ -33,8 +33,8 @@ int	ft_open_south(t_cub3D *cub)
 	int	endian;
 
 	cub->textures->south_img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->textures->south_path, &cub->textures->wall_width,
-			&cub->textures->wall_height);
+			cub->textures->south_path, &cub->textures->texture_width,
+			&cub->textures->texture_height);
 	if (!cub->textures->south_img)
 		return (1);
 	cub->textures->south
@@ -50,8 +50,8 @@ int	ft_open_east(t_cub3D *cub)
 	int	endian;
 
 	cub->textures->east_img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->textures->east_path, &cub->textures->wall_width,
-			&cub->textures->wall_height);
+			cub->textures->east_path, &cub->textures->texture_width,
+			&cub->textures->texture_height);
 	if (!cub->textures->east_img)
 		return (1);
 	cub->textures->east
@@ -67,8 +67,8 @@ int	ft_open_west(t_cub3D *cub)
 	int	endian;
 
 	cub->textures->west_img = mlx_xpm_file_to_image(cub->mlx_ptr,
-			cub->textures->west_path, &cub->textures->wall_width,
-			&cub->textures->wall_height);
+			cub->textures->west_path, &cub->textures->texture_width,
+			&cub->textures->texture_height);
 	if (!cub->textures->west_img)
 		return (1);
 	cub->textures->west
