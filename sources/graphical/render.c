@@ -14,9 +14,9 @@ void	ft_render_walls(t_cub3D *cub, int x, int y)
 	{
 		ft_calc_tex_x_east_west(cub);
 		if (cub->dda->raydirx > 0)
-			ft_calc_tex_y_east(cub, y);
-		else
 			ft_calc_tex_y_west(cub, y);
+		else
+			ft_calc_tex_y_east(cub, y);
 	}
 	else
 	{
