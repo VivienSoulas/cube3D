@@ -6,6 +6,7 @@ int	ft_open_north(t_cub3D *cub)
 	int	line_len;
 	int	endian;
 
+	cub->textures->north_odd_path = ft_strdup("./textures/North_odd.xpm");
 	cub->textures->north_img = mlx_xpm_file_to_image(cub->mlx_ptr,
 			cub->textures->north_path, &cub->textures->wall_width,
 			&cub->textures->wall_height);
@@ -13,6 +14,14 @@ int	ft_open_north(t_cub3D *cub)
 		return (ft_error(5), 1);
 	cub->textures->north
 		= (unsigned int *)mlx_get_data_addr(cub->textures->north_img,
+			&bpp, &line_len, &endian);
+	cub->textures->north_odd_img = mlx_xpm_file_to_image(cub->mlx_ptr,
+			cub->textures->north_odd_path, &cub->textures->wall_width,
+			&cub->textures->wall_height);
+	if (!cub->textures->north_odd_img)
+		return (ft_error(5), 1);
+	cub->textures->north_odd
+		= (unsigned int *)mlx_get_data_addr(cub->textures->north_odd_img,
 			&bpp, &line_len, &endian);
 	return (0);
 }

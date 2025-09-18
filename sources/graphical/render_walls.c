@@ -39,6 +39,8 @@ void	ft_calc_tex_y_south(t_cub3D *cub, int y)
 
 void	ft_calc_tex_y_north(t_cub3D *cub, int y)
 {
+	int	time_interval;
+
 	cub->textures->texx = cub->textures->wall_width - cub->textures->texx - 1;
 	cub->textures->texy = (int)((y - cub->wall->wallstart)
 			* cub->textures->wall_height / cub->wall->wallheight);
@@ -47,14 +49,15 @@ void	ft_calc_tex_y_north(t_cub3D *cub, int y)
 	if (cub->textures->texy < 0)
 		cub->textures->texy = 0;
 	gettimeofday(&cub->now, NULL);
-	//if ((cub->start_time - cub->now) % 2 == 0)
-	//{
+	time_interval = (cub->now.tv_sec - cub->last_change.tv_sec);
+	if (time_interval % 5 == 0)
+	{
 		cub->wall->colour = cub->textures->north[cub->textures->texy
 			* cub->textures->wall_width + cub->textures->texx];
-	//}
-	//else
-	//{
-	//	cub->wall->colour = cub->textures->north[cub->textures->texy
-	//		* cub->textures->wall_width + cub->textures->texx];
-	//}
+	}
+	else
+	{
+		cub->wall->colour = cub->textures->north_odd[cub->textures->texy
+			* cub->textures->wall_width + cub->textures->texx];
+	}
 }

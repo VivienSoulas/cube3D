@@ -80,7 +80,6 @@ void	ft_orientation_change(t_cub3D *cub)
 // mouse move right and left
 void	ft_orientation_change_mouse(int key, t_cub3D *cub)
 {
-	(void)cub;
 	if (key == 65363)
 	{
 		cub->player->angle += 5;
