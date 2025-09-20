@@ -21,6 +21,12 @@ int	ft_key_released(int key, t_cub3D *cub)
 
 int	ft_update_game(t_cub3D *cub)
 {
+	int	time_elapsed;
+
+	gettimeofday(&cub->now, NULL);
+	time_elapsed = (cub->now.tv_usec / 100000);
+	if (time_elapsed % 20 < 2)
+		ft_update(cub);
 	ft_movement_hooks(cub);
 	ft_side_movement(cub);
 	ft_orientation_change(cub);
