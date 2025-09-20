@@ -38,10 +38,6 @@ void	ft_draw_culums(t_cub3D *cub, int x)
 			/ cub->wall->wall_distance);
 	cub->wall->wallstart = -cub->wall->wallheight / 2 + cub->window_height / 2;
 	cub->wall->wallend = cub->wall->wallheight / 2 + cub->window_height / 2;
-	if (cub->wall->wallstart < 0)
-		cub->wall->wallstart = 0;
-	if (cub->wall->wallend >= cub->window_height)
-		cub->wall->wallend = cub->window_height - 1;
 	while (y < cub->window_height)
 	{
 		if (y < cub->wall->wallstart)

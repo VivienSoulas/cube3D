@@ -76,7 +76,7 @@ void	ft_mini_map_render(t_cub3D *cub)
 			if (cub->map->grid[y][x] == '1')
 				colour = cub->mini_map->wall_colour;
 			else if (cub->map->grid[y][x] == '0')
-				colour = cub->floor_color;
+				colour = 0xffffff;
 			ft_printing_mini_map(cub, x, y, colour);
 			x++;
 		}

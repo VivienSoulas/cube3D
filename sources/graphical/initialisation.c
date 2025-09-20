@@ -38,9 +38,9 @@ int	ft_convert_tdata(t_cub3D *cub)
 		cub->player->angle = 0;
 	else if (cub->data->start_dir == 'W')
 		cub->player->angle = 180;
-	cub->ceiling_color = (cub->data->floor.r << 16)
+	cub->floor_color = (cub->data->floor.r << 16)
 		| (cub->data->floor.g << 8) | cub->data->floor.b;
-	cub->floor_color = (cub->data->celling.r << 16)
+	cub->ceiling_color = (cub->data->celling.r << 16)
 		| (cub->data->celling.g << 8) | cub->data->celling.b;
 	cub->textures->north_path = cub->data->no_texture;
 	cub->textures->south_path = cub->data->so_texture;
@@ -53,7 +53,7 @@ void	ft_initialise_mini_map(t_cub3D *cub)
 {
 	cub->mini_map->width = 200;
 	cub->mini_map->height = 200;
-	cub->mini_map->wall_colour = 0xFF00FF;
+	cub->mini_map->wall_colour = 0x333333;
 	cub->mini_map->player_colour = 0xFF0000;
 	cub->mini_map->vector_length = 5;
 }
