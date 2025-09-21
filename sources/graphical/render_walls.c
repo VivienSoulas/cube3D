@@ -4,10 +4,11 @@ void	ft_calc_tex_y_east(t_cub3D *cub, int y)
 {
 	int	wall_center;
 	int	unclamped_wallstart;
-	
+
 	wall_center = cub->window_height / 2;
 	unclamped_wallstart = wall_center - cub->wall->wallheight / 2;
-	cub->textures->texx = cub->textures->texture_width - cub->textures->texx - 1;
+	cub->textures->texx = cub->textures->texture_width
+		- cub->textures->texx - 1;
 	cub->textures->texy = (int)((y - unclamped_wallstart)
 			* cub->textures->texture_height / cub->wall->wallheight);
 	if (cub->textures->texy >= cub->textures->texture_height)
@@ -39,10 +40,11 @@ void	ft_calc_tex_y_south(t_cub3D *cub, int y)
 {
 	int	wall_center;
 	int	unclamped_wallstart;
-	
+
 	wall_center = cub->window_height / 2;
 	unclamped_wallstart = wall_center - cub->wall->wallheight / 2;
-	cub->textures->texx = cub->textures->texture_width - cub->textures->texx - 1;
+	cub->textures->texx = cub->textures->texture_width
+		- cub->textures->texx - 1;
 	cub->textures->texy = (int)((y - unclamped_wallstart)
 			* cub->textures->texture_height / cub->wall->wallheight);
 	if (cub->textures->texy >= cub->textures->texture_height)

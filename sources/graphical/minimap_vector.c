@@ -55,7 +55,6 @@ void	ft_print_vector_minimap(t_cub3D *cub, float cos, float sin)
 		else
 			cub->vector->steps = cub->vector->dy;
 		ft_fill_vector_line(cub);
-// call dda algorythm instead of ft_fill_vector_line
 		cub->vector->prev_px = cub->vector->px;
 		cub->vector->prev_py = cub->vector->py;
 		i++;
