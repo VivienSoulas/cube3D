@@ -6,8 +6,8 @@ void	ft_movement_hooks(t_cub3D *cub)
 	if (cub->keypressed[119] == 1
 		|| cub->keypressed[65362] == 1)
 	{
-		cub->new_x = cub->player->pos_x + cub->dda->dirx * 0.1;
-		cub->new_y = cub->player->pos_y + cub->dda->diry * 0.1;
+		cub->new_x = cub->player->pos_x + cub->dda->dirx * 0.07;
+		cub->new_y = cub->player->pos_y + cub->dda->diry * 0.07;
 		if (cub->map->grid[(int)cub->new_y][(int)cub->new_x] != '1')
 		{
 			cub->player->pos_x = cub->new_x;
@@ -18,8 +18,8 @@ void	ft_movement_hooks(t_cub3D *cub)
 	else if (cub->keypressed[115] == 1
 		|| cub->keypressed[65364] == 1)
 	{
-		cub->new_x = cub->player->pos_x - cub->dda->dirx * 0.1;
-		cub->new_y = cub->player->pos_y - cub->dda->diry * 0.1;
+		cub->new_x = cub->player->pos_x - cub->dda->dirx * 0.07;
+		cub->new_y = cub->player->pos_y - cub->dda->diry * 0.07;
 		if (cub->map->grid[(int)cub->new_y][(int)cub->new_x] != '1')
 		{
 			cub->player->pos_x = cub->new_x;
@@ -34,8 +34,8 @@ void	ft_side_movement(t_cub3D *cub)
 {
 	if (cub->keypressed[100] == 1)
 	{
-		cub->new_x = cub->player->pos_x - cub->dda->diry * 0.1;
-		cub->new_y = cub->player->pos_y + cub->dda->dirx * 0.1;
+		cub->new_x = cub->player->pos_x - cub->dda->diry * 0.07;
+		cub->new_y = cub->player->pos_y + cub->dda->dirx * 0.07;
 		if (cub->map->grid[(int)cub->new_y][(int)cub->new_x] != '1')
 		{
 			cub->player->pos_x = cub->new_x;
@@ -45,8 +45,8 @@ void	ft_side_movement(t_cub3D *cub)
 	}
 	else if (cub->keypressed[97] == 1)
 	{
-		cub->new_x = cub->player->pos_x + cub->dda->diry * 0.1;
-		cub->new_y = cub->player->pos_y - cub->dda->dirx * 0.1;
+		cub->new_x = cub->player->pos_x + cub->dda->diry * 0.07;
+		cub->new_y = cub->player->pos_y - cub->dda->dirx * 0.07;
 		if (cub->map->grid[(int)cub->new_y][(int)cub->new_x] != '1')
 		{
 			cub->player->pos_x = cub->new_x;
