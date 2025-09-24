@@ -38,7 +38,7 @@ BLUE	=	\033[38;2;0;0;255m
 LIME	=	\033[38;2;0;255;0m
 RESET	=	\033[0m # No Color
 
-# compile graphical source files into object files
+#compile graphical source files into object files
 $(OBJ_DIR)/graphical/%.o:$(GRAPHICAL_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@

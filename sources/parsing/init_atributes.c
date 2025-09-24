@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_atributes.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/03 10:55:16 by natalia           #+#    #+#             */
-/*   Updated: 2025/09/18 15:11:34 by nmedeiro         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   init_atributes.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: natalia <natalia@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/09/03 10:55:16 by natalia       #+#    #+#                 */
+/*   Updated: 2025/09/24 08:22:17 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,35 +39,77 @@ bool are_collors_initialized(char *line, t_data *data)
 	return (true);
 }
 
-bool	is_no_texture_initialized(t_data *data, char *texture) //TODO: think in a way to make this funtion generic to all functions
+// bool	is_no_texture_initialized(t_data *data, char *texture, char *test) //TODO: think in a way to make this funtion generic to all functions
+// {
+// 	printf("teste:%s\n", test);
+// 	if (data->no_texture == NULL)
+// 	{
+// 		data->no_texture = ft_strdup(texture);
+// 		if (data->no_texture == NULL)
+// 		{
+// 			printf("Error: Failure on parsing texture\n");
+// 			return (false);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		printf("Error: has double no_texture\n");
+// 		return (false);
+// 	}
+// 	return (true);
+// }
+
+char	*init_texture(char *data, char *texture) //TODO: think in a way to make this funtion generic to all functions
 {
-	if (data->no_texture == NULL)
+	char	*result;
+
+	printf("data:%s\n", data);
+	if (data == NULL)
 	{
-		data->no_texture = ft_strdup(texture);
-		if (data->no_texture == NULL)
+		result = ft_strdup(texture);
+		if (result == NULL)
 		{
 			printf("Error: Failure on parsing texture\n");
-			return (false);
+			return (NULL);
 		}
 	}
 	else
 	{
 		printf("Error: has double no_texture\n");
-		return (false);
+		return (NULL);
 	}
-	return (true);
+	return (result);
 }
+
+// char	*fill_texture(char	*data_texture, char ) //TODO: think in a way to make this funtion generic to all functions
+// {
+// 	printf("teste:%s\n", test);
+// 	if (data->no_texture == NULL)
+// 	{
+// 		data->no_texture = ft_strdup(texture);
+// 		if (data->no_texture == NULL)
+// 		{
+// 			printf("Error: Failure on parsing texture\n");
+// 			return (false);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		printf("Error: has double no_texture\n");
+// 		return (false);
+// 	}
+// 	return (true);
+// }
 
 bool	are_textures_initialized(char *line, t_data *data) //TODO keep working on double textures
 {
 	char	*texture;
-	bool	return_value = true;
 
-	// if (!ft_isalpha(line[1]) || line[2] != ' ') //TODO: check if this if is really necessary
-	// {
-	// 	printf("Invalid texture path\n");
-	// 	return (false);
-	// }
+	if (!ft_isalpha(line[1]) || line[2] != ' ') //TODO: check if this if is really necessary
+	{
+		printf("Invalid texture path\n");
+		return (false);
+	}
 	texture = ft_strtrim(line + 2, " \n\t");
 	if (!texture)
 		return (false);
@@ -75,13 +117,29 @@ bool	are_textures_initialized(char *line, t_data *data) //TODO keep working on d
 	if (*texture == '\0')
 		return (printf("Error:empty texture: %s", line), free(texture), false);
 	if (line[0] == 'N' && line[1] == 'O')
-		return_value = is_no_texture_initialized(data, texture);
+	{
+		data->no_texture = init_texture(data->no_texture, texture);
+		if (data->no_texture == NULL)
+			return (false);
+	}
 	else if (line[0] == 'S' && line[1] == 'O')
-		data->so_texture = ft_strdup(texture);
+	{
+		data->so_texture = init_texture(data->so_texture, texture);
+		if (data->so_texture == NULL)
+			return (false);
+	}
 	else if (line[0] == 'W' && line[1] == 'E')
-		data->we_texture = ft_strdup(texture);
+	{
+		data->we_texture = init_texture(data->we_texture, texture);
+		if (data->we_texture == NULL)
+			return (false);
+	}
 	else if (line[0] == 'E' && line[1] == 'A')
-		data->ea_texture = ft_strdup(texture);
+	{
+		data->ea_texture = init_texture(data->ea_texture, texture);
+		if (data->ea_texture == NULL)
+			return (false);
+	}
 	else
 	{
 		printf("Invalid texture path\n");
@@ -89,7 +147,11 @@ bool	are_textures_initialized(char *line, t_data *data) //TODO keep working on d
 		return (false);
 	}
 	free(texture);
-	return (return_value);
+	printf("no_texture:%s\n", data->no_texture);
+	printf("so_texture:%s\n", data->so_texture);
+	printf("we_texture:%s\n", data->we_texture);
+	printf("ea_texture:%s\n", data->ea_texture);
+	return (true);
 }
 
 bool	are_attributes_initialized(char *line, t_data *data)
@@ -141,7 +203,7 @@ int	init_attributes(t_data *data, char *arg)
 		free(line);
 	}
 	if (!data->no_texture || !data->so_texture
-		|| data->we_texture || data->ea_texture)
+		|| !data->we_texture || !data->ea_texture)
 		printf("Error: missing texture\n");
 	close(data->fd);
 	return (0);
