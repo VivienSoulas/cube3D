@@ -9,6 +9,9 @@ typedef struct s_textures
 	char			*north_path;
 	void			*north_img;
 	unsigned int	*north;
+	char			*north_odd_path;
+	void			*north_odd_img;
+	unsigned int	*north_odd;
 	char			*south_path;
 	void			*south_img;
 	unsigned int	*south;
@@ -18,8 +21,8 @@ typedef struct s_textures
 	char			*west_path;
 	void			*west_img;
 	unsigned int	*west;
-	int				wall_width;
-	int				wall_height;
+	int				texture_width;
+	int				texture_height;
 	int				texx;
 	int				texy;
 }	t_textures;

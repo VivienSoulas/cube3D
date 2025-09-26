@@ -30,6 +30,8 @@ void	ft_destroy_texture(t_cub3D *cub)
 	{
 		if (cub->textures->north_img)
 			mlx_destroy_image(cub->mlx_ptr, cub->textures->north_img);
+		if (cub->textures->north_odd_img)
+			mlx_destroy_image(cub->mlx_ptr, cub->textures->north_odd_img);
 		if (cub->textures->south_img)
 			mlx_destroy_image(cub->mlx_ptr, cub->textures->south_img);
 		if (cub->textures->east_img)
@@ -66,6 +68,8 @@ void	ft_free_cub(t_cub3D **cub)
 {
 	if (!cub || !*cub)
 		return ;
+	if ((*cub)->textures->north_odd_path)
+		ft_free_set_null((void **)&(*cub)->textures->north_odd_path);
 	ft_free_struct(cub);
 	if ((*cub)->map)
 	{

@@ -10,7 +10,7 @@ int	ft_initialise_cub(t_cub3D *cub, int ac, char **av)
 	cub->player->fov_factor = tan(cub->player->fov / 2);
 	cub->mouse_x = 0;
 	cub->mouse_on_off = 1;
-	gettimeofday(&cub->start_time, NULL);
+	gettimeofday(&cub->last_change, NULL);
 	cub->data = ft_parse(ac, av);
 	if (!cub->data)
 		return (1);
@@ -31,16 +31,16 @@ int	ft_convert_tdata(t_cub3D *cub)
 	cub->player->pos_y = (double)cub->data->player_y;
 	cub->player->start_dir = cub->data->start_dir;
 	if (cub->data->start_dir == 'N')
-		cub->player->angle = 270;
-	else if (cub->data->start_dir == 'S')
 		cub->player->angle = 90;
+	else if (cub->data->start_dir == 'S')
+		cub->player->angle = 270;
 	else if (cub->data->start_dir == 'E')
 		cub->player->angle = 0;
 	else if (cub->data->start_dir == 'W')
 		cub->player->angle = 180;
-	cub->ceiling_color = (cub->data->floor.r << 16)
+	cub->floor_color = (cub->data->floor.r << 16)
 		| (cub->data->floor.g << 8) | cub->data->floor.b;
-	cub->floor_color = (cub->data->celling.r << 16)
+	cub->ceiling_color = (cub->data->celling.r << 16)
 		| (cub->data->celling.g << 8) | cub->data->celling.b;
 	cub->textures->north_path = cub->data->no_texture;
 	cub->textures->south_path = cub->data->so_texture;
@@ -53,7 +53,7 @@ void	ft_initialise_mini_map(t_cub3D *cub)
 {
 	cub->mini_map->width = 200;
 	cub->mini_map->height = 200;
-	cub->mini_map->wall_colour = 0xFF00FF;
+	cub->mini_map->wall_colour = 0x333333;
 	cub->mini_map->player_colour = 0xFF0000;
 	cub->mini_map->vector_length = 5;
 }

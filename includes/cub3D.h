@@ -66,7 +66,7 @@ typedef struct s_cub3D
 	double			new_y;
 	int				keypressed[65537];
 	int				mouse_on_off;
-	struct	timeval	start_time;
+	struct	timeval	last_change;
 	struct	timeval	now;
 	t_image			*img;
 	t_mini_map		*mini_map;

@@ -21,6 +21,12 @@ int	ft_key_released(int key, t_cub3D *cub)
 
 int	ft_update_game(t_cub3D *cub)
 {
+	int	time_elapsed;
+
+	gettimeofday(&cub->now, NULL);
+	time_elapsed = (cub->now.tv_usec / 100000);
+	if (time_elapsed % 20 < 2)
+		ft_update(cub);
 	ft_movement_hooks(cub);
 	ft_side_movement(cub);
 	ft_orientation_change(cub);
@@ -34,13 +40,11 @@ int	ft_mouse_move_event(int x, int y, void *cub)
 	int	center_x;
 	int	center_y;
 	int	mx;
-	int	my;
 
-	(void)y;
 	if (((t_cub3D *)cub)->mouse_on_off == 0)
 		return (1);
 	mlx_mouse_get_pos(((t_cub3D *)cub)->mlx_ptr,
-		((t_cub3D *)cub)->window, &mx, &my);
+		((t_cub3D *)cub)->window, &mx, &y);
 	center_x = ((t_cub3D *)cub)->window_width / 2;
 	center_y = ((t_cub3D *)cub)->window_height / 2;
 	mx = x - center_x;

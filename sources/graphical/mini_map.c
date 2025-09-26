@@ -15,15 +15,15 @@ void	ft_player_to_minimap(t_cub3D *cub)
 	int	my;
 	int	mx;
 
-	cub->mini_map->player_mini_x = cub->player->pos_x
+	cub->mini_map->player_mini_x = (int)cub->player->pos_x
 		* cub->mini_map->cell_width;
-	cub->mini_map->player_mini_y = cub->player->pos_y
+	cub->mini_map->player_mini_y = (int)cub->player->pos_y
 		* cub->mini_map->cell_heigth;
 	my = 0;
-	while (my < (cub->mini_map->cell_heigth / 2))
+	while (my < cub->mini_map->cell_heigth)
 	{
 		mx = 0;
-		while (mx < (cub->mini_map->cell_width / 2))
+		while (mx < (cub->mini_map->cell_width))
 		{
 			ft_pixel_to_mini_map(cub->mini_map, cub->mini_map->player_mini_x
 				+ mx, cub->mini_map->player_mini_y
@@ -56,6 +56,19 @@ void	ft_printing_mini_map(t_cub3D *cub, int x, int y, int colour)
 	}
 }
 
+void	ft_find_colour(t_cub3D *cub, int line_len, int x, int y)
+{
+	int	colour;
+
+	if (x < line_len && cub->map->grid[y][x] == '1')
+		colour = cub->mini_map->wall_colour;
+	else if (x < line_len && cub->map->grid[y][x] == '0')
+		colour = 0xffffff;
+	else
+		colour = cub->mini_map->wall_colour;
+	ft_printing_mini_map(cub, x, y, colour);
+}
+
 // creates cell within the minimaps
 // allows us to see the walls and player
 // walks through each cell of the grided map
@@ -63,7 +76,7 @@ void	ft_mini_map_render(t_cub3D *cub)
 {
 	int	x;
 	int	y;
-	int	colour;
+	int	line_len;
 
 	cub->mini_map->cell_width = cub->mini_map->width / cub->map->width;
 	cub->mini_map->cell_heigth = cub->mini_map->height / cub->map->height;
@@ -71,13 +84,13 @@ void	ft_mini_map_render(t_cub3D *cub)
 	while (y < cub->map->height)
 	{
 		x = 0;
+		if (cub->map->grid[y])
+			line_len = ft_strlen(cub->map->grid[y]);
+		else
+			line_len = 0;
 		while (x < cub->map->width)
 		{
-			if (cub->map->grid[y][x] == '1')
-				colour = cub->mini_map->wall_colour;
-			else if (cub->map->grid[y][x] == '0')
-				colour = cub->floor_color;
-			ft_printing_mini_map(cub, x, y, colour);
+			ft_find_colour(cub, line_len, x, y);
 			x++;
 		}
 		y++;

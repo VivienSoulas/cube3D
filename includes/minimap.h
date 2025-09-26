@@ -46,6 +46,7 @@ void	ft_initialise_mini_map(t_cub3D *cub);
 void	ft_pixel_to_mini_map(t_mini_map *mini_map, int x, int y, int colour);
 void	ft_player_to_minimap(t_cub3D *cub);
 void	ft_printing_mini_map(t_cub3D *cub, int x, int y, int colour);
+void	ft_find_colour(t_cub3D *cub, int line_len, int x, int y);
 void	ft_mini_map_render(t_cub3D *cub);
 
 // minimap vector

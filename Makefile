@@ -96,7 +96,7 @@ re: fclean all
 
 val: $(NAME)
 	@if [ -z "$(ARGS)" ]; then \
-		valgrind --suppressions=x11.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) maps/map1.cub; \
+		valgrind --suppressions=x11.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) maps/map4.cub; \
 	else \
 		valgrind --suppressions=x11.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) $(ARGS); \
 	fi
