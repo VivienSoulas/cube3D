@@ -66,7 +66,6 @@ typedef struct s_cub3D
 	double			new_y;
 	int				keypressed[65537];
 	int				mouse_on_off;
-	struct	timeval	last_change;
 	struct	timeval	now;
 	int				needs_update;
 	int				movement_update;

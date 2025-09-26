@@ -9,7 +9,6 @@ int	ft_initialise_cub(t_cub3D *cub, int ac, char **av)
 	cub->player->fov = M_PI / 3;
 	cub->player->fov_factor = tan(cub->player->fov / 2);
 	cub->mouse_on_off = 1;
-	gettimeofday(&cub->last_change, NULL);
 	cub->data = ft_parse(ac, av);
 	if (!cub->data)
 		return (1);
@@ -50,8 +49,8 @@ int	ft_convert_tdata(t_cub3D *cub)
 
 void	ft_initialise_mini_map(t_cub3D *cub)
 {
-	cub->mini_map->width = 200;
-	cub->mini_map->height = 200;
+	cub->mini_map->width = 350;
+	cub->mini_map->height = 350;
 	cub->mini_map->wall_colour = 0x333333;
 	cub->mini_map->player_colour = 0xFF0000;
 	cub->mini_map->vector_length = 5;

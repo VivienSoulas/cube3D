@@ -19,6 +19,7 @@ int	ft_key_released(int key, t_cub3D *cub)
 	return (0);
 }
 
+// check time difference for flikering lanterns
 int	ft_update_game(t_cub3D *cub)
 {
 	static struct timeval	last_update = {0, 0};
