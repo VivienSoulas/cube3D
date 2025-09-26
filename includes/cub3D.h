@@ -69,6 +69,7 @@ typedef struct s_cub3D
 	struct	timeval	last_change;
 	struct	timeval	now;
 	int				needs_update;
+	int				movement_update;
 	t_image			*img;
 	t_mini_map		*mini_map;
 	t_textures		*textures;

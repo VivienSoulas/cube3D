@@ -21,17 +21,29 @@ int	ft_key_released(int key, t_cub3D *cub)
 
 int	ft_update_game(t_cub3D *cub)
 {
-	int	time_elapsed;
+	static struct timeval	last_update = {0, 0};
+	long					time_diff;
 
 	gettimeofday(&cub->now, NULL);
-	time_elapsed = (cub->now.tv_usec / 100000);
-	if (time_elapsed % 20 < 2)
-		ft_update(cub);
-	ft_movement_hooks(cub);
-	ft_side_movement(cub);
-	ft_orientation_change(cub);
-	mlx_put_image_to_window(cub->mlx_ptr,
-		cub->window, cub->mini_map->img_ptr, 0, 0);
+	if (ft_movement_hooks(cub))
+		cub->movement_update = 1;
+	if (ft_side_movement(cub))
+		cub->movement_update = 1;
+	if (ft_orientation_change(cub))
+		cub->movement_update = 1;
+	if (last_update.tv_sec != 0)
+	{
+		time_diff = (cub->now.tv_sec - last_update.tv_sec) * 1000000
+			+ (cub->now.tv_usec - last_update.tv_usec);
+		if (time_diff > 16667)
+			cub->needs_update = 1;
+	}
+	else
+		cub->needs_update = 1;
+	if (cub->movement_update)
+		cub->needs_update = 1;
+	if (cub->needs_update)
+		return (ft_update(cub), last_update = cub->now, cub->needs_update = 0);
 	return (0);
 }
 

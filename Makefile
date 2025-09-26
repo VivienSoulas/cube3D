@@ -24,6 +24,14 @@ OBJ			=	$(GRAPHICAL_SRC:$(GRAPHICAL_DIR)/%.c=$(OBJ_DIR)/graphical/%.o) \
 				$(PARSING_SRC:$(PARSING_DIR)/%.c=$(OBJ_DIR)/parsing/%.o) \
 				$(GNL_SRC:$(GNL_DIR)/%.c=$(OBJ_DIR)/%.o)
 
+# LIBft library
+LIBFT		=	./libft
+LIBFT_LIB	=	$(LIBFT)/libft.a
+
+# minilibs library
+MINILIB		=	./minilibx/minilibx-linux
+MINI_LIB	=	$(MINILIB)/libmlx.a
+
 ARGS		?=
 CC			=	cc
 CFLAGS		=	-Werror -Wall -Wextra -I$(HEADERS) -I$(LIBFT) -I$(MINILIB) -I$(GNL_DIR)
@@ -53,17 +61,9 @@ $(OBJ_DIR)/%.o:$(GNL_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# LIBft library
-LIBFT		=	./libft
-LIBFT_LIB	=	$(LIBFT)/libft.a
-
-# minilibs library
-MINILIB		=	./minilibx/minilibx-linux
-MINI_LIB	=	$(MINILIB)/libmlx.a
-
 # instructions to make NAME
 $(NAME): $(OBJ) $(LIBFT_LIB) $(MINI_LIB)
-	@$(CC) $(OBJ) $(LIBFT_LIB) $(MINI_LIB) $(MINI_FLAGS) -lm -o $(NAME)
+	@$(CC) $(OBJ) -L$(LIBFT) -lft $(MINI_LIB) $(MINI_FLAGS) -lm -o $(NAME)
 	@echo "$(LIME)==========================\nSUCCESS : Program compiled\n==========================\n$(RESET)"
 
 # instructions to compile libft
