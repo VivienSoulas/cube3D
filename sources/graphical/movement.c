@@ -1,7 +1,7 @@
 #include "cub3D.h"
 
 // w/up arrow and s/down arrow forward and backward
-void	ft_movement_hooks(t_cub3D *cub)
+int	ft_movement_hooks(t_cub3D *cub)
 {
 	if (cub->keypressed[119] == 1
 		|| cub->keypressed[65362] == 1)
@@ -12,7 +12,7 @@ void	ft_movement_hooks(t_cub3D *cub)
 		{
 			cub->player->pos_x = cub->new_x;
 			cub->player->pos_y = cub->new_y;
-			ft_update(cub);
+			return (1);
 		}
 	}
 	else if (cub->keypressed[115] == 1
@@ -24,13 +24,14 @@ void	ft_movement_hooks(t_cub3D *cub)
 		{
 			cub->player->pos_x = cub->new_x;
 			cub->player->pos_y = cub->new_y;
-			ft_update(cub);
+			return (1);
 		}
 	}
+	return (0);
 }
 
 // a and d move left and right
-void	ft_side_movement(t_cub3D *cub)
+int	ft_side_movement(t_cub3D *cub)
 {
 	if (cub->keypressed[100] == 1)
 	{
@@ -40,7 +41,7 @@ void	ft_side_movement(t_cub3D *cub)
 		{
 			cub->player->pos_x = cub->new_x;
 			cub->player->pos_y = cub->new_y;
-			ft_update(cub);
+			return (1);
 		}
 	}
 	else if (cub->keypressed[97] == 1)
@@ -51,13 +52,14 @@ void	ft_side_movement(t_cub3D *cub)
 		{
 			cub->player->pos_x = cub->new_x;
 			cub->player->pos_y = cub->new_y;
-			ft_update(cub);
+			return (1);
 		}
 	}
+	return (0);
 }
 
 // right and left arrow
-void	ft_orientation_change(t_cub3D *cub)
+int	ft_orientation_change(t_cub3D *cub)
 {
 	if (cub->keypressed[65361] == 1)
 	{
@@ -65,7 +67,7 @@ void	ft_orientation_change(t_cub3D *cub)
 		if (cub->player->angle >= 360)
 			cub->player->angle -= 360;
 		ft_update_dda_vector(cub);
-		ft_update(cub);
+		return (1);
 	}
 	else if (cub->keypressed[65363] == 1)
 	{
@@ -73,8 +75,9 @@ void	ft_orientation_change(t_cub3D *cub)
 		if (cub->player->angle < 0)
 			cub->player->angle += 360;
 		ft_update_dda_vector(cub);
-		ft_update(cub);
+		return (1);
 	}
+	return (0);
 }
 
 // mouse move right and left

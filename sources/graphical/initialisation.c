@@ -10,6 +10,7 @@ int	ft_initialise_cub(t_cub3D *cub, int ac, char **av)
 	cub->player->fov_factor = tan(cub->player->fov / 2);
 	cub->mouse_x = 0;
 	cub->mouse_on_off = 1;
+	cub->needs_update = 0;
 	gettimeofday(&cub->last_change, NULL);
 	cub->data = ft_parse(ac, av);
 	if (!cub->data)

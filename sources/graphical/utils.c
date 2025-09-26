@@ -36,6 +36,6 @@ void	ft_update_dda_vector(t_cub3D *cub)
 
 void	ft_update(t_cub3D *cub)
 {
-	ft_mini_map_render(cub);
 	ft_render_image(cub);
+	ft_render_mini_map(cub);
 }

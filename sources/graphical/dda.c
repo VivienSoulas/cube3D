@@ -11,7 +11,7 @@ void	ft_wall_distance(t_cub3D *cub)
 		cub->wall->wall_distance = (cub->dda->sidedisty - cub->dda->deltadisty);
 	dx = cub->dda->mapx - cub->player->pos_x;
 	dy = cub->dda->mapy - cub->player->pos_y;
-	cub->wall->mini_distance = sqrt(dx * dx + dy * dy);
+	cub->wall->mini_distance = dx * dx + dy * dy;
 }
 
 void	ft_finding_wall(t_cub3D *cub)
