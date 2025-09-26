@@ -1,17 +1,28 @@
 NAME		=	cub3D
 
-SOURCES		=	main.c error.c map_parsing.c free.c exit.c utils.c hooks.c initialisation.c mini_map.c render.c \
-				temp.c window.c movement.c ray_casting.c minimap_vector.c
+GRAPHICAL_SOURCES	=	dda.c error.c exit.c free.c hooks.c initialisation.c main.c mini_map.c \
+					minimap_vector.c movement.c open_textures.c render.c render_utils.c \
+					render_walls.c utils.c window.c
+
+PARSING_SOURCES		=	arg_validator.c atributes_validator.c error_handling.c init_atributes.c \
+					instantiate_data.c map_validator.c parse_data.c utils.c main_parsing.c
+
 GNL_SOURCES		=	get_next_line.c get_next_line_utils.c
 
 SRC_DIR		=	sources
+GRAPHICAL_DIR	=	$(SRC_DIR)/graphical
+PARSING_DIR	=	$(SRC_DIR)/parsing
 OBJ_DIR		=	objects
 GNL_DIR		=	get_next_line
 HEADERS		=	includes
 
-SRC			=	$(addprefix $(SRC_DIR)/, $(SOURCES))
+GRAPHICAL_SRC	=	$(addprefix $(GRAPHICAL_DIR)/, $(GRAPHICAL_SOURCES))
+PARSING_SRC	=	$(addprefix $(PARSING_DIR)/, $(PARSING_SOURCES))
 GNL_SRC		=	$(addprefix $(GNL_DIR)/, $(GNL_SOURCES))
-OBJ			=	$(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o) $(GNL_SRC:$(GNL_DIR)/%.c=$(OBJ_DIR)/%.o)
+
+OBJ			=	$(GRAPHICAL_SRC:$(GRAPHICAL_DIR)/%.c=$(OBJ_DIR)/graphical/%.o) \
+				$(PARSING_SRC:$(PARSING_DIR)/%.c=$(OBJ_DIR)/parsing/%.o) \
+				$(GNL_SRC:$(GNL_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 ARGS		?=
 CC			=	cc
@@ -27,8 +38,13 @@ BLUE	=	\033[38;2;0;0;255m
 LIME	=	\033[38;2;0;255;0m
 RESET	=	\033[0m # No Color
 
-# compile source files into object files in a directory
-$(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
+#compile graphical source files into object files
+$(OBJ_DIR)/graphical/%.o:$(GRAPHICAL_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+# compile parsing source files into object files
+$(OBJ_DIR)/parsing/%.o:$(PARSING_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -60,7 +76,7 @@ $(MINI_LIB):
 	@make -C $(MINILIB)
 	@echo "$(BLUE)minilibx: libmlx.a created$(RESET)"
 
-PHONY: all clean fclean re val
+PHONY: all clean fclean re val run
 
 all: $(LIBFT_LIB) $(MINI_LIB) $(NAME)
 
@@ -84,3 +100,6 @@ val: $(NAME)
 	else \
 		valgrind --suppressions=x11.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes ./$(NAME) $(ARGS); \
 	fi
+
+run: $(NAME)
+	./$(NAME) maps/map1.cub

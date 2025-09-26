@@ -8,46 +8,42 @@
 # define M_PI 3.14159265358979323846
 #endif
 
-# include "libft.h"
-# include "mlx.h"
-# include "get_next_line.h"
+// System includes
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
 # include <math.h>
+# include <stdbool.h>
+# include <time.h>
 # include <sys/time.h>
 # include <fcntl.h>
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
+# include <X11/Xlib.h>
+# include <X11/Xutil.h>
 
-typedef struct s_vector
-{
-	int		start_x;
-	int		start_y;
-	int		px;
-	int		py;
-	int		steps;
-	int		prev_px;
-	int		prev_py;
-	int		line_y;
-	int		line_x;
-	int		dx;
-	int		dy;
-	int		denom;
+// Project includes
+# include "libft.h"
+# include "get_next_line.h"
+# include "mlx.h"
+# include "minimap.h"
+# include "movement.h"
+# include "graphic.h"
+# include "dda.h"
+# include "parsing.h"
 
-}	t_vector;
-
-// radians = degrees * pi / 180
 typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
-	double	radians_angle; // must be in radian (from 0 to 2pi)
 	int		angle;
-	float	cos;
-	float	sin;
+	double	radians_angle;
+	float	cos_right;
+	float	sin_right;
+	float	cos_left;
+	float	sin_left;
 	char	start_dir;
+	float	fov;
+	double	fov_factor;
 }	t_player;
 
 typedef struct s_map
@@ -57,75 +53,30 @@ typedef struct s_map
 	int		height;
 }	t_map;
 
-typedef struct weapon
-{
-	void	*weapon;
-	int		weapon_width;
-	int		weapon_height;
-	double	weapon_x;
-	double	weapon_y;
-}	t_weapon;
-
-typedef struct s_textures
-{
-	char	*north_path;
-	void	*north;
-	char	*south_path;
-	void	*south;
-	char	*east_path;
-	void	*east;
-	char	*west_path;
-	void	*west;
-	int		wall_width;
-	int		wall_height;
-}	t_textures;
-
-typedef struct s_mini_map
-{
-	void	*img_ptr;
-	char	*img_pixels_ptr;
-	int		bits_per_pixel;
-	int		endian;
-	int		line_len;
-	int		width;
-	int		height;
-	int		cell_width;
-	int		cell_heigth;
-	int		wall_colour;
-	int		player_colour;
-	double	player_mini_x;
-	double	player_mini_y;
-	int		vector_length;
-}	t_mini_map;
-
-// image to render for window
-typedef struct s_image
-{
-	void	*img_ptr;
-	char	*img_pixels_ptr;
-	int		bits_per_pixel;
-	int		endian;
-	int		line_len;
-	int		width;
-	int		height;
-}	t_image;
-
 typedef struct s_cub3D
 {
-	int				fd;
 	void			*mlx_ptr;
 	void			*window;
 	int				window_width;
 	int				window_height;
 	int				floor_color;
 	int				ceiling_color;
+	int				mouse_x;
+	double			new_x;
+	double			new_y;
+	int				keypressed[65537];
+	int				mouse_on_off;
+	struct	timeval	start_time;
+	struct	timeval	now;
 	t_image			*img;
 	t_mini_map		*mini_map;
-	t_weapon		*weapon;
 	t_textures		*textures;
 	t_map			*map;
 	t_player		*player;
 	t_vector		*vector;
+	t_dda			*dda;
+	t_wall			*wall;
+	t_data			*data;
 }	t_cub3D;
 
 // error
@@ -133,59 +84,26 @@ void	ft_error(int id);
 
 // exit
 void	ft_exit(t_cub3D *cub);
-void	ft_free_cub(t_cub3D **cub);
 void	ft_destroy_texture(t_cub3D *cub);
+void	ft_free_data(t_cub3D **cub);
+void	ft_free_cub(t_cub3D **cub);
+void	ft_free_struct(t_cub3D **cub);
 
 // free
 void	ft_free_set_null(void **data);
 void	ft_free_array(char **array);
 
-// hooks
-int		ft_key_hooks(int key, t_cub3D *cub);
-int		ft_mouse_move_event(int x, int y, void *cub);
-int		ft_resize(void *cub);
-int		ft_red_cross(void *cub);
-
 // initialisation
-int		ft_initialise_cub(t_cub3D *cub, char **av);
-void	ft_initialise_mini_map(t_cub3D *cub);
-int		ft_initialise_mlx(t_cub3D *cub);
-
-// map parsing
-void	ft_map_parsing(int fd, t_cub3D *cub);
-
-// mini map
-void	ft_pixel_to_mini_map(t_mini_map *mini_map, int x, int y, int colour);
-void	ft_player_to_minimap(t_cub3D *cub);
-void	ft_printing_mini_map(t_cub3D *cub, int x, int y, int colour);
-void	ft_mini_map_render(t_cub3D *cub);
-
-// minimap vector
-void	ft_fill_vector_line(t_cub3D *cub);
-void	ft_print_vector_line_minimap(t_cub3D *cub, int start_x, int start_y);
-void	ft_field_of_view(t_cub3D *cub);
-
-// movement
-void	ft_movement_hooks(int key, t_cub3D *cub);
-void	ft_side_movement(int key, t_cub3D *cub);
-void	ft_orientation_change(int key, t_cub3D *cub);
-void	ft_orientation_change_mouse(int key, t_cub3D *cub);
-
-// render
-void	ft_pixel_to_window(t_image *image, int x, int y, int colour);
-void	ft_image_render(t_cub3D *cub);
+int		ft_initialise_cub(t_cub3D *cub, int ac, char **av);
+int		ft_convert_tdata(t_cub3D *cub);
 
 // temp
 int		ft_read_map(t_cub3D *cub);
 
 // utils
+int		ft_alloc_struct(t_cub3D *cub);
 int		ft_absolute(int a);
-
-// window
-int		ft_create_window(t_cub3D *cub);
-void	ft_render_image(t_cub3D *cub);
-void	ft_render_mini_map(t_cub3D *cub);
-int		ft_render_weapon(t_cub3D *cub);
-int		ft_open_texture(t_cub3D *cub);
+void	ft_update_dda_vector(t_cub3D *cub);
+void	ft_update(t_cub3D *cub);
 
 #endif

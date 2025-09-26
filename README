@@ -1,27 +1,26 @@
-key_event_hook:
-// think about how to handle big maps that dont fit in the minimap
+minimap vectors wall collision
+mouse to check at school
+anoimation
+textue while walking
+norminette
 
-ft_mouse_move_event:
-// later needs to change minimap view (maybe ?)
-// or at least change the view of the 1st person from roght to left
-// can not look up or down
-
-ft_resize:
-// resize shoould change :
-//		window size and image displayed size
-//		minimap size
-//		weapon size
-//		wall texture size
-//		destroy wall textures and redisplay with new scales/calculations
-
-weapon to scale (generally how to resize images)
-
-think about:
-empty map
-only new line
-only spaces
-only tabs
-wrong textures path
+remove ./ in front of textures paths (and maybe add .xpm)
 
 
-mouse needs to stop moving
+
+
+parsing think about:
+empty map --- > no error message
+only new line --- > no error message
+only spaces --- > no error message
+only tabs --- > no error message
+
+wrong textures path --- > good
+different order of inputs --- > good
+wrong file name --- > good
+
+double parameters --- > no error
+missing one texture ----> error
+
+Fixed:
+no textures --- > no error

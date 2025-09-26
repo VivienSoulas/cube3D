@@ -6,7 +6,7 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 14:17:15 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/07/31 11:07:37 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/08/15 14:59:01 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@ int	main(int ac, char **av)
 	cub = ft_calloc(1, sizeof(t_cub3D));
 	if (cub == NULL)
 		return (ft_error(4), 1);
-	if (ft_initialise_cub(cub, av) == 1)
-		return (1);
+	if (ft_initialise_cub(cub, ac, av) == 1)
+		return (ft_exit(cub), 1);
 	ft_initialise_mini_map(cub);
 	if (ft_initialise_mlx(cub) == 1)
-		return (1);
-	mlx_key_hook(cub->window, ft_key_hooks, cub);
+		return (ft_exit(cub), 1);
+	mlx_hook(cub->window, 2, 1L << 0, ft_key_pressed, cub);
+	mlx_hook(cub->window, 3, 1L << 1, ft_key_released, cub);
+	mlx_loop_hook(cub->mlx_ptr, ft_update_game, cub);
 	mlx_hook(cub->window, 6, 1L << 6, ft_mouse_move_event, cub);
 	mlx_hook(cub->window, 17, 0, ft_red_cross, cub);
-	// mlx_hook(cub->window, 25, 1L << 18, ft_resize, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (ft_exit(cub), 0);
 }

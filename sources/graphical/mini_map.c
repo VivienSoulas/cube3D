@@ -15,20 +15,23 @@ void	ft_player_to_minimap(t_cub3D *cub)
 	int	my;
 	int	mx;
 
-	cub->mini_map->player_mini_x = cub->player->pos_x * cub->mini_map->cell_width;
-	cub->mini_map->player_mini_y = cub->player->pos_y * cub->mini_map->cell_heigth;
+	cub->mini_map->player_mini_x = cub->player->pos_x
+		* cub->mini_map->cell_width;
+	cub->mini_map->player_mini_y = cub->player->pos_y
+		* cub->mini_map->cell_heigth;
 	my = 0;
 	while (my < (cub->mini_map->cell_heigth / 2))
 	{
 		mx = 0;
 		while (mx < (cub->mini_map->cell_width / 2))
 		{
-			ft_pixel_to_mini_map(cub->mini_map, cub->mini_map->player_mini_x + mx, cub->mini_map->player_mini_y + my, cub->mini_map->player_colour);
+			ft_pixel_to_mini_map(cub->mini_map, cub->mini_map->player_mini_x
+				+ mx, cub->mini_map->player_mini_y
+				+ my, cub->mini_map->player_colour);
 			mx++;
 		}
 		my++;
 	}
-	printf("player displayed in map\n");
 	ft_field_of_view(cub);
 }
 
@@ -44,7 +47,9 @@ void	ft_printing_mini_map(t_cub3D *cub, int x, int y, int colour)
 		mx = 0;
 		while (mx < cub->mini_map->cell_width)
 		{
-			ft_pixel_to_mini_map(cub->mini_map, x * cub->mini_map->cell_width + mx, y * cub->mini_map->cell_heigth + my, colour);
+			ft_pixel_to_mini_map(cub->mini_map, x
+				* cub->mini_map->cell_width + mx, y
+				* cub->mini_map->cell_heigth + my, colour);
 			mx++;
 		}
 		my++;
@@ -77,7 +82,5 @@ void	ft_mini_map_render(t_cub3D *cub)
 		}
 		y++;
 	}
-	printf("minimap generated\n");
 	ft_player_to_minimap(cub);
-	printf("full minimap render generated\n");
 }
