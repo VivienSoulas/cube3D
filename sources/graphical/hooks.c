@@ -49,28 +49,30 @@ int	ft_update_game(t_cub3D *cub)
 
 int	ft_mouse_move_event(int x, int y, void *cub)
 {
-	int	center_x;
-	int	center_y;
-	int	mx;
+	int		center_x;
+	int		center_y;
+	int		mouse_delta_x;
+	float	rotation_speed;
 
+	(void)y;
 	if (((t_cub3D *)cub)->mouse_on_off == 0)
 		return (1);
-	mlx_mouse_get_pos(((t_cub3D *)cub)->mlx_ptr,
-		((t_cub3D *)cub)->window, &mx, &y);
 	center_x = ((t_cub3D *)cub)->window_width / 2;
 	center_y = ((t_cub3D *)cub)->window_height / 2;
-	mx = x - center_x;
-	if (mx != 0)
+	mouse_delta_x = x - center_x;
+	if (mouse_delta_x > 1 || mouse_delta_x < -1)
 	{
 		mlx_mouse_move(((t_cub3D *)cub)->mlx_ptr,
 			((t_cub3D *)cub)->window, center_x, center_y);
-		if (mx > 5)
-			ft_orientation_change_mouse(65361, cub);
-		else if (mx < -5)
-			ft_orientation_change_mouse(65363, cub);
+		rotation_speed = mouse_delta_x * -0.2f;
+		((t_cub3D *)cub)->player->angle += rotation_speed;
+		if (((t_cub3D *)cub)->player->angle >= 360)
+			((t_cub3D *)cub)->player->angle -= 360;
+		if (((t_cub3D *)cub)->player->angle < 0)
+			((t_cub3D *)cub)->player->angle += 360;
+		ft_update_dda_vector(((t_cub3D *)cub));
+		((t_cub3D *)cub)->movement_update = 1;
 	}
-	mlx_put_image_to_window(((t_cub3D *)cub)->mlx_ptr,
-		((t_cub3D *)cub)->window, ((t_cub3D *)cub)->mini_map->img_ptr, 0, 0);
 	return (0);
 }
 
