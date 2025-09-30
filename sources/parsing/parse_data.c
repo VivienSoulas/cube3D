@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/02 11:16:33 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/12 14:57:32 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/30 09:27:43 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int	validate_map(t_data *data)
 
 int parse_data(t_data *data, char *argv)
 {
-	if (init_attributes(data, argv) != 0)
+	if (!are_attributes_initialized(data, argv))
 		return (1);
 	if (init_map(data, argv) != 0)
 		return (1);  // init_map failed

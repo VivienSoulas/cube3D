@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/03 10:55:16 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/24 08:22:17 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/30 09:28:00 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,51 +19,32 @@ bool are_collors_initialized(char *line, t_data *data)
 	rgb = get_color_input(line);
 	if (rgb == NULL)
 		return (false);
-	if (line[0] == 'C')
+	if (line[0] == 'C' && data->celling.r == -1 && data->celling.g == -1 && data->celling.b == -1)
 	{
 		data->celling.r = rgb[0];
 		data->celling.g = rgb[1];
 		data->celling.b = rgb[2];
 		data->has_celling_color = true;
-		printf("after atoi R: %d G: %d B: %d\n", data->celling.r, data->celling.g, data->celling.b);//TODO remove this print
+		// printf("after atoi R: %d G: %d B: %d\n", data->celling.r, data->celling.g, data->celling.b);//TODO remove this print
 	}
-	else
+	else if (line[0] == 'F')
 	{
 		data->floor.r = rgb[0];
 		data->floor.g = rgb[1];
 		data->floor.b = rgb[2];
 		data->has_floor_color = true;
-		printf("after atoi R: %d G: %d B: %d\n", data->floor.r, data->floor.g, data->floor.b);//TODO remove this print
+		// printf("after atoi R: %d G: %d B: %d\n", data->floor.r, data->floor.g, data->floor.b);//TODO remove this print
 	}
+	else
+		return (printf("Error: Has double color\n"), false);
 	free(rgb);
 	return (true);
 }
-
-// bool	is_no_texture_initialized(t_data *data, char *texture, char *test) //TODO: think in a way to make this funtion generic to all functions
-// {
-// 	printf("teste:%s\n", test);
-// 	if (data->no_texture == NULL)
-// 	{
-// 		data->no_texture = ft_strdup(texture);
-// 		if (data->no_texture == NULL)
-// 		{
-// 			printf("Error: Failure on parsing texture\n");
-// 			return (false);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		printf("Error: has double no_texture\n");
-// 		return (false);
-// 	}
-// 	return (true);
-// }
 
 char	*init_texture(char *data, char *texture) //TODO: think in a way to make this funtion generic to all functions
 {
 	char	*result;
 
-	printf("data:%s\n", data);
 	if (data == NULL)
 	{
 		result = ft_strdup(texture);
@@ -80,26 +61,6 @@ char	*init_texture(char *data, char *texture) //TODO: think in a way to make thi
 	}
 	return (result);
 }
-
-// char	*fill_texture(char	*data_texture, char ) //TODO: think in a way to make this funtion generic to all functions
-// {
-// 	printf("teste:%s\n", test);
-// 	if (data->no_texture == NULL)
-// 	{
-// 		data->no_texture = ft_strdup(texture);
-// 		if (data->no_texture == NULL)
-// 		{
-// 			printf("Error: Failure on parsing texture\n");
-// 			return (false);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		printf("Error: has double no_texture\n");
-// 		return (false);
-// 	}
-// 	return (true);
-// }
 
 bool	are_textures_initialized(char *line, t_data *data) //TODO keep working on double textures
 {
@@ -147,40 +108,61 @@ bool	are_textures_initialized(char *line, t_data *data) //TODO keep working on d
 		return (false);
 	}
 	free(texture);
-	printf("no_texture:%s\n", data->no_texture);
-	printf("so_texture:%s\n", data->so_texture);
-	printf("we_texture:%s\n", data->we_texture);
-	printf("ea_texture:%s\n", data->ea_texture);
+	// printf("no_texture:%s\n", data->no_texture);
+	// printf("so_texture:%s\n", data->so_texture);
+	// printf("we_texture:%s\n", data->we_texture);
+	// printf("ea_texture:%s\n", data->ea_texture);
 	return (true);
 }
 
-bool	are_attributes_initialized(char *line, t_data *data)
+bool	are_texture_and_colors_initialized(char *line, t_data *data)
 {
 	if ((line[0] == 'C' || line[0] == 'F') && line[1] == ' ')
 	{
 		if (are_collors_initialized(line, data) == false)
 			return (false);
 	}
-	else if (line[2] == ' ')
+	else if ((line[0] == 'N' || line[0] == 'S' || line[0] == 'E' || line[0] == 'W') && line[2] == ' ')
 	{
 		if (are_textures_initialized(line, data) == false)
 			return (false);
 	}
 	else
 	{
-		printf("missing space: %s\n", line);
+		printf("missing space or extra line found: %s\n", line);
 		return (false);
 	}
 	return (true);
 }
 
-int	init_attributes(t_data *data, char *arg)
+bool	are_attributes_correctly_initialized(t_data *data)
+{
+	if (!data->no_texture || !data->so_texture
+		|| !data->we_texture || !data->ea_texture)
+	{
+		printf("Error: missing texture\n");
+		return (true);
+	}
+	else if (data->celling.r == -1 && data->celling.g == -1 && data->celling.b == -1)
+	{
+		printf("Error: missing celling color\n");
+		return (true);
+	}
+	else if (data->floor.r == -1 && data->floor.g == -1 && data->floor.b == -1)
+	{
+		printf("Error: missing floor color\n");
+		return (true);
+	}
+	return (true);
+}
+
+bool	are_attributes_initialized(t_data *data, char *arg)
 {
 	char	*line;
 
 	data->fd = open(arg, O_RDONLY);
 	if (has_fd_opened(data->fd) == false)
-		return (1);  // Failed to open file
+		return (false);
 	while ((line = get_next_line(data->fd)) != NULL)
 	{
 		if (line[0] == '\n')
@@ -189,11 +171,11 @@ int	init_attributes(t_data *data, char *arg)
 		{
 			if (ft_isalpha(line[0]))
 			{
-				if (are_attributes_initialized(line, data) == false)
+				if (are_texture_and_colors_initialized(line, data) == false)
 				{
 					free(line);
 					close(data->fd);
-					return (1);  // Failed to parse attributes
+					return (false);
 				}
 			}
 			else if (has_map_started(data))
@@ -202,9 +184,8 @@ int	init_attributes(t_data *data, char *arg)
 		}
 		free(line);
 	}
-	if (!data->no_texture || !data->so_texture
-		|| !data->we_texture || !data->ea_texture)
-		printf("Error: missing texture\n");
+	if (!are_attributes_correctly_initialized(data))
+		return (false);
 	close(data->fd);
-	return (0);
+	return (true);
 }

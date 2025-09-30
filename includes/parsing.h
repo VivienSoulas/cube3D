@@ -64,7 +64,7 @@ int		init_map(t_data *data, char *arg);
 int		*get_color_input(char *line);
 
 //init_atribute
-int		init_attributes(t_data *data, char *arg);
+bool	are_attributes_initialized(t_data *data, char *arg);
 
 //map_validador.
 bool	is_player(char	c);
