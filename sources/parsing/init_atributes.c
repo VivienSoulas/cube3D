@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/03 10:55:16 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/30 09:28:00 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/30 13:37:51 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ bool are_collors_initialized(char *line, t_data *data)
 		data->celling.g = rgb[1];
 		data->celling.b = rgb[2];
 		data->has_celling_color = true;
-		// printf("after atoi R: %d G: %d B: %d\n", data->celling.r, data->celling.g, data->celling.b);//TODO remove this print
 	}
 	else if (line[0] == 'F')
 	{
@@ -33,7 +32,6 @@ bool are_collors_initialized(char *line, t_data *data)
 		data->floor.g = rgb[1];
 		data->floor.b = rgb[2];
 		data->has_floor_color = true;
-		// printf("after atoi R: %d G: %d B: %d\n", data->floor.r, data->floor.g, data->floor.b);//TODO remove this print
 	}
 	else
 		return (printf("Error: Has double color\n"), false);
@@ -41,7 +39,7 @@ bool are_collors_initialized(char *line, t_data *data)
 	return (true);
 }
 
-char	*init_texture(char *data, char *texture) //TODO: think in a way to make this funtion generic to all functions
+char	*init_texture(char *data, char *texture)
 {
 	char	*result;
 
@@ -62,80 +60,84 @@ char	*init_texture(char *data, char *texture) //TODO: think in a way to make thi
 	return (result);
 }
 
-bool	are_textures_initialized(char *line, t_data *data) //TODO keep working on double textures
+// bool	is_no_texture_init()
+
+// bool	are_textures_initialized(char *line, t_data *data)
+// {
+// 	char	*texture;
+
+// 	if (!ft_isalpha(line[1]) || line[2] != ' ')
+// 		return (printf("Error: Invalid texture path\n"), false);
+// 	texture = ft_strtrim(line + 2, " \n\t");
+// 	if (!texture)
+// 		return (printf("Error: Failure in init textures\n"), false);
+// 	if (*texture == '\0')
+// 		return (printf("Error: Empty texture: %s", line), free(texture), false);
+// 	if (line[0] == 'N' && line[1] == 'O')
+// 		return((data->no_texture = init_texture(data->no_texture, texture)), free(texture), data->no_texture != NULL);
+// 	else if (line[0] == 'S' && line[1] == 'O')
+// 		return((data->so_texture = init_texture(data->so_texture, texture)), free(texture), data->so_texture != NULL);
+// 	else if (line[0] == 'W' && line[1] == 'E')
+// 		return((data->we_texture = init_texture(data->we_texture, texture)), free(texture), data->we_texture != NULL);
+// 	else if (line[0] == 'E' && line[1] == 'A')
+// 		return((data->ea_texture = init_texture(data->ea_texture, texture)), free(texture), data->ea_texture != NULL);
+// 	else
+// 		return (printf("Invalid texture path\n"), free(texture), false);
+// 	return (free(texture), true);
+// }
+
+bool	are_textures_initialized(char *line, t_data *data)
 {
 	char	*texture;
+	char	*result;
 
-	if (!ft_isalpha(line[1]) || line[2] != ' ') //TODO: check if this if is really necessary
-	{
-		printf("Invalid texture path\n");
-		return (false);
-	}
+	if (!ft_isalpha(line[1]) || line[2] != ' ')
+		return (printf("Error: Invalid texture path\n"), false);
 	texture = ft_strtrim(line + 2, " \n\t");
 	if (!texture)
-		return (false);
-	printf("texture: *%s*\n", texture);
+		return (printf("Error: Failure in init textures\n"), false);
 	if (*texture == '\0')
-		return (printf("Error:empty texture: %s", line), free(texture), false);
+	{
+		printf("Error: Empty texture: %s", line);
+		return (free(texture), false);
+	}
+	result = NULL;
 	if (line[0] == 'N' && line[1] == 'O')
-	{
-		data->no_texture = init_texture(data->no_texture, texture);
-		if (data->no_texture == NULL)
-			return (false);
-	}
+		result = (data->no_texture = init_texture(data->no_texture, texture));
 	else if (line[0] == 'S' && line[1] == 'O')
-	{
-		data->so_texture = init_texture(data->so_texture, texture);
-		if (data->so_texture == NULL)
-			return (false);
-	}
+		result = (data->so_texture = init_texture(data->so_texture, texture));
 	else if (line[0] == 'W' && line[1] == 'E')
-	{
-		data->we_texture = init_texture(data->we_texture, texture);
-		if (data->we_texture == NULL)
-			return (false);
-	}
+		result = (data->we_texture = init_texture(data->we_texture, texture));
 	else if (line[0] == 'E' && line[1] == 'A')
-	{
-		data->ea_texture = init_texture(data->ea_texture, texture);
-		if (data->ea_texture == NULL)
-			return (false);
-	}
+		result = (data->ea_texture = init_texture(data->ea_texture, texture));
 	else
-	{
 		printf("Invalid texture path\n");
-		free(texture);
-		return (false);
-	}
-	free(texture);
-	// printf("no_texture:%s\n", data->no_texture);
-	// printf("so_texture:%s\n", data->so_texture);
-	// printf("we_texture:%s\n", data->we_texture);
-	// printf("ea_texture:%s\n", data->ea_texture);
-	return (true);
+	return (free(texture), (result != NULL));
 }
 
-bool	are_texture_and_colors_initialized(char *line, t_data *data)
+
+bool	parse_atribute_line(char *line, t_data *data)
 {
 	if ((line[0] == 'C' || line[0] == 'F') && line[1] == ' ')
 	{
 		if (are_collors_initialized(line, data) == false)
 			return (false);
 	}
-	else if ((line[0] == 'N' || line[0] == 'S' || line[0] == 'E' || line[0] == 'W') && line[2] == ' ')
+	else if (line[0] == 'N' || line[0] == 'S'
+			|| line[0] == 'E' || line[0] == 'W')
 	{
 		if (are_textures_initialized(line, data) == false)
 			return (false);
 	}
 	else
 	{
-		printf("missing space or extra line found: %s\n", line);
+		printf("Error: extra line found: %s\n", line);
 		return (false);
 	}
 	return (true);
 }
 
-bool	are_attributes_correctly_initialized(t_data *data)
+bool	are_all_color_and_textures_init(t_data *data)
 {
 	if (!data->no_texture || !data->so_texture
 		|| !data->we_texture || !data->ea_texture)
@@ -171,12 +173,8 @@ bool	are_attributes_initialized(t_data *data, char *arg)
 		{
 			if (ft_isalpha(line[0]))
 			{
-				if (are_texture_and_colors_initialized(line, data) == false)
-				{
-					free(line);
-					close(data->fd);
-					return (false);
-				}
+				if (parse_atribute_line(line, data) == false)
+					return (free(line), close(data->fd), false);
 			}
 			else if (has_map_started(data))
 				data->has_map_started = true;
@@ -184,8 +182,7 @@ bool	are_attributes_initialized(t_data *data, char *arg)
 		}
 		free(line);
 	}
-	if (!are_attributes_correctly_initialized(data))
+	if (!are_all_color_and_textures_init(data))
 		return (false);
-	close(data->fd);
-	return (true);
+	return (close(data->fd), true);
 }

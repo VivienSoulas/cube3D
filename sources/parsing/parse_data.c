@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/02 11:16:33 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/30 09:27:43 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/30 13:41:15 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,10 @@ int parse_data(t_data *data, char *argv)
 {
 	if (!are_attributes_initialized(data, argv))
 		return (1);
+	printf("NO: %s\n", data->no_texture);
+	printf("SO: %s\n", data->so_texture);
+	printf("WE: %s\n", data->we_texture);
+	printf("EA: %s\n", data->ea_texture);
 	if (init_map(data, argv) != 0)
 		return (1);  // init_map failed
 	print_map(data->map);//TODO Remove this line
