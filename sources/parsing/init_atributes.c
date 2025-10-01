@@ -6,13 +6,13 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/03 10:55:16 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/30 13:37:51 by natalia       ########   odam.nl         */
+/*   Updated: 2025/10/01 11:07:53 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-bool are_collors_initialized(char *line, t_data *data)
+bool parse_colors(char *line, t_data *data)
 {
 	int	*rgb;
 
@@ -60,33 +60,7 @@ char	*init_texture(char *data, char *texture)
 	return (result);
 }
 
-// bool	is_no_texture_init()
-
-// bool	are_textures_initialized(char *line, t_data *data)
-// {
-// 	char	*texture;
-
-// 	if (!ft_isalpha(line[1]) || line[2] != ' ')
-// 		return (printf("Error: Invalid texture path\n"), false);
-// 	texture = ft_strtrim(line + 2, " \n\t");
-// 	if (!texture)
-// 		return (printf("Error: Failure in init textures\n"), false);
-// 	if (*texture == '\0')
-// 		return (printf("Error: Empty texture: %s", line), free(texture), false);
-// 	if (line[0] == 'N' && line[1] == 'O')
-// 		return((data->no_texture = init_texture(data->no_texture, texture)), free(texture), data->no_texture != NULL);
-// 	else if (line[0] == 'S' && line[1] == 'O')
-// 		return((data->so_texture = init_texture(data->so_texture, texture)), free(texture), data->so_texture != NULL);
-// 	else if (line[0] == 'W' && line[1] == 'E')
-// 		return((data->we_texture = init_texture(data->we_texture, texture)), free(texture), data->we_texture != NULL);
-// 	else if (line[0] == 'E' && line[1] == 'A')
-// 		return((data->ea_texture = init_texture(data->ea_texture, texture)), free(texture), data->ea_texture != NULL);
-// 	else
-// 		return (printf("Invalid texture path\n"), free(texture), false);
-// 	return (free(texture), true);
-// }
-
-bool	are_textures_initialized(char *line, t_data *data)
+bool	parse_textures(char *line, t_data *data)
 {
 	char	*texture;
 	char	*result;
@@ -120,13 +94,13 @@ bool	parse_atribute_line(char *line, t_data *data)
 {
 	if ((line[0] == 'C' || line[0] == 'F') && line[1] == ' ')
 	{
-		if (are_collors_initialized(line, data) == false)
+		if (parse_colors(line, data) == false)
 			return (false);
 	}
 	else if (line[0] == 'N' || line[0] == 'S'
 			|| line[0] == 'E' || line[0] == 'W')
 	{
-		if (are_textures_initialized(line, data) == false)
+		if (parse_textures(line, data) == false)
 			return (false);
 	}
 	else
@@ -137,28 +111,7 @@ bool	parse_atribute_line(char *line, t_data *data)
 	return (true);
 }
 
-bool	are_all_color_and_textures_init(t_data *data)
-{
-	if (!data->no_texture || !data->so_texture
-		|| !data->we_texture || !data->ea_texture)
-	{
-		printf("Error: missing texture\n");
-		return (true);
-	}
-	else if (data->celling.r == -1 && data->celling.g == -1 && data->celling.b == -1)
-	{
-		printf("Error: missing celling color\n");
-		return (true);
-	}
-	else if (data->floor.r == -1 && data->floor.g == -1 && data->floor.b == -1)
-	{
-		printf("Error: missing floor color\n");
-		return (true);
-	}
-	return (true);
-}
-
-bool	are_attributes_initialized(t_data *data, char *arg)
+bool	parse_attributes(t_data *data, char *arg)
 {
 	char	*line;
 
@@ -182,7 +135,7 @@ bool	are_attributes_initialized(t_data *data, char *arg)
 		}
 		free(line);
 	}
-	if (!are_all_color_and_textures_init(data))
+	if (!are_attributes_initialized(data))
 		return (false);
 	return (close(data->fd), true);
 }

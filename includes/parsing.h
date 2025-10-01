@@ -54,19 +54,22 @@ char	**copy_map(t_data	*data);
 void	instantiate_data(t_data *input);
 
 //parse_data
-int		parse_data(t_data *data, char *argv);
+bool		parse_data(t_data *data, char *argv);
 bool	has_map_started(t_data *data);
 int		init_player_position(t_data *data);
 int		validate_map(t_data *data);
-int		init_map(t_data *data, char *arg);
 
 //atributes_validator
 int		*get_color_input(char *line);
+bool	are_attributes_initialized(t_data *data);
 
 //init_atribute
-bool	are_attributes_initialized(t_data *data, char *arg);
+bool	parse_attributes(t_data *data, char *arg);
 
 //map_validador.
 bool	is_player(char	c);
 bool	has_map_started(t_data *data);
 int		flood_fill(char **map, int r, int x, int y, int	total_lines);
+
+//init_map
+bool	init_map(t_data *data, char *arg);

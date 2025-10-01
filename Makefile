@@ -5,7 +5,8 @@ GRAPHICAL_SOURCES	=	dda.c error.c exit.c free.c hooks.c initialisation.c main.c 
 					render_walls.c utils.c window.c
 
 PARSING_SOURCES		=	arg_validator.c atributes_validator.c error_handling.c init_atributes.c \
-					instantiate_data.c map_validator.c parse_data.c utils.c main_parsing.c
+					instantiate_data.c map_validator.c parse_data.c utils.c main_parsing.c \
+					init_map.c
 
 GNL_SOURCES		=	get_next_line.c get_next_line_utils.c
 
