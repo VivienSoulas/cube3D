@@ -9,6 +9,9 @@ typedef struct s_textures
 	char			*north_path;
 	void			*north_img;
 	unsigned int	*north;
+	char			*north_odd_path;
+	void			*north_odd_img;
+	unsigned int	*north_odd;
 	char			*south_path;
 	void			*south_img;
 	unsigned int	*south;
@@ -18,8 +21,8 @@ typedef struct s_textures
 	char			*west_path;
 	void			*west_img;
 	unsigned int	*west;
-	int				wall_width;
-	int				wall_height;
+	int				texture_width;
+	int				texture_height;
 	int				texx;
 	int				texy;
 }	t_textures;
@@ -40,15 +43,15 @@ int		ft_initialise_mlx(t_cub3D *cub);
 
 // render
 void	ft_pixel_to_window(t_image *image, int x, int y, int colour);
-void	ft_render_walls(t_cub3D *cub, int x, int y);
+void	ft_render_walls(t_cub3D *cub, int x, int y, int unclamped_wallstart);
 void	ft_draw_culums(t_cub3D *cub, int x);
 void	ft_image_render(t_cub3D *cub);
 
 // render walls
-void	ft_calc_tex_y_east(t_cub3D *cub, int y);
-void	ft_calc_tex_y_west(t_cub3D *cub, int y);
-void	ft_calc_tex_y_south(t_cub3D *cub, int y);
-void	ft_calc_tex_y_north(t_cub3D *cub, int y);
+void	ft_calc_tex_y_east(t_cub3D *cub, int y, int unclamped_wallstart);
+void	ft_calc_tex_y_west(t_cub3D *cub, int y, int unclamped_wallstart);
+void	ft_calc_tex_y_south(t_cub3D *cub, int y, int unclamped_wallstart);
+void	ft_calc_tex_y_north(t_cub3D *cub, int y, int unclamped_wallstart);
 
 // render utils
 void	ft_calc_tex_x_east_west(t_cub3D *cub);

@@ -8,23 +8,23 @@ void	ft_pixel_to_window(t_image *image, int x, int y, int colour)
 	*((unsigned int *)(image->img_pixels_ptr + offset)) = colour;
 }
 
-void	ft_render_walls(t_cub3D *cub, int x, int y)
+void	ft_render_walls(t_cub3D *cub, int x, int y, int unclamped_wallstart)
 {
 	if (cub->wall->hit_side == 0)
 	{
 		ft_calc_tex_x_east_west(cub);
 		if (cub->dda->raydirx > 0)
-			ft_calc_tex_y_east(cub, y);
+			ft_calc_tex_y_west(cub, y, unclamped_wallstart);
 		else
-			ft_calc_tex_y_west(cub, y);
+			ft_calc_tex_y_east(cub, y, unclamped_wallstart);
 	}
 	else
 	{
 		ft_calc_tex_x_north_south(cub);
 		if (cub->dda->raydiry > 0)
-			ft_calc_tex_y_south(cub, y);
+			ft_calc_tex_y_south(cub, y, unclamped_wallstart);
 		else
-			ft_calc_tex_y_north(cub, y);
+			ft_calc_tex_y_north(cub, y, unclamped_wallstart);
 	}
 	ft_pixel_to_window(cub->img, x, y, cub->wall->colour);
 }
@@ -32,22 +32,21 @@ void	ft_render_walls(t_cub3D *cub, int x, int y)
 void	ft_draw_culums(t_cub3D *cub, int x)
 {
 	int	y;
+	int	unclamped_wallstart;
 
 	y = 0;
 	cub->wall->wallheight = (int)(cub->window_height
 			/ cub->wall->wall_distance);
 	cub->wall->wallstart = -cub->wall->wallheight / 2 + cub->window_height / 2;
 	cub->wall->wallend = cub->wall->wallheight / 2 + cub->window_height / 2;
-	if (cub->wall->wallstart < 0)
-		cub->wall->wallstart = 0;
-	if (cub->wall->wallend >= cub->window_height)
-		cub->wall->wallend = cub->window_height - 1;
+	unclamped_wallstart = (cub->window_height / 2)
+		- (cub->wall->wallheight / 2);
 	while (y < cub->window_height)
 	{
 		if (y < cub->wall->wallstart)
 			ft_pixel_to_window(cub->img, x, y, cub->ceiling_color);
 		else if (y >= cub->wall->wallstart && y <= cub->wall->wallend)
-			ft_render_walls(cub, x, y);
+			ft_render_walls(cub, x, y, unclamped_wallstart);
 		else
 			ft_pixel_to_window(cub->img, x, y, cub->floor_color);
 		y++;

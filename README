@@ -1,14 +1,3 @@
-minimap vectors wall collision
-mouse to check at school
-anoimation
-textue while walking
-norminette
-
-remove ./ in front of textures paths (and maybe add .xpm)
-
-
-
-
 parsing think about:
 empty map --- > no error message
 only new line --- > no error message
@@ -19,8 +8,13 @@ wrong textures path --- > good
 different order of inputs --- > good
 wrong file name --- > good
 
-
 Fixed:
 no textures --- > no error
+
 double parameters --- > no error
 missing one texture ----> error
+
+parsing:
+if all info are present but an extra line is also present with inputs the program still runs
+if coulour is double (two F or two C) program still runs
+

@@ -13,17 +13,14 @@ int	ft_create_window(t_cub3D *cub)
 // open all texture files
 int	ft_open_texture(t_cub3D *cub)
 {
-	int	a;
-	int	b;
-	int	c;
-	int	d;
-
-	a = ft_open_north(cub);
-	b = ft_open_south(cub);
-	c = ft_open_east(cub);
-	d = ft_open_west(cub);
-	if (a == 1 || b == 1 || c == 1 || d == 1)
-		return (1);
+	if (ft_open_north(cub) == 1)
+		return (printf("Error : failed to open texture North\n"), 1);
+	if (ft_open_south(cub) == 1)
+		return (printf("Error : failed to open texture South\n"), 1);
+	if (ft_open_east(cub) == 1)
+		return (printf("Error : failed to open texture East\n"), 1);
+	if (ft_open_west(cub) == 1)
+		return (printf("Error : failed to open texture West\n"), 1);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 14:17:15 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/08/15 14:59:01 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/09/26 10:01:14 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	main(int ac, char **av)
 		return (ft_exit(cub), 1);
 	mlx_hook(cub->window, 2, 1L << 0, ft_key_pressed, cub);
 	mlx_hook(cub->window, 3, 1L << 1, ft_key_released, cub);
-	mlx_loop_hook(cub->mlx_ptr, ft_update_game, cub);
 	mlx_hook(cub->window, 6, 1L << 6, ft_mouse_move_event, cub);
+	mlx_loop_hook(cub->mlx_ptr, ft_update_game, cub);
 	mlx_hook(cub->window, 17, 0, ft_red_cross, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (ft_exit(cub), 0);
