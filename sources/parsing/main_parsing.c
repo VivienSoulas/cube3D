@@ -18,7 +18,7 @@ t_data	*ft_parse(int ac, char **av)
 		return (NULL);
 	}
 	instantiate_data(data); //nothing to fail
-	if (parse_data(data, av[1]) == 1)  //a lot to free and use exit or return
+	if (!parse_data(data, av[1]))  //a lot to free and use exit or return
 	{
 		// Free any allocated data before returning NULL
 		if (data->no_texture)

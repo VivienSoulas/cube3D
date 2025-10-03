@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/01 09:24:55 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/03 11:37:40 by natalia       ########   odam.nl         */
+/*   Updated: 2025/09/29 14:33:25 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,10 @@ void instantiate_data(t_data *input)
 	input->total_lines = 0;
 	input->player_x = -1;
 	input->player_y = -1;
+	input->celling.r = -1;
+	input->celling.g = -1;
+	input->celling.b = -1;
+	input->floor.r = -1;
+	input->floor.g = -1;
+	input->floor.b = -1;
 }

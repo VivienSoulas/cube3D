@@ -34,7 +34,7 @@ char	**split_and_trim(char *line)
 			return (free_array(rgb_color), NULL);
 		free (rgb_color[i]);
 		rgb_color[i] = ft_strdup(temp);
-		if (rgb_color[i] == NULL)  // Check ft_strdup result, not temp
+		if (rgb_color[i] == NULL)
 		{
 			free(temp);
 			return (free_array(rgb_color), NULL);
@@ -99,6 +99,27 @@ int *get_color_input(char *line)
 	else
 		return (free_array(rgb_color), NULL);
 	return (free_array(rgb_color), rgb);
+}
+
+bool	are_attributes_initialized(t_data *data)
+{
+	if (!data->no_texture || !data->so_texture
+		|| !data->we_texture || !data->ea_texture)
+	{
+		printf("Error: missing texture\n");
+		return (true);
+	}
+	else if (data->celling.r == -1 && data->celling.g == -1 && data->celling.b == -1)
+	{
+		printf("Error: missing celling color\n");
+		return (true);
+	}
+	else if (data->floor.r == -1 && data->floor.g == -1 && data->floor.b == -1)
+	{
+		printf("Error: missing floor color\n");
+		return (true);
+	}
+	return (true);
 }
 
 
