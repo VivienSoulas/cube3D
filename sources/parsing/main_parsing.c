@@ -1,9 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_parsing.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 10:08:02 by nmedeiro          #+#    #+#             */
+/*   Updated: 2025/10/03 10:09:50 by nmedeiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-#include <fcntl.h>   // open
-#include <unistd.h>  // close
-#include <stdio.h>   // printf
-#include <stdlib.h>  // free
+void	clean_data_structure(t_data *data)
+{
+	if (data->no_texture)
+		free(data->no_texture);
+	if (data->so_texture)
+		free(data->so_texture);
+	if (data->we_texture)
+		free(data->we_texture);
+	if (data->ea_texture)
+		free(data->ea_texture);
+	if (data->file_name)
+		free(data->file_name);
+	if (data->map)
+		free_array(data->map);
+	if (data->fd > 0)
+		close(data->fd);
+	free(data);
+}
 
 t_data	*ft_parse(int ac, char **av)
 {
@@ -17,21 +43,7 @@ t_data	*ft_parse(int ac, char **av)
 	instantiate_data(data);
 	if (!parse_data(data, av[1]))
 	{
-		if (data->no_texture)
-			free(data->no_texture);
-		if (data->so_texture)
-			free(data->so_texture);
-		if (data->we_texture)
-			free(data->we_texture);
-		if (data->ea_texture)
-			free(data->ea_texture);
-		if (data->file_name)
-			free(data->file_name);
-		if (data->map)
-			free_array(data->map);
-		if (data->fd > 0)
-			close(data->fd);
-		free(data);
+		clean_data_structure(data);
 		return (NULL);
 	}
 	return (data);
