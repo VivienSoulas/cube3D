@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arg_validator.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 10:04:49 by nmedeiro          #+#    #+#             */
+/*   Updated: 2025/10/03 10:04:56 by nmedeiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3D.h"
 
 int	check_arg_extension(char *arg)
@@ -12,6 +24,7 @@ int	check_arg_extension(char *arg)
 	}
 	return (0);
 }
+
 int	check_args(int argc, char **argv)
 {
 	if (argc != 2)

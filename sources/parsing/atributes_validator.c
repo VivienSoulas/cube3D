@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   atributes_validator.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 10:04:35 by nmedeiro          #+#    #+#             */
+/*   Updated: 2025/10/03 10:04:44 by nmedeiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3D.h"
 
 int	is_valid_number(char *str)
@@ -109,7 +121,8 @@ bool	are_attributes_initialized(t_data *data)
 		printf("Error: missing texture\n");
 		return (true);
 	}
-	else if (data->celling.r == -1 && data->celling.g == -1 && data->celling.b == -1)
+	else if (data->celling.r == -1 && data->celling.g == -1
+		&& data->celling.b == -1)
 	{
 		printf("Error: missing celling color\n");
 		return (true);

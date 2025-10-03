@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init_atributes.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: natalia <natalia@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/09/03 10:55:16 by natalia       #+#    #+#                 */
-/*   Updated: 2025/10/01 11:07:53 by natalia       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init_atributes.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/03 10:55:16 by natalia           #+#    #+#             */
+/*   Updated: 2025/10/03 10:03:57 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool parse_colors(char *line, t_data *data)
 	rgb = get_color_input(line);
 	if (rgb == NULL)
 		return (false);
-	if (line[0] == 'C' && data->celling.r == -1 && data->celling.g == -1 && data->celling.b == -1)
+	if (line[0] == 'C' && data->celling.r == -1
+		&& data->celling.g == -1 && data->celling.b == -1)
 	{
 		data->celling.r = rgb[0];
 		data->celling.g = rgb[1];
@@ -98,7 +99,7 @@ bool	parse_atribute_line(char *line, t_data *data)
 			return (false);
 	}
 	else if (line[0] == 'N' || line[0] == 'S'
-			|| line[0] == 'E' || line[0] == 'W')
+		|| line[0] == 'E' || line[0] == 'W')
 	{
 		if (parse_textures(line, data) == false)
 			return (false);

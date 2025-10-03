@@ -12,15 +12,11 @@ t_data	*ft_parse(int ac, char **av)
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (NULL);
-	if (check_args(ac, av) == 1) //I am using exit to leave the program
+	if (check_args(ac, av) == 1)
+		return (free(data), NULL);
+	instantiate_data(data);
+	if (!parse_data(data, av[1]))
 	{
-		free(data);
-		return (NULL);
-	}
-	instantiate_data(data); //nothing to fail
-	if (!parse_data(data, av[1]))  //a lot to free and use exit or return
-	{
-		// Free any allocated data before returning NULL
 		if (data->no_texture)
 			free(data->no_texture);
 		if (data->so_texture)

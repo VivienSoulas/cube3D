@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   error_handling.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: natalia <natalia@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/08/28 09:29:09 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/12 14:56:38 by natalia       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/28 09:29:09 by natalia           #+#    #+#             */
+/*   Updated: 2025/10/03 10:04:27 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3D.h"
+#include "cub3D.h"
 
-bool	has_fd_opened(int	fd)
+bool	has_fd_opened(int fd)
 {
 	if (fd < 0)
 	{
@@ -21,11 +21,6 @@ bool	has_fd_opened(int	fd)
 	}
 	return (true);
 }
-
-// char	*error_msg(int exit_code)
-// {
-
-// }
 
 int	ft_exit_parsing(int	exit_code, char *line, t_data *data, char *msg)
 {
@@ -42,13 +37,14 @@ int	ft_exit_parsing(int	exit_code, char *line, t_data *data, char *msg)
 	return (exit_code);
 }
 
-void free_array(char **array)
+void	free_array(char **array)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!array)
-		return;
-	while (array[i] )
+		return ;
+	while (array[i])
 	{
 		free(array[i]);
 		i++;
