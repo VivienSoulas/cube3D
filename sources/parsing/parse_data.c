@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 11:16:33 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 10:01:19 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 12:00:08 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,10 @@ int	validate_map(t_data *data)
 		return (1);
 	pos = find_zero(map);
 	if (pos == NULL)
-	{
-		free(map);
-		return (1);
-	}
+		return (free(map), 1);
 	while (pos[0] != -1)
 	{
-		if (flood_fill(map, 0, pos[0], pos[1] ,
+		if (flood_fill(map, 0, pos[0], pos[1],
 				(data->total_lines - data->map_starts)) != 0)
 		{
 			print_map(map);
@@ -123,14 +120,9 @@ int	validate_map(t_data *data)
 		free(pos);
 		pos = find_zero(map);
 		if (pos == NULL)
-		{
-			free_array(map);
-			return (1);
-		}
+			return (free_array(map), 1);
 	}
-	free(pos);
-	free_array(map);
-	return (0);
+	return (free(pos), free_array(map), 0);
 }
 
 bool	parse_data(t_data *data, char *argv)

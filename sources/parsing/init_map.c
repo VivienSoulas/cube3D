@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 13:51:50 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 10:03:39 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 11:55:29 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	set_map(t_data *data)
 
 	index_line = 0;
 	index_map = 0;
-	while ((line = get_next_line(data->fd)) != NULL)
+	line = get_next_line(data->fd);
+	while (line != NULL)
 	{
 		if (index_line++ >= data->map_starts)
 		{
@@ -44,6 +45,7 @@ void	set_map(t_data *data)
 			index_map++;
 		}
 		free(line);
+		line = get_next_line(data->fd);
 	}
 }
 

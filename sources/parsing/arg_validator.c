@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:04:49 by nmedeiro          #+#    #+#             */
-/*   Updated: 2025/10/03 10:14:27 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 11:53:58 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	check_args(int argc, char **argv)
 		printf("Please put the correct amount of arguments");
 		return (false);
 	}
-	if (check_arg_extension(argv[1]) == 1)
+	if (!check_arg_extension(argv[1]))
 		return (false);
 	return (true);
 }

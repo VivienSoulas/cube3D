@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 09:34:46 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 10:02:07 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 11:56:37 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_player(char c)
 {
-	return (c == 'N' || c == 'S'|| c == 'W' || c == 'E');
+	return (c == 'N' || c == 'S' || c == 'W' || c == 'E');
 }
 
 bool	has_map_started(t_data *data)
@@ -30,7 +30,7 @@ bool	has_map_started(t_data *data)
 	return (false);
 }
 
-int	flood_fill(char **map, int r, int x, int y, int	total_lines)
+int	flood_fill(char **map, int r, int x, int y, int total_lines)
 {
 	if (!map[x])
 		return (1);

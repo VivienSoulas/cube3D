@@ -6,15 +6,15 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 09:19:01 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 10:01:33 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 12:00:46 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3D.h"
+#include "cub3D.h"
 
 void	print_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map[i] != NULL)

@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 10:55:16 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 10:18:33 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 11:54:42 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ bool	parse_attributes(t_data *data, char *arg)
 	data->fd = open(arg, O_RDONLY);
 	if (has_fd_opened(data->fd) == false)
 		return (false);
-	while ((line = get_next_line(data->fd)) != NULL)
+	line = get_next_line(data->fd);
+	while (line != NULL)
 	{
 		if (line[0] == '\n')
 			data->total_lines++;
@@ -134,6 +135,7 @@ bool	parse_attributes(t_data *data, char *arg)
 			data->total_lines++;
 		}
 		free(line);
+		line = get_next_line(data->fd);
 	}
 	if (!are_attributes_initialized(data))
 		return (false);
