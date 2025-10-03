@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 09:34:46 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 11:56:37 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 13:19:11 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,28 @@ bool	has_map_started(t_data *data)
 	return (false);
 }
 
-int	flood_fill(char **map, int r, int x, int y, int total_lines)
+int	flood_fill(t_data *data, int r, int x, int y)
 {
-	if (!map[x])
+	if (!data->copy_map[x])
 		return (1);
-	if (ft_strlen(map[x]) == 0)
+	if (ft_strlen(data->copy_map[x]) == 0)
 		return (1);
-	if (map[x][y] && (map[x][y] == '1' || map[x][y] == '2'))
+	if (data->copy_map[x][y]
+		&& (data->copy_map[x][y] == '1' || data->copy_map[x][y] == '2'))
 		return (0);
-	if ((x > total_lines - 1 || x <= 0)
-		|| (y >= (int)ft_strlen(map[x]) || y <= 0))
+	if ((x > data->map_lines - 1 || x <= 0)
+		|| (y >= (int)ft_strlen(data->copy_map[x]) || y <= 0))
 		return (1);
-	if (map[x][y] == ' ')
+	if (data->copy_map[x][y] == ' ')
 		return (1);
-	if (map[x][y] != '1' && map[x][y] != '2' && map[x][y] != '0'
-		&& !is_player(map[x][y]))
+	if (data->copy_map[x][y] != '1'
+		&& data->copy_map[x][y] != '2' && data->copy_map[x][y] != '0'
+			&& !is_player(data->copy_map[x][y]))
 		return (1);
-	map[x][y] = '2';
-	r += flood_fill(map, r, x, y + 1, total_lines);
-	r += flood_fill(map, r, x, y - 1, total_lines);
-	r += flood_fill(map, r, x + 1, y, total_lines);
-	r += flood_fill(map, r, x - 1, y, total_lines);
+	data->copy_map[x][y] = '2';
+	r += flood_fill(data, r, x, y + 1);
+	r += flood_fill(data, r, x, y - 1);
+	r += flood_fill(data, r, x + 1, y);
+	r += flood_fill(data, r, x - 1, y);
 	return (r);
 }

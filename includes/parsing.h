@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:16:07 by nmedeiro          #+#    #+#             */
-/*   Updated: 2025/10/03 10:16:08 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 13:22:21 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ typedef struct s_data
 	int			map_starts;
 	bool		has_map_started;
 	int			total_lines;
+	int			map_lines;
 	char		**map;
+	char		**copy_map;
 	char		*file_name;
 	int			fd;
 	int			player_x;
@@ -68,7 +70,7 @@ void	instantiate_data(t_data *input);
 //parse_data
 bool	parse_data(t_data *data, char *argv);
 bool	has_map_started(t_data *data);
-int		init_player_position(t_data *data);
+int		init_player_position(t_data *data, int x, int y);
 int		validate_map(t_data *data);
 
 //atributes_validator
@@ -76,12 +78,12 @@ int		*get_color_input(char *line);
 bool	are_attributes_initialized(t_data *data);
 
 //init_atribute
-bool	parse_attributes(t_data *data, char *arg);
+bool	parse_attributes(t_data *data, char *arg, char *line);
 
 //map_validador.
 bool	is_player(char c);
 bool	has_map_started(t_data *data);
-int		flood_fill(char **map, int r, int x, int y, int	total_lines);
+int		flood_fill(t_data *data, int r, int x, int y);
 
 //init_map
 bool	init_map(t_data *data, char *arg);

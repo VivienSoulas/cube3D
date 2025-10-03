@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 13:51:50 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 11:55:29 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 12:36:35 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ char	*check_and_dup_line(char *line)
 	return (ft_strdup(line));
 }
 
-void	set_map(t_data *data)
+void	set_map(t_data *data, int index_line)
 {
 	char	*line;
-	int		index_line;
 	int		index_map;
 
-	index_line = 0;
 	index_map = 0;
 	line = get_next_line(data->fd);
 	while (line != NULL)
@@ -61,7 +59,7 @@ bool	init_map(t_data *data, char *arg)
 		printf("Error: Failure (malloc) on init_map\n");
 		return (false);
 	}
-	set_map(data);
+	set_map(data, 0);
 	if (data->map == NULL)
 	{
 		printf("Error: Failure (malloc) on init_map\n");

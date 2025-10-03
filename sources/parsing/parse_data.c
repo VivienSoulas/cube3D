@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 11:16:33 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 12:00:08 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 13:19:36 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,11 @@ bool	has_invalid_char(t_data	*data)
 	return (0);
 }
 
-int	init_player_position(t_data *data)
+int	init_player_position(t_data *data, int x, int y)
 {
-	int		x;
-	int		y;
 	bool	is_player_found;
 
 	is_player_found = 0;
-	y = 0;
 	while (data->map[y])
 	{
 		x = 0;
@@ -98,40 +95,42 @@ int	*find_zero(char **map)
 
 int	validate_map(t_data *data)
 {
-	char	**map;
 	int		*pos;
 
-	map = copy_map(data);
-	if (map == NULL)
+	data->copy_map = copy_map(data);
+	if (data->copy_map == NULL)
 		return (1);
-	pos = find_zero(map);
+	pos = find_zero(data->copy_map);
 	if (pos == NULL)
-		return (free(map), 1);
+		return (free(data->copy_map), 1);
 	while (pos[0] != -1)
 	{
-		if (flood_fill(map, 0, pos[0], pos[1],
-				(data->total_lines - data->map_starts)) != 0)
+		data->map_lines = data->total_lines - data->map_starts;
+		if (flood_fill(data, 0, pos[0], pos[1]) != 0)
 		{
-			print_map(map);
-			free_array(map);
+			print_map(data->copy_map);
+			free_array(data->copy_map);
 			free(pos);
 			return (1);
 		}
 		free(pos);
-		pos = find_zero(map);
+		pos = find_zero(data->copy_map);
 		if (pos == NULL)
-			return (free_array(map), 1);
+			return (free_array(data->copy_map), 1);
 	}
-	return (free(pos), free_array(map), 0);
+	return (free(pos), free_array(data->copy_map), 0);
 }
 
 bool	parse_data(t_data *data, char *argv)
 {
-	if (!parse_attributes(data, argv))
+	char	*line;
+
+	line = NULL;
+	if (!parse_attributes(data, argv, line))
 		return (false);
 	if (!init_map(data, argv))
 		return (false);
-	if (init_player_position(data) != 0)
+	if (init_player_position(data, 0, 0) != 0)
 		return (false);
 	if (data->player_x == -1 && data->player_y == -1)
 		return (false);
