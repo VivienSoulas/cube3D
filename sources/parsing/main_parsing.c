@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:08:02 by nmedeiro          #+#    #+#             */
-/*   Updated: 2025/10/03 10:09:50 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:14:38 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_data	*ft_parse(int ac, char **av)
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (NULL);
-	if (check_args(ac, av) == 1)
+	if (!check_args(ac, av))
 		return (free(data), NULL);
 	instantiate_data(data);
 	if (!parse_data(data, av[1]))

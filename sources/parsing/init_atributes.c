@@ -6,13 +6,13 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 10:55:16 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 10:03:57 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:18:33 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-bool parse_colors(char *line, t_data *data)
+bool	parse_colors(char *line, t_data *data)
 {
 	int	*rgb;
 
@@ -89,7 +89,6 @@ bool	parse_textures(char *line, t_data *data)
 		printf("Invalid texture path\n");
 	return (free(texture), (result != NULL));
 }
-
 
 bool	parse_atribute_line(char *line, t_data *data)
 {

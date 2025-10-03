@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:04:35 by nmedeiro          #+#    #+#             */
-/*   Updated: 2025/10/03 10:04:44 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:17:55 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	is_valid_number(char *str)
 		i++;
 	}
 	return (1);
-
 }
 
 char	**split_and_trim(char *line)
@@ -86,7 +85,7 @@ bool	is_valid_color(char	**rgb_color)
 	return (true);
 }
 
-int *get_color_input(char *line)
+int	*get_color_input(char *line)
 {
 	char	**rgb_color;
 	int		*rgb;
@@ -134,9 +133,3 @@ bool	are_attributes_initialized(t_data *data)
 	}
 	return (true);
 }
-
-
-
-
-
-

@@ -6,7 +6,7 @@
 /*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 09:29:09 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 10:04:27 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:16:50 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	has_fd_opened(int fd)
 	return (true);
 }
 
-int	ft_exit_parsing(int	exit_code, char *line, t_data *data, char *msg)
+int	ft_exit_parsing(int exit_code, char *line, t_data *data, char *msg)
 {
 	if (line != NULL)
 		free(line);
