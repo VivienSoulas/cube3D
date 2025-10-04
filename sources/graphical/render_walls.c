@@ -54,7 +54,7 @@ void	ft_calc_tex_y_south(t_cub3D *cub, int y, int unclamped_wallstart)
 
 void	ft_calc_tex_y_north(t_cub3D *cub, int y, int unclamped_wallstart)
 {
-	// int	time_interval;
+	int	time_interval;
 
 	cub->textures->texy = (int)((y - unclamped_wallstart)
 			* cub->textures->texture_height / cub->wall->wallheight);
@@ -62,15 +62,15 @@ void	ft_calc_tex_y_north(t_cub3D *cub, int y, int unclamped_wallstart)
 		cub->textures->texy = cub->textures->texture_height - 1;
 	if (cub->textures->texy < 0)
 		cub->textures->texy = 0;
-	// time_interval = (cub->now.tv_usec / 100000);
-	// if (time_interval % 20 < 2)
-	// {
-	// 	cub->wall->colour = cub->textures->north_odd[cub->textures->texy
-	// 		* cub->textures->texture_width + cub->textures->texx];
-	// }
-	// else
-	// {
+	time_interval = (cub->now.tv_usec / 100000);
+	if (time_interval % 20 < 2)
+	{
+		cub->wall->colour = cub->textures->north_odd[cub->textures->texy
+			* cub->textures->texture_width + cub->textures->texx];
+	}
+	else
+	{
 		cub->wall->colour = cub->textures->north[cub->textures->texy
 			* cub->textures->texture_width + cub->textures->texx];
-	// }
+	}
 }
