@@ -27,7 +27,8 @@ bool	parse_colors(char *line, t_data *data)
 		data->celling.b = rgb[2];
 		data->has_celling_color = true;
 	}
-	else if (line[0] == 'F')
+	else if (line[0] == 'F' && data->floor.r == -1
+		&& data->floor.g == -1 && data->floor.b == -1)
 	{
 		data->floor.r = rgb[0];
 		data->floor.g = rgb[1];
@@ -35,9 +36,8 @@ bool	parse_colors(char *line, t_data *data)
 		data->has_floor_color = true;
 	}
 	else
-		return (printf("Error: Has double color\n"), false);
-	free(rgb);
-	return (true);
+		return (free(rgb), printf("Error: Has double color\n"), false);
+	return (free(rgb), true);
 }
 
 char	*init_texture(char *data, char *texture)
@@ -55,6 +55,7 @@ char	*init_texture(char *data, char *texture)
 	}
 	else
 	{
+		free(data);
 		printf("Error: has double no_texture\n");
 		return (NULL);
 	}
@@ -126,7 +127,7 @@ bool	parse_attributes(t_data *data, char *arg, char *line)
 			if (ft_isalpha(line[0]))
 			{
 				if (parse_atribute_line(line, data) == false)
-					return (free(line), close(data->fd), false);
+					return (free(line), get_next_line(-1), false);
 			}
 			else if (has_map_started(data))
 				data->has_map_started = true;
@@ -136,6 +137,6 @@ bool	parse_attributes(t_data *data, char *arg, char *line)
 		line = get_next_line(data->fd);
 	}
 	if (!are_attributes_initialized(data))
-		return (false);
-	return (close(data->fd), true);
+		return (close(data->fd), get_next_line(-1), false);
+	return (close(data->fd), get_next_line(-1), true);
 }

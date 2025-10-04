@@ -127,7 +127,7 @@ bool	parse_data(t_data *data, char *argv)
 
 	line = NULL;
 	if (!parse_attributes(data, argv, line))
-		return (false);
+		return (close(data->fd), false);
 	if (!init_map(data, argv))
 		return (false);
 	if (init_player_position(data, 0, 0) != 0)
