@@ -98,6 +98,7 @@ void	ft_field_of_view(t_cub3D *cub)
 		* cub->mini_map->cell_width + (cub->mini_map->cell_width / 4);
 	cub->vector->start_y = cub->player->pos_y
 		* cub->mini_map->cell_heigth + (cub->mini_map->cell_heigth / 4);
+	cub->player->radians_angle = cub->player->angle * M_PI / 180;
 	right_angle = cub->player->radians_angle - (cub->player->fov / 2);
 	left_angle = cub->player->radians_angle + (cub->player->fov / 2);
 	ft_fill_fov_vectors(cub, right_angle, left_angle);
