@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   instantiate_data.c                                 :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: natalia <natalia@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/09/01 09:24:55 by natalia       #+#    #+#                 */
-/*   Updated: 2025/09/29 14:33:25 by natalia       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   instantiate_data.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/01 09:24:55 by natalia           #+#    #+#             */
+/*   Updated: 2025/10/03 10:05:58 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3D.h"
+#include "cub3D.h"
 
-void instantiate_data(t_data *input)
+void	instantiate_data(t_data *input)
 {
-	input->map=NULL;
+	input->map = NULL;
 	input->no_texture = NULL;
 	input->so_texture = NULL;
 	input->ea_texture = NULL;

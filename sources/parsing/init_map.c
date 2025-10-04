@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init_map.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: natalia <natalia@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/09/30 13:51:50 by natalia       #+#    #+#                 */
-/*   Updated: 2025/10/01 12:21:32 by natalia       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/30 13:51:50 by natalia           #+#    #+#             */
+/*   Updated: 2025/10/03 12:36:35 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ char	*check_and_dup_line(char *line)
 	return (ft_strdup(line));
 }
 
-void	set_map(t_data *data)
+void	set_map(t_data *data, int index_line)
 {
 	char	*line;
-	int		index_line = 0;
-	int		index_map = 0;
+	int		index_map;
 
-	while ((line = get_next_line(data->fd)) != NULL)
+	index_map = 0;
+	line = get_next_line(data->fd);
+	while (line != NULL)
 	{
 		if (index_line++ >= data->map_starts)
 		{
@@ -42,52 +43,28 @@ void	set_map(t_data *data)
 			index_map++;
 		}
 		free(line);
+		line = get_next_line(data->fd);
 	}
 }
 
 bool	init_map(t_data *data, char *arg)
 {
-	// char	*line;
-	// int		index_line;
-	// int		index_map;
-
-	// index_line = 0;
-	// index_map = 0;
 	data->fd = open(arg, O_RDONLY);
 	if (has_fd_opened(data->fd) == false)
 		return (false);
-	data->map = ft_calloc(sizeof(char *), ((data->total_lines - data->map_starts) + 1));
+	data->map = ft_calloc(sizeof(char *),
+			((data->total_lines - data->map_starts) + 1));
 	if (data->map == NULL)
 	{
 		printf("Error: Failure (malloc) on init_map\n");
 		return (false);
 	}
-	// data->map =
-	set_map(data);
+	set_map(data, 0);
 	if (data->map == NULL)
 	{
 		printf("Error: Failure (malloc) on init_map\n");
 		return (false);
 	}
-	// while ((line = get_next_line(data->fd)) != NULL)
-	// {
-	// 	if (index_line++ >= data->map_starts)
-	// 	{
-	// 		data->map[index_map] = check_and_dup_line(line);
-	// 		if (data->map[index_map] == NULL)
-	// 		{
-	// 			free(line);
-	// 			close(data->fd);
-	// 			while (--index_map >= 0)
-	// 				free(data->map[index_map]);
-	// 			free(data->map);
-	// 			data->map = NULL;
-	// 			return (false);
-	// 		}
-	// 		index_map++;
-	// 	}
-	// 	free(line);
-	// }
 	close(data->fd);
 	return (true);
 }

@@ -18,3 +18,7 @@ parsing:
 if all info are present but an extra line is also present with inputs the program still runs
 if coulour is double (two F or two C) program still runs
 
+double floor param doesnt stop program
+double ceilling param --> memory leak
+
+get_next_line leak
