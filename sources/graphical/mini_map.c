@@ -6,7 +6,7 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 09:45:12 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/10/03 09:45:13 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/10/10 15:46:14 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ void	ft_find_colour(t_cub3D *cub, int line_len, int x, int y)
 
 	if (x < line_len && cub->map->grid[y][x] == '1')
 		colour = cub->mini_map->wall_colour;
-	else if (x < line_len && cub->map->grid[y][x] == '0')
+	else if (x < line_len && (cub->map->grid[y][x] == '0'
+		|| cub->map->grid[y][x] == 'N' || cub->map->grid[y][x] == 'S'
+		|| cub->map->grid[y][x] == 'E' || cub->map->grid[y][x] == 'W'))
 		colour = 0xffffff;
 	else
 		colour = cub->mini_map->wall_colour;
