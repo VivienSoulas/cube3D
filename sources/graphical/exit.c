@@ -108,4 +108,6 @@ void	ft_free_struct(t_cub3D **cub)
 		ft_free_set_null((void **)&(*cub)->wall);
 	if ((*cub)->player)
 		ft_free_set_null((void **)&(*cub)->player);
+	if ((*cub)->mvt)
+		ft_free_set_null((void **)&(*cub)->mvt);
 }

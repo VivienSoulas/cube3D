@@ -62,13 +62,10 @@ typedef struct s_cub3D
 	int				floor_color;
 	int				ceiling_color;
 	int				mouse_x;
-	double			new_x;
-	double			new_y;
 	int				keypressed[65537];
 	int				mouse_on_off;
 	struct	timeval	now;
 	int				needs_update;
-	int				movement_update;
 	t_image			*img;
 	t_mini_map		*mini_map;
 	t_textures		*textures;
@@ -78,6 +75,7 @@ typedef struct s_cub3D
 	t_dda			*dda;
 	t_wall			*wall;
 	t_data			*data;
+	t_mvt			*mvt;
 }	t_cub3D;
 
 // error
@@ -97,9 +95,6 @@ void	ft_free_array(char **array);
 // initialisation
 int		ft_initialise_cub(t_cub3D *cub, int ac, char **av);
 int		ft_convert_tdata(t_cub3D *cub);
-
-// temp
-int		ft_read_map(t_cub3D *cub);
 
 // utils
 int		ft_alloc_struct(t_cub3D *cub);

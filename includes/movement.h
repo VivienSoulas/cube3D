@@ -4,6 +4,15 @@
 // Forward declaration to avoid circular dependency
 typedef struct s_cub3D t_cub3D;
 
+// add t_mv to cub#d and to exit/free
+typedef struct s_mvt
+{
+	
+	int		movement_update;
+	double	new_x;
+	double	new_y;
+}	t_mvt;
+
 // hooks
 int		ft_key_pressed(int key, t_cub3D *cub);
 int		ft_key_released(int key, t_cub3D *cub);
