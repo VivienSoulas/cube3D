@@ -53,11 +53,12 @@ void	ft_printing_mini_map(t_cub3D *cub, int x, int y, int colour)
 	int	mx;
 	int	my;
 
+	ft_print_minimap_background(cub, x, y);
 	my = 0;
-	while (my < cub->mini_map->cell_heigth)
+	while (my < cub->mini_map->cell_heigth - 1)
 	{
 		mx = 0;
-		while (mx < cub->mini_map->cell_width)
+		while (mx < cub->mini_map->cell_width - 1)
 		{
 			ft_pixel_to_mini_map(cub->mini_map, x
 				* cub->mini_map->cell_width + mx, y

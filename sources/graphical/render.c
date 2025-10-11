@@ -65,7 +65,8 @@ void	ft_draw_culums(t_cub3D *cub, int x)
 	}
 }
 
-// this is where raycasting will take place
+// calculate camera position and directions of ray casting
+// perpendicular to player
 void	ft_image_render(t_cub3D *cub)
 {
 	int		x;
