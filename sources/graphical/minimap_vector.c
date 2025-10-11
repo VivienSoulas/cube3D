@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-static int	ft_in_bonds_minimap(t_cub3D *cub, int x, int y)
+static int	ft_in_bonds_minimap(t_cub3d *cub, int x, int y)
 {
 	if (x > cub->mini_map->width || x < 0)
 		return (1);
@@ -22,7 +22,7 @@ static int	ft_in_bonds_minimap(t_cub3D *cub, int x, int y)
 }
 
 // fill the dots between the previous function
-void	ft_fill_vector_line(t_cub3D *cub)
+void	ft_fill_vector_line(t_cub3d *cub)
 {
 	int	s;
 	int	denom;
@@ -47,7 +47,7 @@ void	ft_fill_vector_line(t_cub3D *cub)
 }
 
 // calculate and print the vector line on minimap (for now only dots)
-void	ft_print_vector_minimap(t_cub3D *cub, float cos, float sin)
+void	ft_print_vector_minimap(t_cub3d *cub, float cos, float sin)
 {
 	int	i;
 
@@ -73,7 +73,7 @@ void	ft_print_vector_minimap(t_cub3D *cub, float cos, float sin)
 	}
 }
 
-void	ft_fill_fov_vectors(t_cub3D *cub, float right_angle, float left_angle)
+void	ft_fill_fov_vectors(t_cub3d *cub, float right_angle, float left_angle)
 {
 	double	new_sin;
 	double	new_cos;
@@ -89,7 +89,7 @@ void	ft_fill_fov_vectors(t_cub3D *cub, float right_angle, float left_angle)
 	}
 }
 
-void	ft_field_of_view(t_cub3D *cub)
+void	ft_field_of_view(t_cub3d *cub)
 {
 	double	right_angle;
 	double	left_angle;

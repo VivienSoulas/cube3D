@@ -148,4 +148,3 @@ char	*ft_new_next_line(char *next_line)
 	free(next_line);
 	return (new_line);
 }
-

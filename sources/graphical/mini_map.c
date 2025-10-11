@@ -22,7 +22,7 @@ void	ft_pixel_to_mini_map(t_mini_map *mini_map, int x, int y, int colour)
 
 // calculte the player's relative position to the minimap
 // then find the position is the map and colours it
-void	ft_player_to_minimap(t_cub3D *cub)
+void	ft_player_to_minimap(t_cub3d *cub)
 {
 	int	my;
 	int	mx;
@@ -48,7 +48,7 @@ void	ft_player_to_minimap(t_cub3D *cub)
 }
 
 // convert the received grid cells into pixels cell to colour
-void	ft_printing_mini_map(t_cub3D *cub, int x, int y, int colour)
+void	ft_printing_mini_map(t_cub3d *cub, int x, int y, int colour)
 {
 	int	mx;
 	int	my;
@@ -69,7 +69,7 @@ void	ft_printing_mini_map(t_cub3D *cub, int x, int y, int colour)
 	}
 }
 
-void	ft_find_colour(t_cub3D *cub, int line_len, int x, int y)
+void	ft_find_colour(t_cub3d *cub, int line_len, int x, int y)
 {
 	int	colour;
 
@@ -87,7 +87,7 @@ void	ft_find_colour(t_cub3D *cub, int line_len, int x, int y)
 // creates cell within the minimaps
 // allows us to see the walls and player
 // walks through each cell of the grided map
-void	ft_mini_map_render(t_cub3D *cub)
+void	ft_mini_map_render(t_cub3d *cub)
 {
 	int	x;
 	int	y;

@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-void	ft_wall_distance(t_cub3D *cub)
+void	ft_wall_distance(t_cub3d *cub)
 {
 	double	dx;
 	double	dy;
@@ -26,7 +26,7 @@ void	ft_wall_distance(t_cub3D *cub)
 	cub->wall->mini_distance = dx * dx + dy * dy;
 }
 
-void	ft_finding_wall(t_cub3D *cub)
+void	ft_finding_wall(t_cub3d *cub)
 {
 	cub->wall->hit = 0;
 	while (cub->wall->hit == 0)
@@ -53,7 +53,7 @@ void	ft_finding_wall(t_cub3D *cub)
 	}
 }
 
-void	ft_steps(t_cub3D *cub, double raydirx, double raydiry)
+void	ft_steps(t_cub3d *cub, double raydirx, double raydiry)
 {
 	if (raydirx < 0)
 	{
@@ -81,7 +81,7 @@ void	ft_steps(t_cub3D *cub, double raydirx, double raydiry)
 	}
 }
 
-void	ft_dda(t_cub3D *cub, double raydirx, double raydiry)
+void	ft_dda(t_cub3d *cub, double raydirx, double raydiry)
 {
 	cub->dda->mapx = (int)cub->player->pos_x;
 	cub->dda->mapy = (int)cub->player->pos_y;

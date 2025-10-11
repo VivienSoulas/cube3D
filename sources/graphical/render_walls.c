@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-void	ft_calc_tex_y_east(t_cub3D *cub, int y, int unclamped_wallstart)
+void	ft_calc_tex_y_east(t_cub3d *cub, int y, int unclamped_wallstart)
 {
 	cub->textures->texx = cub->textures->texture_width
 		- cub->textures->texx - 1;
@@ -26,7 +26,7 @@ void	ft_calc_tex_y_east(t_cub3D *cub, int y, int unclamped_wallstart)
 		* cub->textures->texture_width + cub->textures->texx];
 }
 
-void	ft_calc_tex_y_west(t_cub3D *cub, int y, int unclamped_wallstart)
+void	ft_calc_tex_y_west(t_cub3d *cub, int y, int unclamped_wallstart)
 {
 	cub->textures->texy = (int)((y - unclamped_wallstart)
 			* cub->textures->texture_height / cub->wall->wallheight);
@@ -38,7 +38,7 @@ void	ft_calc_tex_y_west(t_cub3D *cub, int y, int unclamped_wallstart)
 		* cub->textures->texture_width + cub->textures->texx];
 }
 
-void	ft_calc_tex_y_south(t_cub3D *cub, int y, int unclamped_wallstart)
+void	ft_calc_tex_y_south(t_cub3d *cub, int y, int unclamped_wallstart)
 {
 	cub->textures->texx = cub->textures->texture_width
 		- cub->textures->texx - 1;
@@ -52,7 +52,7 @@ void	ft_calc_tex_y_south(t_cub3D *cub, int y, int unclamped_wallstart)
 		* cub->textures->texture_width + cub->textures->texx];
 }
 
-void	ft_calc_tex_y_north(t_cub3D *cub, int y, int unclamped_wallstart)
+void	ft_calc_tex_y_north(t_cub3d *cub, int y, int unclamped_wallstart)
 {
 	int	time_interval;
 

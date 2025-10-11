@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-int	ft_alloc_struct(t_cub3D *cub)
+int	ft_alloc_struct(t_cub3d *cub)
 {
 	cub->img = ft_calloc(1, sizeof(t_image));
 	cub->mini_map = ft_calloc(1, sizeof(t_mini_map));
@@ -36,7 +36,7 @@ int	ft_absolute(int a)
 	return (a);
 }
 
-void	ft_update_dda_vector(t_cub3D *cub)
+void	ft_update_dda_vector(t_cub3d *cub)
 {
 	cub->player->radians_angle = cub->player->angle * M_PI / 180;
 	cub->dda->dirx = cos(cub->player->radians_angle);
@@ -47,7 +47,7 @@ void	ft_update_dda_vector(t_cub3D *cub)
 		* cub->player->fov_factor;
 }
 
-void	ft_update(t_cub3D *cub)
+void	ft_update(t_cub3d *cub)
 {
 	ft_render_image(cub);
 	ft_render_mini_map(cub);

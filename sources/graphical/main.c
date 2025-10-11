@@ -14,11 +14,11 @@
 
 int	main(int ac, char **av)
 {
-	t_cub3D	*cub;
+	t_cub3d	*cub;
 
 	if (ac != 2)
 		return (ft_error(1), 1);
-	cub = ft_calloc(1, sizeof(t_cub3D));
+	cub = ft_calloc(1, sizeof(t_cub3d));
 	if (cub == NULL)
 		return (ft_error(4), 1);
 	if (ft_initialise_cub(cub, ac, av) == 1)

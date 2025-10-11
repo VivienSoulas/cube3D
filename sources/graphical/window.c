@@ -13,7 +13,7 @@
 #include "cub3D.h"
 
 // creates window
-int	ft_create_window(t_cub3D *cub)
+int	ft_create_window(t_cub3d *cub)
 {
 	cub->window = mlx_new_window(cub->mlx_ptr,
 			cub->window_width, cub->window_height, "cub3D");
@@ -23,7 +23,7 @@ int	ft_create_window(t_cub3D *cub)
 }
 
 // open all texture files
-int	ft_open_texture(t_cub3D *cub)
+int	ft_open_texture(t_cub3d *cub)
 {
 	if (ft_open_north(cub) == 1)
 		return (printf("Error : failed to open texture North\n"), 1);
@@ -38,7 +38,7 @@ int	ft_open_texture(t_cub3D *cub)
 
 // here needs to be the raycasting function(s)
 // instead of image render only with colours
-void	ft_render_image(t_cub3D *cub)
+void	ft_render_image(t_cub3d *cub)
 {
 	if (!cub->img->img_ptr)
 	{
@@ -53,7 +53,7 @@ void	ft_render_image(t_cub3D *cub)
 }
 
 // render minimap to scale
-void	ft_render_mini_map(t_cub3D *cub)
+void	ft_render_mini_map(t_cub3d *cub)
 {
 	if (!cub->mini_map->img_ptr)
 	{

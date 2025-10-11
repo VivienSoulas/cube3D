@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-int	ft_open_north(t_cub3D *cub)
+int	ft_open_north(t_cub3d *cub)
 {
 	int	bpp;
 	int	line_len;
@@ -38,7 +38,7 @@ int	ft_open_north(t_cub3D *cub)
 	return (0);
 }
 
-int	ft_open_south(t_cub3D *cub)
+int	ft_open_south(t_cub3d *cub)
 {
 	int	bpp;
 	int	line_len;
@@ -55,7 +55,7 @@ int	ft_open_south(t_cub3D *cub)
 	return (0);
 }
 
-int	ft_open_east(t_cub3D *cub)
+int	ft_open_east(t_cub3d *cub)
 {
 	int	bpp;
 	int	line_len;
@@ -72,7 +72,7 @@ int	ft_open_east(t_cub3D *cub)
 	return (0);
 }
 
-int	ft_open_west(t_cub3D *cub)
+int	ft_open_west(t_cub3d *cub)
 {
 	int	bpp;
 	int	line_len;

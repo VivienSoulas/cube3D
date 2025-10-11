@@ -20,7 +20,7 @@ void	ft_pixel_to_window(t_image *image, int x, int y, int colour)
 	*((unsigned int *)(image->img_pixels_ptr + offset)) = colour;
 }
 
-void	ft_render_walls(t_cub3D *cub, int x, int y, int unclamped_wallstart)
+void	ft_render_walls(t_cub3d *cub, int x, int y, int unclamped_wallstart)
 {
 	if (cub->wall->hit_side == 0)
 	{
@@ -41,7 +41,7 @@ void	ft_render_walls(t_cub3D *cub, int x, int y, int unclamped_wallstart)
 	ft_pixel_to_window(cub->img, x, y, cub->wall->colour);
 }
 
-void	ft_draw_culums(t_cub3D *cub, int x)
+void	ft_draw_culums(t_cub3d *cub, int x)
 {
 	int	y;
 	int	unclamped_wallstart;
@@ -67,7 +67,7 @@ void	ft_draw_culums(t_cub3D *cub, int x)
 
 // calculate camera position and directions of ray casting
 // perpendicular to player
-void	ft_image_render(t_cub3D *cub)
+void	ft_image_render(t_cub3d *cub)
 {
 	int		x;
 	double	camerax;

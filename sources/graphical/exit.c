@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-void	ft_exit(t_cub3D *cub)
+void	ft_exit(t_cub3d *cub)
 {
 	ft_destroy_texture(cub);
 	if (cub->img)
@@ -36,7 +36,7 @@ void	ft_exit(t_cub3D *cub)
 	ft_free_cub(&cub);
 }
 
-void	ft_destroy_texture(t_cub3D *cub)
+void	ft_destroy_texture(t_cub3d *cub)
 {
 	if (cub->textures)
 	{
@@ -53,7 +53,7 @@ void	ft_destroy_texture(t_cub3D *cub)
 	}
 }
 
-void	ft_free_data(t_cub3D **cub)
+void	ft_free_data(t_cub3d **cub)
 {
 	if (!(*cub)->data)
 		return ;
@@ -76,7 +76,7 @@ void	ft_free_data(t_cub3D **cub)
 	ft_free_set_null((void **)&(*cub)->data);
 }
 
-void	ft_free_cub(t_cub3D **cub)
+void	ft_free_cub(t_cub3d **cub)
 {
 	if (!cub || !*cub)
 		return ;
@@ -92,7 +92,7 @@ void	ft_free_cub(t_cub3D **cub)
 	ft_free_set_null((void **)&(*cub));
 }
 
-void	ft_free_struct(t_cub3D **cub)
+void	ft_free_struct(t_cub3d **cub)
 {
 	if ((*cub)->img)
 		ft_free_set_null((void **)&(*cub)->img);

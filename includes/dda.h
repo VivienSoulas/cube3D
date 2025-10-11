@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 09:44:43 by vsoulas           #+#    #+#             */
+/*   Updated: 2025/10/03 09:44:44 by vsoulas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DDA_H
 # define DDA_H
 
 // Forward declaration to avoid circular dependency
-typedef struct s_cub3D t_cub3D;
+typedef struct s_cub3D	t_cub3d;
 
 typedef struct s_wall
 {
@@ -37,9 +49,9 @@ typedef struct s_dda
 	double	deltadisty;
 }	t_dda;
 
-void	ft_wall_distance(t_cub3D *cub);
-void	ft_finding_wall(t_cub3D *cub);
-void	ft_steps(t_cub3D *cub, double raydirx, double raydiry);
-void	ft_dda(t_cub3D *cub, double raydistx, double raydisty);
+void	ft_wall_distance(t_cub3d *cub);
+void	ft_finding_wall(t_cub3d *cub);
+void	ft_steps(t_cub3d *cub, double raydirx, double raydiry);
+void	ft_dda(t_cub3d *cub, double raydistx, double raydisty);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-int	ft_initialise_cub(t_cub3D *cub, int ac, char **av)
+int	ft_initialise_cub(t_cub3d *cub, int ac, char **av)
 {
 	if (ft_alloc_struct(cub) == 1)
 		return (ft_exit(cub), ft_error(4), 1);
@@ -30,7 +30,7 @@ int	ft_initialise_cub(t_cub3D *cub, int ac, char **av)
 	return (0);
 }
 
-int	ft_convert_tdata(t_cub3D *cub)
+int	ft_convert_tdata(t_cub3d *cub)
 {
 	cub->map = malloc(sizeof(t_map));
 	if (!cub->map)
@@ -59,7 +59,7 @@ int	ft_convert_tdata(t_cub3D *cub)
 	return (cub->map->grid = cub->data->map, 0);
 }
 
-void	ft_initialise_mini_map(t_cub3D *cub)
+void	ft_initialise_mini_map(t_cub3d *cub)
 {
 	cub->mini_map->width = 350;
 	cub->mini_map->height = 350;
@@ -68,7 +68,7 @@ void	ft_initialise_mini_map(t_cub3D *cub)
 	cub->mini_map->vector_length = 5;
 }
 
-int	ft_initialise_mlx(t_cub3D *cub)
+int	ft_initialise_mlx(t_cub3d *cub)
 {
 	cub->mlx_ptr = mlx_init();
 	if (cub->mlx_ptr == NULL)

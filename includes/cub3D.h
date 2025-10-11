@@ -1,12 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 09:44:43 by vsoulas           #+#    #+#             */
+/*   Updated: 2025/10/03 09:44:44 by vsoulas          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
 # define DEFAULT_WIDTH 1000
 # define DEFAULT_HEIGHT 1000
 
-#ifndef M_PI
 # define M_PI 3.14159265358979323846
-#endif
 
 // System includes
 # include <stdio.h>
@@ -64,7 +74,7 @@ typedef struct s_cub3D
 	int				mouse_x;
 	int				keypressed[65537];
 	int				mouse_on_off;
-	struct	timeval	now;
+	struct timeval	now;
 	int				needs_update;
 	t_image			*img;
 	t_mini_map		*mini_map;
@@ -76,30 +86,30 @@ typedef struct s_cub3D
 	t_wall			*wall;
 	t_data			*data;
 	t_mvt			*mvt;
-}	t_cub3D;
+}	t_cub3d;
 
 // error
 void	ft_error(int id);
 
 // exit
-void	ft_exit(t_cub3D *cub);
-void	ft_destroy_texture(t_cub3D *cub);
-void	ft_free_data(t_cub3D **cub);
-void	ft_free_cub(t_cub3D **cub);
-void	ft_free_struct(t_cub3D **cub);
+void	ft_exit(t_cub3d *cub);
+void	ft_destroy_texture(t_cub3d *cub);
+void	ft_free_data(t_cub3d **cub);
+void	ft_free_cub(t_cub3d **cub);
+void	ft_free_struct(t_cub3d **cub);
 
 // free
 void	ft_free_set_null(void **data);
 void	ft_free_array(char **array);
 
 // initialisation
-int		ft_initialise_cub(t_cub3D *cub, int ac, char **av);
-int		ft_convert_tdata(t_cub3D *cub);
+int		ft_initialise_cub(t_cub3d *cub, int ac, char **av);
+int		ft_convert_tdata(t_cub3d *cub);
 
 // utils
-int		ft_alloc_struct(t_cub3D *cub);
+int		ft_alloc_struct(t_cub3d *cub);
 int		ft_absolute(int a);
-void	ft_update_dda_vector(t_cub3D *cub);
-void	ft_update(t_cub3D *cub);
+void	ft_update_dda_vector(t_cub3d *cub);
+void	ft_update(t_cub3d *cub);
 
 #endif

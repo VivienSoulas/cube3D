@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-void	ft_calc_tex_x_east_west(t_cub3D *cub)
+void	ft_calc_tex_x_east_west(t_cub3d *cub)
 {
 	cub->wall->wallx = cub->player->pos_y + cub->wall->wall_distance
 		* cub->dda->raydiry;
@@ -25,7 +25,7 @@ void	ft_calc_tex_x_east_west(t_cub3D *cub)
 		cub->textures->texx = 0;
 }
 
-void	ft_calc_tex_x_north_south(t_cub3D *cub)
+void	ft_calc_tex_x_north_south(t_cub3d *cub)
 {
 	cub->wall->wallx = cub->player->pos_x + cub->wall->wall_distance
 		* cub->dda->raydirx;
