@@ -49,9 +49,9 @@ void	ft_cast_ray_to_wall(t_cub3d *cub, float cos_angle, float sin_angle)
 	while (cub->vector->distance < cub->vector->max_distance)
 	{
 		cub->vector->minimap_x = (int)(cub->vector->ray_x
-				* cub->mini_map->cell_width) + 1;
+				* cub->mini_map->cell_width);
 		cub->vector->minimap_y = (int)(cub->vector->ray_y
-				* cub->mini_map->cell_heigth) + 1;
+				* cub->mini_map->cell_heigth);
 		if (ft_in_bonds_minimap(cub, cub->vector->minimap_x,
 				cub->vector->minimap_y) == 0)
 			ft_pixel_to_mini_map(cub->mini_map, cub->vector->minimap_x,
