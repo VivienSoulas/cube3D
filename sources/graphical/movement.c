@@ -24,14 +24,17 @@ int	ft_movement_hooks(t_cub3d *cub)
 	{
 		cub->mvt->new_x_ver = cub->dda->dirx * 0.07;
 		cub->mvt->new_y_ver = cub->dda->diry * 0.07;
+		ft_final_vector_mvt(cub);
+		return (1);
 	}
 	else if (cub->keypressed[KEY_S] == 1
 		|| cub->keypressed[KEY_DOWN] == 1)
 	{
 		cub->mvt->new_x_hor = -cub->dda->dirx * 0.07;
 		cub->mvt->new_y_hor = -cub->dda->diry * 0.07;
+		ft_final_vector_mvt(cub);
+		return (1);
 	}
-	ft_final_vector_mvt(cub);
 	return (0);
 }
 
@@ -46,13 +49,16 @@ int	ft_side_movement(t_cub3d *cub)
 	{
 		cub->mvt->new_x_hor += -cub->dda->diry * 0.07;
 		cub->mvt->new_y_hor += cub->dda->dirx * 0.07;
+		ft_final_vector_mvt(cub);
+		return (1);
 	}
 	else if (cub->keypressed[KEY_A] == 1)
 	{
 		cub->mvt->new_x_hor += cub->dda->diry * 0.07;
 		cub->mvt->new_y_hor += -cub->dda->dirx * 0.07;
+		ft_final_vector_mvt(cub);
+		return (1);
 	}
-	ft_final_vector_mvt(cub);
 	return (0);
 }
 
@@ -100,19 +106,25 @@ void	ft_orientation_change_mouse(int key, t_cub3d *cub)
 }
 
 // adding all movement vector to check x and y independently
-// moves only toward the availavle axis
+// moves only toward the available axis with collision detection
 void	ft_final_vector_mvt(t_cub3d *cub)
 {
 	double	new_x;
 	double	new_y;
+	double	move_x;
+	double	move_y;
 
-	new_x = cub->player->pos_x + cub->mvt->new_x_hor + cub->mvt->new_x_ver;
-	new_y = cub->player->pos_y + cub->mvt->new_y_hor + cub->mvt->new_y_ver;
+	move_x = cub->mvt->new_x_hor + cub->mvt->new_x_ver;
+	move_y = cub->mvt->new_y_hor + cub->mvt->new_y_ver;
+	new_x = cub->player->pos_x + move_x;
+	new_y = cub->player->pos_y + move_y;
 	if (new_x < 0 || new_x >= cub->map->width
 		|| new_y < 0 || new_y >= cub->map->height)
 		return ;
-	if (cub->map->grid[(int)cub->player->pos_y][(int)new_x] != '1')
+	if (move_x != 0 && cub->map->grid
+		[(int)cub->player->pos_y][(int)new_x] != '1')
 		cub->player->pos_x = new_x;
-	if (cub->map->grid[(int)new_y][(int)cub->player->pos_x] != '1')
+	if (move_y != 0 && cub->map->grid
+		[(int)new_y][(int)cub->player->pos_x] != '1')
 		cub->player->pos_y = new_y;
 }
