@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-static int	ft_in_bonds_minimap(t_cub3d *cub, int x, int y)
+int	ft_in_bonds_minimap(t_cub3d *cub, int x, int y)
 {
 	if (x > cub->mini_map->width || x < 0)
 		return (1);
@@ -21,55 +21,46 @@ static int	ft_in_bonds_minimap(t_cub3d *cub, int x, int y)
 	return (0);
 }
 
-// fill the dots between the previous function
-void	ft_fill_vector_line(t_cub3d *cub)
+// check if a position hits a wall in the map
+int	ft_hits_wall(t_cub3d *cub, double world_x, double world_y)
 {
-	int	s;
-	int	denom;
+	int	map_x;
+	int	map_y;
 
-	s = 0;
-	while (s <= cub->vector->steps)
-	{
-		if (cub->vector->steps != 0)
-			denom = cub->vector->steps;
-		else
-			denom = 1;
-		cub->vector->line_x = cub->vector->prev_px
-			+ (cub->vector->px - cub->vector->prev_px) * s / denom;
-		cub->vector->line_y = cub->vector->prev_py
-			+ (cub->vector->py - cub->vector->prev_py) * s / denom;
-		if (ft_in_bonds_minimap(cub, cub->vector->line_x,
-				cub->vector->line_y) == 0)
-			ft_pixel_to_mini_map(cub->mini_map, cub->vector->line_x,
-				cub->vector->line_y, 0x0000ff);
-		s++;
-	}
+	map_x = (int)world_x;
+	map_y = (int)world_y;
+	if (map_x < 0 || map_x >= cub->map->width
+		|| map_y < 0 || map_y >= cub->map->height)
+		return (1);
+	if (cub->map->grid[map_y] && map_x < (int)ft_strlen(cub->map->grid[map_y]))
+		return (cub->map->grid[map_y][map_x] == '1');
+	return (1);
 }
 
-// calculate and print the vector line on minimap (for now only dots)
-void	ft_print_vector_minimap(t_cub3d *cub, float cos, float sin)
+// DDA-based ray casting that stops at walls
+void	ft_cast_ray_to_wall(t_cub3d *cub, float cos_angle, float sin_angle)
 {
-	int	i;
-
-	i = 0;
-	cub->vector->prev_px = cub->vector->start_x;
-	cub->vector->prev_py = cub->vector->start_y;
-	while (i < cub->mini_map->vector_length)
+	cub->vector->ray_x = cub->player->pos_x;
+	cub->vector->ray_y = cub->player->pos_y;
+	cub->vector->step_x = cos_angle * 0.02;
+	cub->vector->step_y = sin_angle * 0.02;
+	cub->vector->max_distance = 5.0;
+	cub->vector->distance = 0;
+	while (cub->vector->distance < cub->vector->max_distance)
 	{
-		cub->vector->px = cub->vector->start_x
-			+ (int)(cos * i * cub->mini_map->cell_width);
-		cub->vector->py = cub->vector->start_y
-			+ (int)(sin * i * cub->mini_map->cell_heigth);
-		cub->vector->dx = ft_absolute(cub->vector->px - cub->vector->prev_px);
-		cub->vector->dy = ft_absolute(cub->vector->py - cub->vector->prev_py);
-		if (cub->vector->dx > cub->vector->dy)
-			cub->vector->steps = cub->vector->dx;
-		else
-			cub->vector->steps = cub->vector->dy;
-		ft_fill_vector_line(cub);
-		cub->vector->prev_px = cub->vector->px;
-		cub->vector->prev_py = cub->vector->py;
-		i++;
+		cub->vector->minimap_x = (int)(cub->vector->ray_x
+				* cub->mini_map->cell_width) + 1;
+		cub->vector->minimap_y = (int)(cub->vector->ray_y
+				* cub->mini_map->cell_heigth) + 1;
+		if (ft_in_bonds_minimap(cub, cub->vector->minimap_x,
+				cub->vector->minimap_y) == 0)
+			ft_pixel_to_mini_map(cub->mini_map, cub->vector->minimap_x,
+				cub->vector->minimap_y, 0x0000ff);
+		if (ft_hits_wall(cub, cub->vector->ray_x, cub->vector->ray_y))
+			break ;
+		cub->vector->ray_x += cub->vector->step_x;
+		cub->vector->ray_y += cub->vector->step_y;
+		cub->vector->distance += 0.02;
 	}
 }
 
@@ -79,12 +70,12 @@ void	ft_fill_fov_vectors(t_cub3d *cub, float right_angle, float left_angle)
 	double	new_cos;
 	double	step;
 
-	step = 0.01;
+	step = 0.02;
 	while (right_angle < left_angle)
 	{
 		new_cos = cos(right_angle);
 		new_sin = -sin(right_angle);
-		ft_print_vector_minimap(cub, new_cos, new_sin);
+		ft_cast_ray_to_wall(cub, new_cos, new_sin);
 		right_angle += step;
 	}
 }
@@ -94,10 +85,6 @@ void	ft_field_of_view(t_cub3d *cub)
 	double	right_angle;
 	double	left_angle;
 
-	cub->vector->start_x = cub->player->pos_x
-		* cub->mini_map->cell_width + (cub->mini_map->cell_width / 4);
-	cub->vector->start_y = cub->player->pos_y
-		* cub->mini_map->cell_heigth + (cub->mini_map->cell_heigth / 4);
 	cub->player->radians_angle = cub->player->angle * M_PI / 180;
 	right_angle = cub->player->radians_angle - (cub->player->fov / 2);
 	left_angle = cub->player->radians_angle + (cub->player->fov / 2);

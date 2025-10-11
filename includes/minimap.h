@@ -18,19 +18,14 @@ typedef struct s_cub3D	t_cub3d;
 
 typedef struct s_vector
 {
-	int		start_x;
-	int		start_y;
-	int		px;
-	int		py;
-	int		dx;
-	int		dy;
-	int		steps;
-	int		prev_px;
-	int		prev_py;
-	int		line_x;
-	int		line_y;
-	int		denom;
-
+	double	ray_x;
+	double	ray_y;
+	double	step_x;
+	double	step_y;
+	int		minimap_x;
+	int		minimap_y;
+	double	max_distance;
+	double	distance;
 }	t_vector;
 
 typedef struct s_mini_map
@@ -62,8 +57,9 @@ void	ft_find_colour(t_cub3d *cub, int line_len, int x, int y);
 void	ft_mini_map_render(t_cub3d *cub);
 
 // minimap vector
-void	ft_fill_vector_line(t_cub3d *cub);
-void	ft_print_vector_minimap(t_cub3d *cub, float cos, float sin);
+int		ft_in_bonds_minimap(t_cub3d *cub, int x, int y);
+int		ft_hits_wall(t_cub3d *cub, double world_x, double world_y);
+void	ft_cast_ray_to_wall(t_cub3d *cub, float cos_angle, float sin_angle);
 void	ft_fill_fov_vectors(t_cub3d *cub, float right_angle, float left_angle);
 void	ft_field_of_view(t_cub3d *cub);
 

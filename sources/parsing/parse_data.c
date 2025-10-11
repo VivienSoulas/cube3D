@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 11:16:33 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 13:19:36 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/10 10:18:46 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	init_player_position(t_data *data, int x, int y)
 			if (is_player(data->map[y][x]))
 			{
 				if (is_player_found)
-					return (1);
+					return (printf("Error: Multiple players found !\n"), 1);
 				is_player_found = 1;
 				data->start_dir = data->map[y][x];
 				data->player_x = x;
@@ -108,7 +108,7 @@ int	validate_map(t_data *data)
 		data->map_lines = data->total_lines - data->map_starts;
 		if (flood_fill(data, 0, pos[0], pos[1]) != 0)
 		{
-			print_map(data->copy_map);
+			printf("Error: Map not surrounded by walls\n");
 			free_array(data->copy_map);
 			free(pos);
 			return (1);
@@ -133,7 +133,7 @@ bool	parse_data(t_data *data, char *argv)
 	if (init_player_position(data, 0, 0) != 0)
 		return (false);
 	if (data->player_x == -1 && data->player_y == -1)
-		return (false);
+		return (printf("Error: no player found !\n"), false);
 	if (has_invalid_char(data) == 1)
 		return (false);
 	if (validate_map(data) != 0)

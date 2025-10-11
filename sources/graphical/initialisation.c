@@ -73,9 +73,9 @@ int	ft_initialise_mlx(t_cub3d *cub)
 	cub->mlx_ptr = mlx_init();
 	if (cub->mlx_ptr == NULL)
 		return (ft_exit(cub), ft_error(4), 1);
-	if (ft_create_window(cub) == 1)
-		return (1);
 	if (ft_open_texture(cub) == 1)
+		return (1);
+	if (ft_create_window(cub) == 1)
 		return (1);
 	ft_render_image(cub);
 	ft_render_mini_map(cub);
