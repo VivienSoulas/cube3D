@@ -6,7 +6,7 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:04:35 by nmedeiro          #+#    #+#             */
-/*   Updated: 2025/10/17 11:46:02 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/10/17 11:47:53 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ bool	is_valid_color(char	**rgb_color)
 		rgb = ft_atoi_flag(rgb_color[i], &error);
 		if (rgb < 0 || rgb > 255 || error == 1)
 		{
-			printf("Error: RGB out of range -> %d\n", rgb);
+			printf("Error: RGB out of range\n");
 			return (false);
 		}
 		i++;
