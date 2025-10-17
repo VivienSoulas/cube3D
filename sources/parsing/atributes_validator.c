@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   atributes_validator.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:04:35 by nmedeiro          #+#    #+#             */
-/*   Updated: 2025/10/03 10:17:55 by nmedeiro         ###   ########.fr       */
+/*   Updated: 2025/10/17 11:46:02 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ bool	is_valid_color(char	**rgb_color)
 {
 	int	i;
 	int	rgb;
+	int	error;
 
 	i = 0;
+	error = 0;
 	while (rgb_color[i])
 	{
 		if (!is_valid_number(rgb_color[i]))
@@ -69,8 +71,8 @@ bool	is_valid_color(char	**rgb_color)
 			printf("Error: invalid RGB component -> *%s*\n", rgb_color[i]);
 			return (false);
 		}
-		rgb = ft_atoi(rgb_color[i]);
-		if (rgb < 0 || rgb > 255)
+		rgb = ft_atoi_flag(rgb_color[i], &error);
+		if (rgb < 0 || rgb > 255 || error == 1)
 		{
 			printf("Error: RGB out of range -> %d\n", rgb);
 			return (false);
@@ -78,10 +80,7 @@ bool	is_valid_color(char	**rgb_color)
 		i++;
 	}
 	if (i != 3)
-	{
-		printf("Error: wrong number of RGB components\n");
-		return (false);
-	}
+		return (printf("Error: wrong number of RGB components\n"), false);
 	return (true);
 }
 
