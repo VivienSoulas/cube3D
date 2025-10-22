@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_data.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/02 11:16:33 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/10 10:18:46 by vsoulas          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parse_data.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: natalia <natalia@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/09/02 11:16:33 by natalia       #+#    #+#                 */
+/*   Updated: 2025/10/22 10:54:36 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,11 @@ bool	parse_data(t_data *data, char *argv)
 		return (close(data->fd), false);
 	if (!init_map(data, argv))
 		return (false);
+	if (extra_line_found(data))
+	{
+		printf("Error: there's extra line inside the map\n");
+		return (false);
+	}
 	if (init_player_position(data, 0, 0) != 0)
 		return (false);
 	if (data->player_x == -1 && data->player_y == -1)
