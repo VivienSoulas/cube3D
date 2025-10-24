@@ -6,11 +6,12 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 09:45:04 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/10/03 09:45:05 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/10/24 13:38:38 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include "../../minilibx/minilibx-linux/mlx_int.h"
 
 int	ft_key_pressed(int key, t_cub3d *cub)
 {
@@ -19,8 +20,6 @@ int	ft_key_pressed(int key, t_cub3d *cub)
 		ft_exit(cub);
 		exit (55);
 	}
-	if (key == KEY_CTRL)
-		cub->mouse_on_off = !cub->mouse_on_off;
 	cub->keypressed[key] = 1;
 	return (0);
 }
@@ -63,28 +62,25 @@ int	ft_update_game(t_cub3d *cub)
 int	ft_mouse_move_event(int x, int y, void *cub)
 {
 	int		center_x;
-	int		center_y;
 	int		mouse_delta_x;
 	float	rotation_speed;
 
 	(void)y;
-	if (((t_cub3d *)cub)->mouse_on_off == 0)
-		return (1);
-	center_x = ((t_cub3d *)cub)->window_width / 2;
-	center_y = ((t_cub3d *)cub)->window_height / 2;
-	mouse_delta_x = x - center_x;
-	if (mouse_delta_x > 1 || mouse_delta_x < -1)
+	if (((t_cub3d *)cub)->mouse_on_off == true)
 	{
-		mlx_mouse_move(((t_cub3d *)cub)->mlx_ptr,
-			((t_cub3d *)cub)->window, center_x, center_y);
-		rotation_speed = mouse_delta_x * -0.2f;
-		((t_cub3d *)cub)->player->angle += rotation_speed;
-		if (((t_cub3d *)cub)->player->angle >= 360)
-			((t_cub3d *)cub)->player->angle -= 360;
-		if (((t_cub3d *)cub)->player->angle < 0)
-			((t_cub3d *)cub)->player->angle += 360;
-		ft_update_dda_vector(((t_cub3d *)cub));
-		((t_cub3d *)cub)->mvt->movement_update = 1;
+		center_x = ((t_cub3d *)cub)->window_width / 2;
+		mouse_delta_x = x - center_x;
+		if (mouse_delta_x > 1 || mouse_delta_x < -1)
+		{
+			rotation_speed = mouse_delta_x * -0.2f;
+			((t_cub3d *)cub)->player->angle += rotation_speed;
+			if (((t_cub3d *)cub)->player->angle >= 360)
+				((t_cub3d *)cub)->player->angle -= 360;
+			if (((t_cub3d *)cub)->player->angle < 0)
+				((t_cub3d *)cub)->player->angle += 360;
+			ft_update_dda_vector(((t_cub3d *)cub));
+			((t_cub3d *)cub)->mvt->movement_update = 1;
+		}
 	}
 	return (0);
 }

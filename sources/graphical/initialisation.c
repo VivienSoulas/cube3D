@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   initialisation.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: natalia <natalia@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/10/03 09:45:07 by vsoulas       #+#    #+#                 */
-/*   Updated: 2025/10/24 10:38:49 by natalia       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   initialisation.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 09:45:07 by vsoulas           #+#    #+#             */
+/*   Updated: 2025/10/24 13:38:20 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_initialise_cub(t_cub3d *cub, int ac, char **av)
 	cub->window_height = DEFAULT_HEIGHT;
 	cub->player->fov = M_PI / 3;
 	cub->player->fov_factor = tan(cub->player->fov / 2);
-	cub->mouse_on_off = 1;
+	cub->mouse_on_off = true;
 	cub->data = ft_parse(ac, av);
 	if (!cub->data)
 		return (1);

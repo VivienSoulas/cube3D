@@ -6,7 +6,7 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 09:45:30 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/10/03 09:45:31 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/10/24 13:40:36 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,16 @@ void	ft_update_dda_vector(t_cub3d *cub)
 
 void	ft_update(t_cub3d *cub)
 {
+	int		center_x;
+	int		center_y;
+
+	if (((t_cub3d *)cub)->mouse_on_off == true)
+	{
+		center_x = ((t_cub3d *)cub)->window_width / 2;
+		center_y = ((t_cub3d *)cub)->window_height / 2;
+		mlx_mouse_move(((t_cub3d *)cub)->mlx_ptr,
+			((t_cub3d *)cub)->window, center_x, center_y);
+	}
 	ft_render_image(cub);
 	ft_render_mini_map(cub);
 }

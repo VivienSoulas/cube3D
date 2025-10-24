@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parsing.h                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: natalia <natalia@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/10/03 10:16:07 by nmedeiro      #+#    #+#                 */
-/*   Updated: 2025/10/22 11:00:46 by natalia       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/03 10:16:07 by nmedeiro          #+#    #+#             */
+/*   Updated: 2025/10/03 13:22:21 by nmedeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ bool	parse_attributes(t_data *data, char *arg, char *line);
 bool	is_player(char c);
 bool	has_map_started(t_data *data);
 int		flood_fill(t_data *data, int r, int x, int y);
-bool	extra_line_found(t_data *data);
 
 //init_map
 bool	init_map(t_data *data, char *arg);

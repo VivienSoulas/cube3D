@@ -2,7 +2,7 @@ NAME		=	cub3D
 
 GRAPHICAL_SOURCES	=	dda.c error.c exit.c free.c hooks.c initialisation.c main.c mini_map.c \
 					minimap_vector.c movement.c open_textures.c render.c render_utils.c \
-					render_walls.c utils.c window.c minimap_utils.c
+					render_walls.c utils.c window.c minimap_utils.c mouse_focus.c
 
 PARSING_SOURCES		=	arg_validator.c atributes_validator.c error_handling.c init_atributes.c \
 					instantiate_data.c map_validator.c parse_data.c utils.c main_parsing.c \
