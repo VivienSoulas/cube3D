@@ -6,7 +6,7 @@
 /*   By: natalia <natalia@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/09/02 11:16:33 by natalia       #+#    #+#                 */
-/*   Updated: 2025/10/22 10:54:36 by natalia       ########   odam.nl         */
+/*   Updated: 2025/10/24 10:51:59 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	validate_map(t_data *data)
 		return (1);
 	pos = find_zero(data->copy_map);
 	if (pos == NULL)
-		return (free(data->copy_map), 1);
+		return (free_array(data->copy_map), 1);
 	while (pos[0] != -1)
 	{
 		data->map_lines = data->total_lines - data->map_starts;
