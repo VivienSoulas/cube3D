@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map_validator.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmedeiro <nmedeiro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/09 09:34:46 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/03 13:19:11 by nmedeiro         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   map_validator.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: natalia <natalia@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/09/09 09:34:46 by natalia       #+#    #+#                 */
+/*   Updated: 2025/10/22 10:37:08 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,23 @@ int	flood_fill(t_data *data, int r, int x, int y)
 	r += flood_fill(data, r, x + 1, y);
 	r += flood_fill(data, r, x - 1, y);
 	return (r);
+}
+
+bool	extra_line_found(t_data *data)
+{
+	int		i;
+	bool	has_extra_line;
+
+	i = 0;
+	has_extra_line = false;
+	while (data->map[i] != NULL)
+	{
+		if (data->map[i][0] == '\0')
+		{
+			has_extra_line = true;
+			break ;
+		}
+		i++;
+	}
+	return (has_extra_line);
 }
