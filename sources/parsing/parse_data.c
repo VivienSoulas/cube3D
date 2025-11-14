@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_data.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/02 11:16:33 by natalia           #+#    #+#             */
-/*   Updated: 2025/10/10 10:18:46 by vsoulas          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parse_data.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: natalia <natalia@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/09/02 11:16:33 by natalia       #+#    #+#                 */
+/*   Updated: 2025/10/24 10:51:59 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	validate_map(t_data *data)
 		return (1);
 	pos = find_zero(data->copy_map);
 	if (pos == NULL)
-		return (free(data->copy_map), 1);
+		return (free_array(data->copy_map), 1);
 	while (pos[0] != -1)
 	{
 		data->map_lines = data->total_lines - data->map_starts;
@@ -130,6 +130,11 @@ bool	parse_data(t_data *data, char *argv)
 		return (close(data->fd), false);
 	if (!init_map(data, argv))
 		return (false);
+	if (extra_line_found(data))
+	{
+		printf("Error: there's extra line inside the map\n");
+		return (false);
+	}
 	if (init_player_position(data, 0, 0) != 0)
 		return (false);
 	if (data->player_x == -1 && data->player_y == -1)
