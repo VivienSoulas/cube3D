@@ -6,7 +6,7 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 09:44:43 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/10/24 13:23:49 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/10/03 09:44:44 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@ int		ft_key_pressed(int key, t_cub3d *cub);
 int		ft_key_released(int key, t_cub3d *cub);
 int		ft_update_game(t_cub3d *cub);
 int		ft_mouse_move_event(int x, int y, void *cub);
-
-// mouse focus
-int		ft_focus_in(void *cub);
-int		ft_focus_out(void *cub);
 
 int		ft_red_cross(void *cub);
 
