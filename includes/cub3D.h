@@ -6,7 +6,7 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 09:44:43 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/10/24 13:38:05 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/10/03 09:44:44 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_cub3D
 	int				ceiling_color;
 	int				mouse_x;
 	int				keypressed[65537];
-	bool			mouse_on_off;
+	int				mouse_on_off;
 	struct timeval	now;
 	int				needs_update;
 	t_image			*img;

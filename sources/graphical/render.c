@@ -6,7 +6,7 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 09:45:28 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/10/03 09:45:29 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/11/14 14:26:42 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_render_walls(t_cub3d *cub, int x, int y, int unclamped_wallstart)
 	if (cub->wall->hit_side == 0)
 	{
 		ft_calc_tex_x_east_west(cub);
-		if (cub->dda->raydirx > 0)
+		if (cub->dda->raydirx < 0)
 			ft_calc_tex_y_west(cub, y, unclamped_wallstart);
 		else
 			ft_calc_tex_y_east(cub, y, unclamped_wallstart);

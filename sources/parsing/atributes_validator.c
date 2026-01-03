@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   atributes_validator.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 10:04:35 by nmedeiro          #+#    #+#             */
-/*   Updated: 2025/10/17 11:47:53 by vsoulas          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   atributes_validator.c                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: natalia <natalia@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/10/03 10:04:35 by nmedeiro      #+#    #+#                 */
+/*   Updated: 2025/10/24 10:52:26 by natalia       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool	is_valid_color(char	**rgb_color)
 	{
 		if (!is_valid_number(rgb_color[i]))
 		{
-			printf("Error: invalid RGB component -> *%s*\n", rgb_color[i]);
+			printf("Error: invalid RGB component\n");
 			return (false);
 		}
 		rgb = ft_atoi_flag(rgb_color[i], &error);
@@ -117,18 +117,18 @@ bool	are_attributes_initialized(t_data *data)
 		|| !data->we_texture || !data->ea_texture)
 	{
 		printf("Error: missing texture\n");
-		return (true);
+		return (false);
 	}
 	else if (data->celling.r == -1 && data->celling.g == -1
 		&& data->celling.b == -1)
 	{
 		printf("Error: missing celling color\n");
-		return (true);
+		return (false);
 	}
 	else if (data->floor.r == -1 && data->floor.g == -1 && data->floor.b == -1)
 	{
 		printf("Error: missing floor color\n");
-		return (true);
+		return (false);
 	}
 	return (true);
 }

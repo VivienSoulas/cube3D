@@ -6,7 +6,7 @@
 /*   By: vsoulas <vsoulas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 09:45:07 by vsoulas           #+#    #+#             */
-/*   Updated: 2025/10/24 13:38:20 by vsoulas          ###   ########.fr       */
+/*   Updated: 2025/11/14 11:19:35 by vsoulas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_initialise_cub(t_cub3d *cub, int ac, char **av)
 {
 	if (ft_alloc_struct(cub) == 1)
-		return (ft_exit(cub), ft_error(4), 1);
+		return (ft_error(4), 1);
 	cub->window_width = DEFAULT_WIDTH;
 	cub->window_height = DEFAULT_HEIGHT;
 	cub->player->fov = M_PI / 3;
@@ -34,7 +34,7 @@ int	ft_convert_tdata(t_cub3d *cub)
 {
 	cub->map = malloc(sizeof(t_map));
 	if (!cub->map)
-		return (ft_exit(cub), ft_error(4), 1);
+		return (ft_error(4), 1);
 	cub->map->width = cub->data->map_width;
 	cub->map->height = cub->data->map_height;
 	cub->player->pos_x = (double)cub->data->player_x;
@@ -72,7 +72,7 @@ int	ft_initialise_mlx(t_cub3d *cub)
 {
 	cub->mlx_ptr = mlx_init();
 	if (cub->mlx_ptr == NULL)
-		return (ft_exit(cub), ft_error(4), 1);
+		return (ft_error(4), 1);
 	if (ft_open_texture(cub) == 1)
 		return (1);
 	if (ft_create_window(cub) == 1)
